@@ -1,0 +1,13 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap');
+
+:root{
+  --main : #7F70E4;
+  --bg : #fff;
+}
+
+@theme inline {
+  --color-main: var(--main);
+  --color-bg: var(--bg);
+  --font-sans: 'Roboto', 'Noto Sans KR', sans-serif;
+}
