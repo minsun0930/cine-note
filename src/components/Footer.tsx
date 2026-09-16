@@ -12,7 +12,7 @@ export const Footer = ({ className }: FooterProps) => {
         className,
       )}
     >
-      <div className="max-w-325 w-full flex items-center justify-between">
+      <div className="max-w-325 px-4 w-full flex items-center justify-between">
         <div className="flex flex-col items-center sm:items-start">
           <span className="text-16 font-bold text-gray-900 mb-4">
             cien-note | 영화 기록 사이트
