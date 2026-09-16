@@ -1,13 +1,6 @@
+import Button from "@/components/common/Button";
 import SearchInput from "@/components/common/SearchInput";
-import MovieCard from "@/components/movie/MovieCard";
-import type { Movie } from "@/types/movie";
-
-const dummyMovie: Movie = {
-  id: 1,
-  title: "인셉션",
-  poster_path: "https://search.pstatic.net/common?type=f208_312&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20260710_243%2F1783670981741HgbjS_JPEG%2Fmovie_image.jpg", 
-  vote_average: 8.8,
-};
+import MovieSection from "@/components/movie/MovieSection";
 
 
 
@@ -24,7 +17,16 @@ const MainPage = () => {
         </h1>
         <SearchInput onSearch={handleSearch} />
       </div>
-      <MovieCard movie={dummyMovie}/>
+      <MovieSection title="Top 20 랭킹" action={    
+         <div className="[&>*]:mr-1">
+          <Button variant="chip">로맨스</Button>
+          <Button variant="chip">스릴러</Button>
+          <Button variant="chip">SF</Button>
+          <Button variant="chip">코미디</Button>
+          <Button variant="chip">액션</Button>
+          <Button variant="chip">추리</Button>
+          <Button variant="chip">애니메이션</Button>
+         </div>} />
     </div>
   );
 };
