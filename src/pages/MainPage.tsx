@@ -1,4 +1,4 @@
-import Button from "@/components/common/Button";
+
 import SearchInput from "@/components/common/SearchInput";
 import MovieSection from "@/components/movie/MovieSection";
 
@@ -17,16 +17,18 @@ const MainPage = () => {
         </h1>
         <SearchInput onSearch={handleSearch} />
       </div>
-      <MovieSection title="Top 20 랭킹" action={    
-         <div className="[&>*]:mr-1">
-          <Button variant="chip">로맨스</Button>
-          <Button variant="chip">스릴러</Button>
-          <Button variant="chip">SF</Button>
-          <Button variant="chip">코미디</Button>
-          <Button variant="chip">액션</Button>
-          <Button variant="chip">추리</Button>
-          <Button variant="chip">애니메이션</Button>
-         </div>} />
+      <MovieSection title="Top 20 랭킹" 
+        // action={    
+        //  <div className="*:mr-1">
+        //   <Button variant="chip">로맨스</Button>
+        //   <Button variant="chip">스릴러</Button>
+        //   <Button variant="chip">SF</Button>
+        //   <Button variant="chip">코미디</Button>
+        //   <Button variant="chip">액션</Button>
+        //   <Button variant="chip">추리</Button>
+        //   <Button variant="chip">애니메이션</Button>
+        //  </div>} 
+        />
     </div>
   );
 };

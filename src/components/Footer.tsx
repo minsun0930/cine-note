@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import TMDBlogo from "@/assets/blue_square.svg?react";
 
 interface FooterProps {
   className?: string;
@@ -18,17 +19,21 @@ export const Footer = ({ className }: FooterProps) => {
             cien-note | 영화 기록 사이트
           </span>
           <p className="mb-4">
-            조민선 <br/> 
-            Frontend Developer <br/> 
+            조민선 <br />
+            Frontend Developer <br />
             사용자 경험을 고민하고, 좋은 인터페이스를 만드는 개발자입니다.
           </p>
-          <p className="text-12 text-gray-500">
+          <p className="text-12 text-gray-500 mb-1">
             © {new Date().getFullYear()} cien-note. Built with React & Tailwind
             CSS.
           </p>
+          <p className="text-gray-400">
+            <TMDBlogo className="w-6 h-6 text-blue-500 inline mr-1" />
+            This product uses the TMDb API but is not endorsed or certified by
+            TMDb.
+          </p>
         </div>
 
-        
         <nav
           aria-label="개발자 채널 링크"
           className="flex items-center gap-5 text-14"
