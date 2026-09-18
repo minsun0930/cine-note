@@ -14,13 +14,18 @@ export const router = createBrowserRouter([
         element: <MainPage />,
       },
       {
-        path: "/search",
-        element: <MovieFoundPage/>,
+        path : "/movies/more",
+        element: <div> 전체</div>
       },
       {
         path: "/movies/:movieId",
         element: <MovieDetailPage />,
       },
+      {
+        path: "/search",
+        element: <MovieFoundPage/>,
+      },
+    
     ],
   },
 ]);

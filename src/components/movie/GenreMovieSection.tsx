@@ -1,21 +1,33 @@
 import { useMovies } from "@/hooks/useMovie";
 import { ChevronRight } from "lucide-react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import MovieCard from "./MovieCard";
+import Button from "../common/Button";
+
+const GENRES = [
+  { name: "로맨스", id: "10749" },
+  { name: "스릴러", id: "53" },
+  { name: "SF", id: "878" },
+  { name: "코미디", id: "35" },
+  { name: "액션", id: "28" },
+  { name: "추리", id: "9648" },
+  { name: "애니메이션", id: "16" },
+];
 
 interface MovieSectionProps {
   title: string;
-  category : string;
-  isTop20?: boolean;
 }
 
-export default function MovieSection({
-  title,
-  category,
-  isTop20 = false
+export default function GenreMovieSection({
+  title
 }: MovieSectionProps) {
-  const { data: movies, isLoading, isError, error } = useMovies('category',category);
+  // 기본 선택된 장르 ID (예: 액션 = '28')
+  const [selectedGenreId, setSelectedGenreId] = useState('28');
+
+
+
+  const { data: movies, isFetching, isError, error } = useMovies('genre',selectedGenreId);
 
   const navigate = useNavigate();
 
@@ -30,9 +42,8 @@ export default function MovieSection({
 
   const clickedMovieId = useRef<number | null>(null);
 
-
   //마우스 눌렀을때
-  const handlePointerDown = (e: React.PointerEvent , movieId :number) => {
+  const handlePointerDown = (e: React.PointerEvent, movieId: number) => {
     if (e.button !== 0) return;
 
     if (!scrollRef.current) return;
@@ -59,10 +70,9 @@ export default function MovieSection({
     }
 
     if (hasDragged.current) {
-      scrollRef.current.scrollLeft = startScroll.current - distance *1.3;
+      scrollRef.current.scrollLeft = startScroll.current - distance * 1.3;
     }
   };
-
 
   // click 이벤트 충돌을 피하기 위해, 손을 뗄 때(pointerUp) 드래그가 아니었다면 여기서 바로 페이지를 이동
   const handlePointerUp = () => {
@@ -75,12 +85,6 @@ export default function MovieSection({
     clickedMovieId.current = null;
   };
 
-
-
-  if (isLoading) {
-    return <div>영화 목록을 불러오는 중....</div>;
-  }
-
   if (isError) {
     return <div>에러 발생 : {error.message}</div>;
   }
@@ -88,18 +92,30 @@ export default function MovieSection({
   return (
     <section className="pt-8.5 pb-7.5 ">
       <div
-        className="flex justify-between items-end mb-5"
+        className={`flex justify-between items-end`}
       >
         <h2 className="text-[20px] font-bold ">{title}</h2>
-       
+      </div>
+      {/* 장르 칩 버튼 목록 */}
+      <div className="mt-2 mb-4.5 flex overflow-x-auto scrollbar-none *:mr-1">
+        {GENRES.map((genre) => (
+          <Button 
+            key={genre.id}
+            variant="chip"
+            onClick={() => setSelectedGenreId(genre.id)}
+            className={selectedGenreId === genre.id ? 'bg-main text-black' : ''}
+          >
+            {genre.name}
+          </Button>
+        ))}
       </div>
       <div className="relative">
         <Link
-            to={`/movies/more?category=${category}`}
-            className="absolute right-0 -top-10 flex justify-center items-center text-[13px] text-gray-700"
-          >
-            더보기 <ChevronRight className="text-[13px] text-gray-700" />
-          </Link>
+         to={`/movies/more?type=genre&id=${selectedGenreId}`}
+          className="absolute right-0 -top-10 flex justify-center items-center text-[13px] text-gray-700"
+        >
+          더보기 <ChevronRight className="text-[13px] text-gray-700" />
+        </Link>
         <div
           ref={scrollRef}
           onPointerMove={handlePointerMove}
@@ -107,24 +123,27 @@ export default function MovieSection({
           onPointerCancel={() => (isPointerDown.current = false)}
           className="cursor-pointer flex overflow-x-auto gap-5 scrollbar-none select-none"
         >
-          
-          {movies?.slice(0, 20).map(
-            (movie, index) =>
+        {isFetching ? (
+          <div>
+            영화 로딩중...
+          </div>
+        ):(
+            movies?.slice(0, 20).map(
+            (movie) =>
               movie.poster_path && (
                 <div
                   key={movie.id}
-                  onPointerDown={(e) => { handlePointerDown(e, movie.id)}}
-                  className="relative"
+                  onPointerDown={(e) => {
+                    handlePointerDown(e, movie.id);
+                  }}
                 >
-                  {isTop20 && (
-                  <span className="absolute left-3 top-1 text-4xl font-black text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] z-10">
-                    {index + 1}
-                  </span>
-                  )}
                   <MovieCard movie={movie} />
                 </div>
               )
-          )}
+          )
+        )}
+
+       
         </div>
       </div>
     </section>
