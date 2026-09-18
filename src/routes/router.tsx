@@ -3,6 +3,7 @@ import RootLayout from "../layouts/RootLayout";
 import MainPage from "../pages/MainPage";
 import MovieDetailPage from "../pages/MovieDetailPage";
 import MovieFoundPage from "../pages/MovieFoundPage";
+import MoreMoviesPage from "@/pages/MoreMoviesPage";
 
 export const router = createBrowserRouter([
   {
@@ -15,7 +16,7 @@ export const router = createBrowserRouter([
       },
       {
         path : "/movies/more",
-        element: <div> 전체</div>
+        element: <MoreMoviesPage />,
       },
       {
         path: "/movies/:movieId",

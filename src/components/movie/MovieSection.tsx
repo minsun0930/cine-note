@@ -3,20 +3,34 @@ import { ChevronRight } from "lucide-react";
 import { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import MovieCard from "./MovieCard";
+import Button from "../common/Button";
+import MovieCardSkeleton from "./MovieCardSkeleton";
+
+interface Genre {
+  name: string;
+  id: string;
+}
 
 interface MovieSectionProps {
   title: string;
-  category : string;
+  type: "category" | "genre";
+  value: string;
   isTop20?: boolean;
-}
+  genres?: Genre[];
+  selectedGenreId?: string;
+  onSelectGenre?: (id: string) => void; // 장르 변경 함수
+} 
 
 export default function MovieSection({
   title,
-  category,
-  isTop20 = false
+  isTop20 = false,
+  type,
+  value,
+  genres,
+  selectedGenreId,
+  onSelectGenre,
 }: MovieSectionProps) {
-  const { data: movies, isLoading, isError, error } = useMovies('category',category);
-
+  const { data: movies, isFetching, isError, error } = useMovies(type, value);
   const navigate = useNavigate();
 
   //여기서 왜 useState가 아닌 useRef를 쓰는 지 알고 가기
@@ -30,9 +44,8 @@ export default function MovieSection({
 
   const clickedMovieId = useRef<number | null>(null);
 
-
   //마우스 눌렀을때
-  const handlePointerDown = (e: React.PointerEvent , movieId :number) => {
+  const handlePointerDown = (e: React.PointerEvent, movieId: number) => {
     if (e.button !== 0) return;
 
     if (!scrollRef.current) return;
@@ -59,10 +72,9 @@ export default function MovieSection({
     }
 
     if (hasDragged.current) {
-      scrollRef.current.scrollLeft = startScroll.current - distance *1.3;
+      scrollRef.current.scrollLeft = startScroll.current - distance * 1.3;
     }
   };
-
 
   // click 이벤트 충돌을 피하기 위해, 손을 뗄 때(pointerUp) 드래그가 아니었다면 여기서 바로 페이지를 이동
   const handlePointerUp = () => {
@@ -75,31 +87,43 @@ export default function MovieSection({
     clickedMovieId.current = null;
   };
 
-
-
-  if (isLoading) {
-    return <div>영화 목록을 불러오는 중....</div>;
-  }
-
   if (isError) {
     return <div>에러 발생 : {error.message}</div>;
   }
 
   return (
     <section className="pt-8.5 pb-7.5 ">
-      <div
-        className="flex justify-between items-end mb-5"
-      >
+      <div className="flex justify-between items-end mb-5">
         <h2 className="text-[20px] font-bold ">{title}</h2>
-       
       </div>
-      <div className="relative">
-        <Link
-            to={`/movies/more?category=${category}`}
+
+      {genres && onSelectGenre && (
+        <div className="mt-2 mb-4.5 flex overflow-x-auto scrollbar-none *:mr-1.5">
+          {genres.map((genre) => (
+            <Button
+              key={genre.id}
+              variant="chip"
+              onClick={() => onSelectGenre(genre.id)}
+              className={
+                selectedGenreId === genre.id ? "bg-main text-white border-main hover:bg-main" : ""
+              }
+            >
+              {genre.name}
+            </Button>
+          ))}
+        </div>
+      )}
+
+      <div className="relative min-h-85">
+        {!isTop20 ? (
+          <Link
+            to={`/movies/more?type=${type}&value=${value}`}
             className="absolute right-0 -top-10 flex justify-center items-center text-[13px] text-gray-700"
           >
             더보기 <ChevronRight className="text-[13px] text-gray-700" />
           </Link>
+        ) : null}
+
         <div
           ref={scrollRef}
           onPointerMove={handlePointerMove}
@@ -107,23 +131,30 @@ export default function MovieSection({
           onPointerCancel={() => (isPointerDown.current = false)}
           className="cursor-pointer flex overflow-x-auto gap-5 scrollbar-none select-none"
         >
-          
-          {movies?.slice(0, 20).map(
-            (movie, index) =>
-              movie.poster_path && (
-                <div
-                  key={movie.id}
-                  onPointerDown={(e) => { handlePointerDown(e, movie.id)}}
-                  className="relative"
-                >
-                  {isTop20 && (
-                  <span className="absolute left-3 top-1 text-4xl font-black text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] z-10">
-                    {index + 1}
-                  </span>
-                  )}
-                  <MovieCard movie={movie} />
-                </div>
-              )
+          {isFetching || isFetching ? (
+            Array.from({ length: 5 }).map((_, index) => (
+               <MovieCardSkeleton key={index} />
+          ))
+          ) : (
+            movies?.slice(0, 20).map(
+              (movie, index) =>
+                movie.poster_path && (
+                  <div
+                    key={movie.id}
+                    onPointerDown={(e) => {
+                      handlePointerDown(e, movie.id);
+                    }}
+                    className="relative"
+                  >
+                    {isTop20 && (
+                      <span className="absolute left-3 top-1 text-4xl font-black text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] z-10">
+                        {index + 1}
+                      </span>
+                    )}
+                    <MovieCard movie={movie} />
+                  </div>
+                )
+            )
           )}
         </div>
       </div>

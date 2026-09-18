@@ -6,3 +6,4 @@ export interface Movie{
   overview?: string,
   vote_average : number
 }
+
