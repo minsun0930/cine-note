@@ -1,4 +1,4 @@
-import type { Movie } from "@/types/movie";
+import type { TMDBResponse } from "@/types/movie";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
@@ -6,13 +6,14 @@ const BASE_URL = "https://api.themoviedb.org/3";
 export const fetchMovies = async (
   type: "category" | "genre",
   value: string,
-): Promise<Movie[]> => {
+  page : number =1,
+): Promise<TMDBResponse> => {
   let url = '';
 
   if (type === "category") {
-    url = `${BASE_URL}/movie/${value}?api_key=${API_KEY}&language=ko-KR`;
+    url = `${BASE_URL}/movie/${value}?api_key=${API_KEY}&language=ko-KR&page=${page}`;
   } else if (type === 'genre'){
-    url = `${BASE_URL}/discover/movie?api_key=${API_KEY}&language=ko-KR&with_genres=${value}`
+    url = `${BASE_URL}/discover/movie?api_key=${API_KEY}&language=ko-KR&page=${page}&with_genres=${value}`
   }
 
   const response =  await fetch(url);
@@ -22,5 +23,5 @@ export const fetchMovies = async (
   }
 
   const data = await response.json();
-  return data.results;
+  return data;
 };

@@ -4,9 +4,10 @@ import { useState } from "react";
 
 interface MovieCardProps {
   movie: Movie;
+  isGrid :boolean;
 }
 
-export default function MovieCard({ movie }: MovieCardProps) {
+export default function MovieCard({ movie ,isGrid=false }: MovieCardProps) {
   const [isLiked, setIsLiked] = useState(false);
 
   const handleLikeClick = (e: React.MouseEvent) => {
@@ -15,7 +16,7 @@ export default function MovieCard({ movie }: MovieCardProps) {
   };
 
   return (
-    <article className="relative flex shrink-0 w-45 flex-col border bg-white border-gray-300 rounded-xl overflow-hidden ">
+    <article className={`relative flex shrink-0 flex-col border bg-white border-gray-300 rounded-xl overflow-hidden ${isGrid ? ("w-full"):("w-32 sm:w-40 md:w-45")}  `} >
       <Heart
         className={`absolute top-1.5 right-2 w-5 h-5 z-10 ${isLiked ? "fill-main text-main" : "text-white fill-black/20"}`}
         onClick={handleLikeClick}

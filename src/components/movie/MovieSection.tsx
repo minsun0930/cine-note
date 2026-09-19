@@ -5,21 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import MovieCard from "./MovieCard";
 import Button from "../common/Button";
 import MovieCardSkeleton from "./MovieCardSkeleton";
+import type { MovieSectionProps } from "@/types/movie";
 
-interface Genre {
-  name: string;
-  id: string;
-}
-
-interface MovieSectionProps {
-  title: string;
-  type: "category" | "genre";
-  value: string;
-  isTop20?: boolean;
-  genres?: Genre[];
-  selectedGenreId?: string;
-  onSelectGenre?: (id: string) => void; // 장르 변경 함수
-} 
 
 export default function MovieSection({
   title,
@@ -30,7 +17,7 @@ export default function MovieSection({
   selectedGenreId,
   onSelectGenre,
 }: MovieSectionProps) {
-  const { data: movies, isFetching, isError, error } = useMovies(type, value);
+  const { movies, isLoading, isError, error } = useMovies(type, value,1);
   const navigate = useNavigate();
 
   //여기서 왜 useState가 아닌 useRef를 쓰는 지 알고 가기
@@ -92,13 +79,13 @@ export default function MovieSection({
   }
 
   return (
-    <section className="pt-8.5 pb-7.5 ">
-      <div className="flex justify-between items-end mb-5">
+    <section className="py-5 ">
+      <div className="flex justify-between items-end mb-4">
         <h2 className="text-[20px] font-bold ">{title}</h2>
       </div>
 
       {genres && onSelectGenre && (
-        <div className="mt-2 mb-4.5 flex overflow-x-auto scrollbar-none *:mr-1.5">
+        <div className=" mb-4.5 flex overflow-x-auto scrollbar-none *:mr-1.5">
           {genres.map((genre) => (
             <Button
               key={genre.id}
@@ -129,11 +116,11 @@ export default function MovieSection({
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
           onPointerCancel={() => (isPointerDown.current = false)}
-          className="cursor-pointer flex overflow-x-auto gap-5 scrollbar-none select-none"
+          className="cursor-pointer flex overflow-x-auto gap-2 scrollbar-none select-none"
         >
-          {isFetching || isFetching ? (
-            Array.from({ length: 5 }).map((_, index) => (
-               <MovieCardSkeleton key={index} />
+          {isLoading ? (
+            Array.from({ length: 10 }).map((_, index) => (
+               <MovieCardSkeleton key={index} isGrid={false} />
           ))
           ) : (
             movies?.slice(0, 20).map(
@@ -144,14 +131,14 @@ export default function MovieSection({
                     onPointerDown={(e) => {
                       handlePointerDown(e, movie.id);
                     }}
-                    className="relative"
+                    className="relative "
                   >
                     {isTop20 && (
                       <span className="absolute left-3 top-1 text-4xl font-black text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] z-10">
                         {index + 1}
                       </span>
                     )}
-                    <MovieCard movie={movie} />
+                    <MovieCard movie={movie} isGrid={false}/>
                   </div>
                 )
             )
