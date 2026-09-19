@@ -25,6 +25,13 @@ export interface MovieSectionProps {
   onSelectGenre?: (id: string) => void; // 장르 변경 함수
 } 
 
+export interface MoreMoviesViewProps {
+  genres?: Genre[];
+  selectedGenreId?: string;
+  onSelectGenre?: (id: string) => void;
+}
+
+
 //서버에서 받아오는 데이터
 export interface TMDBResponse {
   page : number;

@@ -1,20 +1,17 @@
 import { fetchMovies } from "@/api/tmdb";
+import type { TMDBResponse } from "@/types/movie";
 import { useQuery } from "@tanstack/react-query";
 
 
 
-export const useMovies = (type: "category" | "genre", value: string) => {
-  const query = useQuery({
+export const useMovies = (
+  type: "category" | "genre",
+  value: string
+) => {
+  return useQuery<TMDBResponse, Error>({
     queryKey: ["movies", type, value],
-    queryFn: () => fetchMovies(type,value),
+    queryFn: () => fetchMovies(type, value),
     staleTime: 1000 * 60 * 5,
-    placeholderData : (previousData) => previousData,
+    placeholderData: (previousData) => previousData,
   });
-  return {
-    ...query,
-    movies: query.data?.results ?? [],
-    totalResults: query.data?.total_results ?? 0,
-    totalPages : query.data?.total_pages ?? 1,
-  }
- 
 };
