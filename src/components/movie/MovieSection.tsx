@@ -17,7 +17,7 @@ export default function MovieSection({
   selectedGenreId,
   onSelectGenre,
 }: MovieSectionProps) {
-  const { movies, isLoading, isError, error } = useMovies(type, value,1);
+  const { movies, isLoading, isError, error } = useMovies(type, value);
   const navigate = useNavigate();
 
   //여기서 왜 useState가 아닌 useRef를 쓰는 지 알고 가기

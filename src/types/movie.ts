@@ -25,7 +25,7 @@ export interface MovieSectionProps {
   onSelectGenre?: (id: string) => void; // 장르 변경 함수
 } 
 
-//TMDB에서 가져오는 타입
+//서버에서 받아오는 데이터
 export interface TMDBResponse {
   page : number;
   results: Movie[];
