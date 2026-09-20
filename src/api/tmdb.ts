@@ -25,3 +25,17 @@ export const fetchMovies = async (
   const data = await response.json();
   return data;
 };
+
+
+
+export const fetchMovieDetail = async(id:string) =>{
+  const url = `${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=ko-KR&append_to_response=credits` ;
+
+  const response = await fetch(url);
+
+  if(!response.ok){
+    throw new Error("영화 상세 정보를 불러오지 못했습니다.");
+  }
+
+  return await response.json();
+}

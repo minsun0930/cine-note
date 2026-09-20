@@ -86,7 +86,7 @@ export default function MovieSection({
       </div>
 
       {genres && onSelectGenre && (
-        <div className=" mb-4.5 flex overflow-x-auto scrollbar-none *:mr-1.5">
+        <div className="w- mb-4.5 flex overflow-x-auto scrollbar-none *:mr-1.5">
           {genres.map((genre) => (
             <Button
               key={genre.id}

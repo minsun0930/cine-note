@@ -5,13 +5,14 @@ export interface Movie{
   poster_path:string | null,
   release_date? : string,
   overview?: string,
-  vote_average : number
+  vote_average : number,
 }
 
 //장르 데이터 타입
-interface Genre {
-  name: string;
+export interface Genre {
   id: string;
+  name: string;
+  
 }
 
 //화면 출력할때 쓰는 데이터 타입
@@ -36,6 +37,43 @@ export interface MoreMoviesViewProps {
 export interface TMDBResponse {
   page : number;
   results: Movie[];
-  total_pages:number;
-  total_results : number;
+  total_pages?:number;
+  total_results?: number;
+}
+
+interface MovieGenre{
+  id:number;
+  name:string;
+}
+
+export interface MovieDetail{
+  id:number;
+  title:string;
+  overview:string;
+  genres:MovieGenre[];
+  original_title : string;
+  release_date : string;
+  credits: Credits;
+  poster_path :string | null,
+}
+
+
+//감독, 출연진
+export interface Cast {
+  id: number;
+  name: string;
+  character: string;
+  profile_path: string | null;
+}
+
+export interface Crew {
+  id: number;
+  name: string;
+  job: string;
+  department: string;
+}
+
+export interface Credits {
+  cast: Cast[];
+  crew: Crew[];
 }

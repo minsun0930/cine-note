@@ -15,7 +15,7 @@ export default function Button({
   return (
     <button
       className={cn(
-        "cursor-pointer py-2 px-3 text-sm font-medium rounded-[10px] items-center",
+        "cursor-pointer py-2 px-3 text-sm font-medium rounded-[10px]",
         classes[variant],
         className,
       )}

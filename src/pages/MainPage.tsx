@@ -1,6 +1,6 @@
 import SearchInput from "@/components/common/SearchInput";
 import MovieSection from "@/components/movie/MovieSection";
-import { GENRES } from "@/data/genres";
+import { MAIN_GENRES } from "@/data/genres";
 import { useState } from "react";
 
 const MainPage = () => {
@@ -8,6 +8,7 @@ const MainPage = () => {
     console.log("검색어:", query);
   };
   const [selectedGenreId, setSelectedGenreId] = useState("28");
+
 
   return (
     <div className="max-w-325 w-full mx-auto px-4">
@@ -28,7 +29,7 @@ const MainPage = () => {
         title="장르별 영화"
         type="genre"
         value={selectedGenreId}
-        genres={GENRES}
+        genres={MAIN_GENRES}
         selectedGenreId={selectedGenreId}
         onSelectGenre={setSelectedGenreId}
       />
