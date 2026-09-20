@@ -5,18 +5,20 @@ import { useState } from "react";
 interface MovieCardProps {
   movie: Movie;
   isGrid :boolean;
+  onClick? : () => void;
 }
 
-export default function MovieCard({ movie ,isGrid=false }: MovieCardProps) {
+export default function MovieCard({ movie ,isGrid=false, onClick }: MovieCardProps) {
   const [isLiked, setIsLiked] = useState(false);
 
+  //나중에 zustand로 옮기기
   const handleLikeClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsLiked((prev) => !prev);
   };
 
   return (
-    <article className={`relative flex shrink-0 flex-col border bg-white border-gray-300 rounded-xl overflow-hidden ${isGrid ? ("w-full"):("w-32 sm:w-40 md:w-45")}  `} >
+    <article onClick={onClick}  className={`relative flex shrink-0 flex-col border bg-white border-gray-300 rounded-xl overflow-hidden ${isGrid ? ("w-full"):("w-32 sm:w-40 md:w-45")}  `} >
       <Heart
         className={`absolute top-1.5 right-2 w-5 h-5 z-10 ${isLiked ? "fill-main text-main" : "text-white fill-black/20"}`}
         onClick={handleLikeClick}

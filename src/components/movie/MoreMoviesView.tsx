@@ -1,6 +1,6 @@
 import type { MoreMoviesViewProps} from "@/types/movie";
 import { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Button from "../common/Button";
 import MovieGrid from "../common/MovieGrid";
 import { useInfiniteMovies } from "@/hooks/useInfiniteMovies";
@@ -12,10 +12,10 @@ export default function MoreMoviesView({
 }: MoreMoviesViewProps) {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" }); // 'smooth' 대신 'instant'를 쓰면 번쩍임 없이 즉시 맨 위로 갑니다.
-  }, []);
+  }, [selectedGenreId]);
 
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const navigate = useNavigate();
   const type = (searchParams.get("type") as "category" | "genre") || "category";
   const value = searchParams.get("value") || "";
 
@@ -23,7 +23,7 @@ export default function MoreMoviesView({
     popular: "인기 영화",
   };
 
-   const {
+  const {
     movies,
     isLoading,
     isFetchingNextPage,
@@ -46,12 +46,16 @@ export default function MoreMoviesView({
     );
   }
 
+  const handleMovieClick = (movieId : number) =>{
+    navigate(`/movies/${movieId}`)
+  }
+
+
   return (
     <section>
-      <div className="flex sticky top-0 bg-white flex-col z-20">
-        <h1 className="text-2xl mt-3 font-bold">{pageTitle}</h1>
-        {genres && (
-          <div className="mt-7 mb-4.5 flex overflow-x-auto scrollbar-none *:mr-1.5">
+      <h1 className="text-2xl mt-3 font-bold">{pageTitle}</h1>
+        {type === "genre" && genres &&  (
+          <div className="sticky top-13 z-20 bg-white py-4.5 flex overflow-x-auto scrollbar-none *:mr-1.5">
             {genres.map((genre) => (
               <Button
                 key={genre.id}
@@ -71,11 +75,12 @@ export default function MoreMoviesView({
             ))}
           </div>
         )}
-      </div>
+   
       <MovieGrid
         movies={movies}
         isLoading={isLoading }
         isFetching={isFetchingNextPage}
+        onMovieClick={handleMovieClick}
       />
 
       <div className="flex justify-center my-12 ">

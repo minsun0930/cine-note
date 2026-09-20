@@ -9,7 +9,7 @@ export const Footer = ({ className }: FooterProps) => {
   return (
     <footer
       className={cn(
-        "w-full border-t border-gray-200 bg-gray-50 py-8 text-gray-600 flex justify-center items-center mt-10",
+        "w-full border-t border-gray-200 bg-gray-50 py-8 text-gray-600 flex justify-center items-center mt-20",
         className,
       )}
     >

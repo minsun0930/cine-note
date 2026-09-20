@@ -8,7 +8,7 @@ export default function MoreMoviePage() {
   const selectedGenreId = searchParams.get("value");
 
   return (
-    <div>
+    <div className="max-w-325 w-full mx-auto px-4">
       <MoreMoviesView
         genres={GENRES}
         selectedGenreId={selectedGenreId ?? undefined}

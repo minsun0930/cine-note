@@ -2,7 +2,7 @@ import { useMovies } from "@/hooks/useMovie";
 import { ChevronRight } from "lucide-react";
 import { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import MovieCard from "./MovieCard";
+import MovieCard from "../common/MovieCard";
 import Button from "../common/Button";
 import MovieCardSkeleton from "./MovieCardSkeleton";
 import type { MovieSectionProps } from "@/types/movie";

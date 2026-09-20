@@ -6,13 +6,11 @@ export default function RootLayout() {
   return (
     <div className="w-full min-h-full flex flex-col justify-center items-center bg-bg">
        <Header />
-      <div className="max-w-325 w-full px-4">
-        {/* SEO 고려하여 main태그로 감싸기 */}
-        <main> 
+
+        <main className="flex-1 w-full py-4"> 
           <Outlet />
         </main>
         
-      </div>
       <Footer />
     </div>
   );

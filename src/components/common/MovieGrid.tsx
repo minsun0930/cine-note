@@ -1,4 +1,4 @@
-import MovieCard from "@/components/movie/MovieCard";
+import MovieCard from "@/components/common/MovieCard";
 import MovieCardSkeleton from "@/components/movie/MovieCardSkeleton";
 import type { Movie } from "@/types/movie";
 
@@ -7,6 +7,7 @@ interface MovieGridProps {
   totalResults?: number;
   isLoading: boolean;
   isFetching?: boolean;
+  onMovieClick: (id:number) => void;
 }
 
 export default function MovieGrid({
@@ -14,7 +15,10 @@ export default function MovieGrid({
   movies,
   isLoading,
   isFetching,
+  onMovieClick,
 }: MovieGridProps) {
+  
+
   return (
 
     <div className="py-8">
@@ -24,10 +28,10 @@ export default function MovieGrid({
         </span>
       )}
 
-      <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7 gap-4">
+      <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7 gap-4 cursor-pointer">
         {movies?.map((movie) => (
           <div key={movie.id}>
-            <MovieCard movie={movie} isGrid={true} />
+            <MovieCard movie={movie} isGrid={true} onClick={() => onMovieClick(movie.id)}  />
           </div>
         ))}
 

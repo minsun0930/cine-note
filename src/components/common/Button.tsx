@@ -15,7 +15,7 @@ export default function Button({
   return (
     <button
       className={cn(
-        "cursor-pointer py-2 px-3 text-sm font-medium rounded-[10px]",
+        "cursor-pointer py-2 px-3 text-sm font-medium rounded-[10px] items-center",
         classes[variant],
         className,
       )}
@@ -27,6 +27,6 @@ export default function Button({
 
 const classes: Record<NonNullable<Props["variant"]>, string> = {
   primary: "bg-main border-main text-white",
-  secondary: "border-main bg-white text-main",
+  secondary: "border border-main bg-white text-main",
   chip: "rounded-full border border-gray-300 bg-white text-gray-700 hover:bg-gray-50",
 };
