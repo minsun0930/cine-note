@@ -29,7 +29,7 @@ export const fetchMovies = async(
 
 
 export const fetchMovieDetail = async(id:string): Promise<MovieDetail> =>{
-  const {data} = await api.get(`{movie/${id}}`,{
+  const {data} = await api.get(`movie/${id}`,{
     params:{
       append_to_response: "credits",
     },

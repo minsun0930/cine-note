@@ -1,4 +1,4 @@
-import { fetchMovieDetail, fetchMovies, fetchSimilarMovies} from "@/api/tmdb";
+import { fetchMovieDetail, fetchMovies, fetchSearchMovies, fetchSimilarMovies} from "@/api/tmdb";
 import type { MovieDetail, TMDBResponse } from "@/types/movie";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
@@ -18,7 +18,7 @@ export const useMovies = (
 
 
 
-//영화 리스트 추가로 가져오기
+//영화 리스트 추가로 가져오기 (더보기 눌렀을 때)
 export const useInfiniteMovies = (
   type: "category" | "genre",
   value: string,
@@ -63,7 +63,6 @@ export const useMovieDetail=  (id?:string )=>{
 }
 
 
-
 //유사한 영화 데이터 가져오기
 export const useSimilarMovies = (id?:string) =>{
   return useQuery({
@@ -73,3 +72,35 @@ export const useSimilarMovies = (id?:string) =>{
     staleTime:1000*60*5,
   })
 }
+
+//검색한 영화 리스트 추가로 가져오기
+export const useSearchMovies = (
+  keyword :string
+) => {
+  const query = useInfiniteQuery({
+    queryKey: ["movies-infinite", keyword],
+
+    queryFn: ({ pageParam }) =>  fetchSearchMovies(keyword, pageParam),
+
+    initialPageParam: 1,
+
+    getNextPageParam: (lastPage) => 
+      lastPage.page < lastPage.total_pages
+        ? lastPage.page + 1
+        : undefined,
+
+    staleTime: 1000 * 60 * 5,
+  });
+
+  // 지금까지 불러온 모든 페이지의 영화를 하나의 배열로 합침
+  const movies = query.data?.pages.flatMap((page) => page.results) ?? [];
+
+  // 전체 영화 개수
+  const totalResults = query.data?.pages[0]?.total_results ?? 0;
+
+  return {
+    ...query,
+    movies,
+    totalResults,
+  };
+};
