@@ -1,5 +1,5 @@
 import MovieCard from "@/components/common/MovieCard";
-import MovieCardSkeleton from "@/components/movie/MovieCardSkeleton";
+import MovieCardSkeleton from "@/components/skeleton/MovieCardSkeleton";
 import type { Movie } from "@/types/movie";
 
 interface MovieGridProps {

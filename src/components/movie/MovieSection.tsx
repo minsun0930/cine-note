@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import MovieCard from "../common/MovieCard";
 import Button from "../common/Button";
-import MovieCardSkeleton from "./MovieCardSkeleton";
+import MovieCardSkeleton from "../skeleton/MovieCardSkeleton";
 import type { MovieSectionProps } from "@/types/movie";
 
 

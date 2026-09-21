@@ -25,15 +25,15 @@ export default function MovieDetail({ movie }: MovieDetailProps) {
 
   return (
     <div>
-      <article className=" w-full  mb-10 bg-gray-300">
+      <article className=" w-full  mb-10 border-t border-b border-main">
         <div className="max-w-325 w-full mx-auto py-12 flex justify-between px-4">
           <div className="max-w-150">
-            <h1 className="font-bold text-3xl">{movie.title}</h1>
+            <h1 className="font-bold text-3xl mb-1">{movie.title}</h1>
             <p className="text-sm text-gray-500 mb-10">
               {genreNames.map((genre) => (
-                <span key={genre}>{genre}</span>
+                <span key={genre}>{genre} </span>
               ))}
-              ·{movie.original_title} · {movie.release_date}
+               · {movie.original_title} · {movie.release_date}
             </p>
             <p className="mb-9">{movie.overview}</p>
             <div className="flex gap-2 mb-8">
@@ -59,7 +59,7 @@ export default function MovieDetail({ movie }: MovieDetailProps) {
             </p>
 
             <div>
-              <div className="border border-main max-w-45 aspect-180/80 rounded-[10px]"></div>
+              
             </div>
           </div>
           <div className="w-80 h-120 aspect-2/3 rounded-[10px] overflow-hidden">
