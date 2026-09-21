@@ -1,12 +1,10 @@
 import { Heart } from "lucide-react";
 import Button from "../common/Button";
-
-
 import { GENRES } from "@/data/genres";
 import type { MovieDetail } from "@/types/movie";
 import { useParams } from "react-router-dom";
-import { useMovieDetail } from "@/hooks/useMovieDetail";
 import MovieDetailSkeleton from "../skeleton/MovieDetailSkeleton";
+import { useMovieDetail } from "@/hooks/useMovieQuery";
 
 
 
@@ -38,7 +36,7 @@ export default function MovieDetail() {
   return (
     <div>
 
-      <article className=" w-full  mb-10 border-t border-b border-main">
+      <article className=" w-full  mb-10 border-y-2 border-main/50  ">
         <div className="max-w-325 w-full mx-auto py-12 flex justify-between px-4">
           <div className="max-w-150">
             <h1 className="font-bold text-3xl mb-1">{movie.title}</h1>
@@ -83,9 +81,9 @@ export default function MovieDetail() {
           </div>
 
 
-          <div className="w-80 h-120 aspect-2/3 rounded-[10px] overflow-hidden">
+          <div className="w-80 h-120 aspect-2/3 rounded-[10px] overflow-hidden bg-white">
             <img
-              className="rounded-[10px] w-full h-full  object-contain"
+              className="rounded-[10px] w-full h-full  object-cover"
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               alt={movie.title}
               draggable={false}

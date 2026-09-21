@@ -15,23 +15,6 @@ export interface Genre {
   
 }
 
-//화면 출력할때 쓰는 데이터 타입
-export interface MovieSectionProps {
-  title: string;
-  type: "category" | "genre";
-  value: string;
-  isTop20?: boolean;
-  genres?: Genre[];
-  selectedGenreId?: string;
-  onSelectGenre?: (id: string) => void; // 장르 변경 함수
-} 
-
-export interface MoreMoviesViewProps {
-  genres?: Genre[];
-  selectedGenreId?: string;
-  onSelectGenre?: (id: string) => void;
-}
-
 
 //서버에서 받아오는 데이터
 export interface TMDBResponse {

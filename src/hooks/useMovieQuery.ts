@@ -3,7 +3,7 @@ import type { TMDBResponse } from "@/types/movie";
 import { useQuery } from "@tanstack/react-query";
 
 
-
+//영화 리스트 가져오기
 export const useMovies = (
   type: "category" | "genre",
   value: string

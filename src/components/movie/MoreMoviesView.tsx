@@ -1,9 +1,18 @@
-import type { MoreMoviesViewProps} from "@/types/movie";
+import type { Genre, MoreMoviesViewProps} from "@/types/movie";
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Button from "../common/Button";
 import MovieGrid from "../common/MovieGrid";
-import { useInfiniteMovies } from "@/hooks/useInfiniteMovies";
+import { useInfiniteMovies } from "@/hooks/useMovieQuery";
+
+
+
+export interface MoreMoviesViewProps {
+  genres?: Genre[];
+  selectedGenreId?: string;
+  onSelectGenre?: (id: string) => void;
+}
+
 
 export default function MoreMoviesView({
   genres,

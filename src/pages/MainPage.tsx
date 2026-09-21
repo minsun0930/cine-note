@@ -9,6 +9,7 @@ const MainPage = () => {
   };
   const [selectedGenreId, setSelectedGenreId] = useState("28");
 
+  
   return (
     <div>
       <div className="max-w-325 w-full mx-auto px-4">
