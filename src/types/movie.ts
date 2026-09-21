@@ -18,7 +18,7 @@ export interface Genre {
 
 //서버에서 받아오는 데이터
 export interface TMDBResponse {
-  page : number;
+  page: number;
   results: Movie[];
   total_pages:number;
   total_results: number;

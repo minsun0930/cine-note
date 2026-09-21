@@ -8,12 +8,12 @@ import { ChevronRight } from "lucide-react";
 
 interface MovieSliderProps{
   title:string;
-  children :ReactNode;
+  children? :ReactNode;
   isLoading: boolean;
   movies:Movie[];
-  isTop20 :boolean;
-  type: "category" | "genre";
-  value: string;
+  isTop20?:boolean;
+  type?: "category" | "genre";
+  value?: string;
 }
 
 

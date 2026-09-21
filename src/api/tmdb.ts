@@ -45,9 +45,9 @@ export const fetchMovieDetail = async(id:string): Promise<MovieDetail> =>{
 
 
 //유사한 영화 데이터 가져오기
-export const fetchSmiliarMovies = async(movieId:number)=>{
+export const fetchSmiliarMovies = async(movieId:string) :Promise<TMDBResponse>=>{
   const response = await fetch(
-    `${BASE_URL}/movie/${movieId}/similar?language-ko-KR&api_key=${API_KEY}&`
+    `${BASE_URL}/movie/${movieId}/similar?&api_key=${API_KEY}&language=ko-KR`
   )
 
   if(!response.ok){

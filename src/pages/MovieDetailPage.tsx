@@ -1,19 +1,19 @@
 import MovieDetail from "@/components/movie/MovieDetail"
-import MovieSection from "@/components/movie/MovieSection"
+import SimilarMoviesSection from "@/components/movie/SimilarMoviesSection"
+import { useParams } from "react-router-dom"
+
+
 
 const MovieDetailPage = () => {
- 
+  const {movieId} = useParams();
+  if (!movieId) {
+    return <div>잘못된 접근입니다.</div>;
+  }
 
   return (
     <div>
       <MovieDetail/>
-      
-
-      <MovieSection
-          title="이 작품과 유사한 영화"
-          type="category"
-          value="popular"
-      />
+      <SimilarMoviesSection movieId={movieId}/>
   
     </div>
   )

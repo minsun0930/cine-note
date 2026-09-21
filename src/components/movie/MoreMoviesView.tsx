@@ -1,4 +1,4 @@
-import type { Genre, MoreMoviesViewProps} from "@/types/movie";
+import type { Genre} from "@/types/movie";
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Button from "../common/Button";
