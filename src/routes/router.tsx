@@ -1,10 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import RootLayout from "../layouts/RootLayout";
-// import MainPage from "../pages/MainPage";
 import MovieDetailPage from "../pages/MovieDetailPage";
-import MovieFoundPage from "../pages/MovieFoundPage";
 import MoreMoviesPage from "@/pages/MoreMoviesPage";
 import MainPage from "@/pages/MainPage";
+import MovieSearhPage from "../pages/MovieSearchPage";
 
 
 export const router = createBrowserRouter([
@@ -26,7 +25,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/search",
-        element: <MovieFoundPage/>,
+        element: <MovieSearhPage/>,
       },
     
     ],

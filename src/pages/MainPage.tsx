@@ -2,22 +2,28 @@ import SearchInput from "@/components/common/SearchInput";
 import MovieSection from "@/components/movie/MovieSection";
 import { MAIN_GENRES } from "@/data/genres";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
+  const navigate = useNavigate();
+  
   const handleSearch = (query: string) => {
-    console.log("검색어:", query);
+    if(!query.trim()) return;
+
+    navigate(`/search?keyword=${encodeURIComponent(query)}`);
   };
+
   const [selectedGenreId, setSelectedGenreId] = useState("28");
 
   
   return (
     <div>
       <div className="max-w-325 w-full mx-auto px-4">
-        <div className="@container w-full aspect-13/4 bg-white border border-main rounded-[10px] flex flex-col justify-center items-center mb-8">
+        <div className="@container w-full aspect-13/4 bg-main/10 border border-main rounded-[10px] flex flex-col justify-center items-center mb-8">
           <h1 className="text-[2.4cqw] font-bold mb-[2.9cqw]  px-[17cqw]">
             오늘 기록하고 싶은 영화는 무엇인가요?
           </h1>
-          <SearchInput onSearch={handleSearch} />
+          <SearchInput variant="hero" onSearch={handleSearch} />
         </div>
       </div>
       <MovieSection

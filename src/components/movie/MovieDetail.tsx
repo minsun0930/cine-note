@@ -36,7 +36,7 @@ export default function MovieDetail() {
   return (
     <div>
 
-      <article className=" w-full  mb-10 border-y-2 border-main/50  ">
+      <article className=" w-full  mb-10 border-y-2 border-main/50  bg-main/10">
         <div className="max-w-325 w-full mx-auto py-12 flex justify-between px-4">
           <div className="max-w-150">
             <h1 className="font-bold text-3xl mb-1">{movie.title}</h1>

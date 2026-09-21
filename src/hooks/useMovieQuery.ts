@@ -1,4 +1,4 @@
-import { fetchMovieDetail, fetchMovies, fetchSmiliarMovies } from "@/api/tmdb";
+import { fetchMovieDetail, fetchMovies, fetchSimilarMovies} from "@/api/tmdb";
 import type { MovieDetail, TMDBResponse } from "@/types/movie";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
@@ -26,19 +26,14 @@ export const useInfiniteMovies = (
   const query = useInfiniteQuery({
     queryKey: ["movies-infinite", type, value],
 
-    queryFn: ({ pageParam }) => {
-      return fetchMovies(type, value, pageParam);
-    },
+    queryFn: ({ pageParam }) =>  fetchMovies(type, value, pageParam),
 
     initialPageParam: 1,
 
-    getNextPageParam: (lastPage) => {
-      if (lastPage.page < lastPage.total_pages) {
-        return lastPage.page + 1;
-      }
-
-      return undefined;
-    },
+    getNextPageParam: (lastPage) => 
+      lastPage.page < lastPage.total_pages
+        ? lastPage.page + 1
+        : undefined,
 
     staleTime: 1000 * 60 * 5,
   });
@@ -73,7 +68,7 @@ export const useMovieDetail=  (id?:string )=>{
 export const useSimilarMovies = (id?:string) =>{
   return useQuery({
     queryKey: ["movieSimilar", id],
-    queryFn:()=>fetchSmiliarMovies(id!),
+    queryFn:()=>fetchSimilarMovies(id!),
     enabled: !!id,
     staleTime:1000*60*5,
   })

@@ -1,59 +1,57 @@
 import type { MovieDetail, TMDBResponse } from "@/types/movie";
+import api from "./axios";
 
-const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
-const BASE_URL = "https://api.themoviedb.org/3";
-
-
-//기본 - 영화 리스트 가져오는 함수
-export const fetchMovies = async (
+export const fetchMovies = async(
   type: "category" | "genre",
   value: string,
   page : number =1,
 ): Promise<TMDBResponse> => {
-  let url = '';
+   if (type === "category") {
+    const {data} = await api.get<TMDBResponse>(`/movie/${value}`,{
+      params: {
+        page,
+      },
+   });
 
-  if (type === "category") {
-    url = `${BASE_URL}/movie/${value}?api_key=${API_KEY}&language=ko-KR&page=${page}`;
-  } else if (type === 'genre'){
-    url = `${BASE_URL}/discover/movie?api_key=${API_KEY}&language=ko-KR&page=${page}&with_genres=${value}`
-  }
+  return data;
+}
 
-  const response =  await fetch(url);
+ const { data } = await api.get<TMDBResponse>("/discover/movie", {
+    params: {
+      page,
+      with_genres: value,
+    },
+  });
 
-  if (!response.ok) {
-    throw new Error("네트워크 응답에 실패했습니다.");
-  }
-
-  const data = await response.json();
   return data;
 };
 
 
-//영화 상세 정보 가져오기
+
 export const fetchMovieDetail = async(id:string): Promise<MovieDetail> =>{
-  const url = `${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=ko-KR&append_to_response=credits` ;
-
-  const response = await fetch(url);
-
-  if(!response.ok){
-    throw new Error("영화 상세 정보를 불러오지 못했습니다.");
-  }
-
-  return await response.json();
+  const {data} = await api.get(`{movie/${id}}`,{
+    params:{
+      append_to_response: "credits",
+    },
+  });
+  return data;
 }
 
 
+export const fetchSimilarMovies = async(movieId:string) :Promise<TMDBResponse>=>{
+  const {data} = await api.get<TMDBResponse>(`movie/${movieId}/similar`,);
+  return data;
+}
 
-//유사한 영화 데이터 가져오기
-export const fetchSmiliarMovies = async(movieId:string) :Promise<TMDBResponse>=>{
-  const response = await fetch(
-    `${BASE_URL}/movie/${movieId}/similar?&api_key=${API_KEY}&language=ko-KR`
-  )
 
-  if(!response.ok){
-    throw new Error("영화 상세 정보를 불러오지 못했습니다.")
-  }
+//검색 결과 데이터 가져오기
+export const fetchSearchMovies = async(query:string, page=1): Promise<TMDBResponse>  =>{
+   const {data} = await api.get<TMDBResponse>("/search/movie",{
+    params:{
+      query,
+      page,
+    },
+   });
 
-  const data = await response.json();
   return data;
 }
