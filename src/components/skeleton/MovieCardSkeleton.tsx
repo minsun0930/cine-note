@@ -9,7 +9,7 @@ export default function MovieCardSkeleton({ isGrid = false }: MovieCardSkeletonP
     <article className={`relative flex flex-col  ${
         isGrid ? 'w-full' : 'shrink-0 w-45'
       }`}>
-      <Skeleton className="w-full aspect-180/336 rounded-xl"/>
+      <Skeleton className="w-full aspect-15/28 rounded-xl"/>
     </article>
   );
 }

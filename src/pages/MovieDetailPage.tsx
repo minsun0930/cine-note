@@ -1,17 +1,20 @@
 import MovieDetail from "@/components/movie/MovieDetail"
-import { useMovieDetail } from "@/hooks/useMovieDetail";
-import { useParams } from "react-router-dom"
+import MovieSection from "@/components/movie/MovieSection"
 
 const MovieDetailPage = () => {
-  const {movieId} = useParams();
-  const {data: movie,isLoading,isError} = useMovieDetail(movieId);
-
-  if(isLoading) return <div>영화 데이터를 가져오는 중...</div>
-  if(isError) return <div>에러 발생</div>
+ 
 
   return (
     <div>
-      <MovieDetail movie={movie}/>
+      <MovieDetail/>
+      
+
+      <MovieSection
+          title="이 작품과 유사한 영화"
+          type="category"
+          value="popular"
+      />
+  
     </div>
   )
 }

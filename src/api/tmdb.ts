@@ -1,4 +1,4 @@
-import type { TMDBResponse } from "@/types/movie";
+import type { MovieDetail, TMDBResponse } from "@/types/movie";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
@@ -28,7 +28,7 @@ export const fetchMovies = async (
 
 
 
-export const fetchMovieDetail = async(id:string) =>{
+export const fetchMovieDetail = async(id:string): Promise<MovieDetail> =>{
   const url = `${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=ko-KR&append_to_response=credits` ;
 
   const response = await fetch(url);

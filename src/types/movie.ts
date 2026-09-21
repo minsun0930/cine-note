@@ -46,6 +46,7 @@ interface MovieGenre{
   name:string;
 }
 
+//반환 데이터 타입 지정. 상세 정보
 export interface MovieDetail{
   id:number;
   title:string;
@@ -55,6 +56,7 @@ export interface MovieDetail{
   release_date : string;
   credits: Credits;
   poster_path :string | null,
+  vote_average:number,
 }
 
 
