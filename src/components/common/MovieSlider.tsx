@@ -1,6 +1,5 @@
 import type { Movie } from "@/types/movie";
 import { useRef, type ReactNode } from "react";
-import { useNavigate } from "react-router-dom";
 import MovieCardSkeleton from "../skeleton/MovieCardSkeleton";
 import MovieCard from "./MovieCard";
 import { Link } from "react-router-dom";
@@ -36,11 +35,9 @@ export default function MovieSlider({
 
   const startX = useRef(0);
   const startScroll = useRef(0);
-  const clickedMovieId = useRef<number | null>(null);
-  const navigate = useNavigate();
 
   //마우스 눌렀을때
-  const handlePointerDown = (e: React.PointerEvent, movieId: number) => {
+  const handlePointerDown = (e: React.PointerEvent) => {
     if (e.button !== 0) return;
 
     if (!scrollRef.current) return;
@@ -51,7 +48,6 @@ export default function MovieSlider({
     startX.current = e.clientX;
     startScroll.current = scrollRef.current.scrollLeft;
 
-    clickedMovieId.current = movieId;
   };
 
   //마우스 누른 상태에서 움직일때
@@ -63,7 +59,6 @@ export default function MovieSlider({
     // 12px 이상 움직여야 '드래그'로 인정
     if (Math.abs(distance) > 12) {
       hasDragged.current = true;
-      clickedMovieId.current = null;
     }
 
     if (hasDragged.current) {
@@ -71,15 +66,9 @@ export default function MovieSlider({
     }
   };
 
-  // click 이벤트 충돌을 피하기 위해, 손을 뗄 때(pointerUp) 드래그가 아니었다면 여기서 바로 페이지를 이동
+  // click 이벤트 충돌을 피하기 위해, 손을 뗄 때(pointerUp) 드래그가 아니었다면 fals로
   const handlePointerUp = () => {
     isPointerDown.current = false;
-
-    // 드래그를 하지 않았고(순수 클릭), movieId가 존재한다면 페이지 이동!
-    if (!hasDragged.current && clickedMovieId.current !== null) {
-      navigate(`/movies/${clickedMovieId.current}`);
-    }
-    clickedMovieId.current = null;
   };
 
   return (
@@ -120,7 +109,7 @@ export default function MovieSlider({
                     <div
                       key={movie.id}
                       onPointerDown={(e) => {
-                        handlePointerDown(e, movie.id);
+                        handlePointerDown(e);
                       }}
                       className="relative "
                     >

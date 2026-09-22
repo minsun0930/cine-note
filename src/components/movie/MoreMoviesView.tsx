@@ -1,6 +1,6 @@
 import type { Genre} from "@/types/movie";
 import { useEffect } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import {  useSearchParams } from "react-router-dom";
 import Button from "../common/Button";
 import MovieGrid from "../common/MovieGrid";
 import { useInfiniteMovies } from "@/hooks/useMovieQuery";
@@ -24,7 +24,6 @@ export default function MoreMoviesView({
   }, [selectedGenreId]);
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const navigate = useNavigate();
   const type = (searchParams.get("type") as "category" | "genre") || "category";
   const value = searchParams.get("value") || "";
 
@@ -53,10 +52,6 @@ export default function MoreMoviesView({
         에러 발생: {error.message}
       </div>
     );
-  }
-
-  const handleMovieClick = (movieId : number) =>{
-    navigate(`/movies/${movieId}`)
   }
 
 
@@ -89,7 +84,6 @@ export default function MoreMoviesView({
         movies={movies}
         isLoading={isLoading }
         isFetching={isFetchingNextPage}
-        onMovieClick={handleMovieClick}
       />
 
       <div className="flex justify-center my-12 ">

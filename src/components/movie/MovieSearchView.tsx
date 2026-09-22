@@ -1,7 +1,7 @@
 // import MovieGrid from "../common/MovieGrid"
 
 import { useSearchMovies } from "@/hooks/useMovieQuery";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import MovieGrid from "../common/MovieGrid";
 import { useState } from "react";
 
@@ -9,7 +9,6 @@ const MovieSearchView = () => {
   const [searchParams] = useSearchParams();
 
   const keyword = searchParams.get("keyword") ?? "";
-  const navigate = useNavigate();
   // 2. 정렬 옵션 상태 관리 (기본값: 인기순)
   const [sortOption, setSortOption] = useState<
     "popularity" | "latest" | "rating"
@@ -33,9 +32,7 @@ const MovieSearchView = () => {
     );
   }
 
-  const handleMovieClick = (movieId: number) => {
-    navigate(`/movies/${movieId}`);
-  };
+
 
   // 3. ★ 여기에 정렬 로직을 넣어줍니다! (가져온 movies를 정렬)
   const sortedMovies = [...movies].sort((a, b) => {
@@ -74,7 +71,6 @@ const MovieSearchView = () => {
         movies={sortedMovies}
         isLoading={isLoading}
         isFetching={isFetchingNextPage}
-        onMovieClick={handleMovieClick}
       />
       <div className="flex justify-center my-12 ">
         {hasNextPage ? (

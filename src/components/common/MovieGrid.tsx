@@ -7,7 +7,6 @@ interface MovieGridProps {
   totalResults?: number;
   isLoading: boolean;
   isFetching?: boolean;
-  onMovieClick: (id:number) => void;
 }
 
 export default function MovieGrid({
@@ -15,9 +14,7 @@ export default function MovieGrid({
   movies,
   isLoading,
   isFetching,
-  onMovieClick,
 }: MovieGridProps) {
-  
 
   return (
 
@@ -28,10 +25,10 @@ export default function MovieGrid({
         </span>
       )}
 
-      <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7 gap-4 cursor-pointer">
+      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-3 cursor-pointer">
         {movies?.map((movie) => (
           <div key={movie.id}>
-            <MovieCard movie={movie} isGrid={true} onClick={() => onMovieClick(movie.id)}  />
+            <MovieCard movie={movie} isGrid={true} />
           </div>
         ))}
 
