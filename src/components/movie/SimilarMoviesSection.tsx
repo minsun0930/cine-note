@@ -22,7 +22,7 @@ const SimilarMoviesSection = ({ movieId }: SimilarMoviesSectionProps) => {
   }
 
   return (
-     <MovieSlider title="이 영화와 비슷한 추천 작품" movies={similarMovies} isLoading={isLoading}/>
+     <MovieSlider title="이 영화와 비슷한 추천 작품" movies={similarMovies} isLoading={isLoading} moreLink={false}/>
     
   )
 }

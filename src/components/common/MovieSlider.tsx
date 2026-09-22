@@ -14,6 +14,7 @@ interface MovieSliderProps{
   isTop20?:boolean;
   type?: "category" | "genre";
   value?: string;
+  moreLink? : boolean
 }
 
 
@@ -24,7 +25,8 @@ export default function MovieSlider({
   isTop20 =false,
   movies,
   type,
-  value
+  value,
+  moreLink = true,
 }: MovieSliderProps) {
   //여기서 왜 useState가 아닌 useRef를 쓰는 지 알고 가기
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -89,13 +91,16 @@ export default function MovieSlider({
       {children}
 
       <div className="relative min-h-85">
-        {!isTop20 ? (
+        {moreLink && !isTop20 ? (
           <Link
             to={`/movies/more?type=${type}&value=${value}`}
             className="absolute right-0 -top-10 flex justify-center items-center text-[13px] text-gray-700"
           >
             더보기 <ChevronRight className="text-[13px] text-gray-700" />
           </Link>
+
+
+
         ) : null}
 
         <div

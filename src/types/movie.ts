@@ -6,6 +6,7 @@ export interface Movie{
   release_date? : string,
   overview?: string,
   vote_average : number,
+  popularity :number
 }
 
 //장르 데이터 타입
@@ -62,3 +63,8 @@ export interface Credits {
   cast: Cast[];
   crew: Crew[];
 }
+
+
+
+//정렬
+export type MovieSort = "popularity.desc" | "primary_release_date.desc" | "vote_average.desc";
