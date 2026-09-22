@@ -9,6 +9,7 @@ const MovieSearchView = () => {
 
   const keyword = searchParams.get("keyword") ?? "";
   const navigate = useNavigate();
+  
 
   const {
     movies,

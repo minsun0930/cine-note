@@ -5,20 +5,23 @@ import { Search, X } from "lucide-react";
 interface SearchInputProps extends ComponentProps<"input"> {
   variant?: "hero" | "header";
   onSearch?: (query: string) => void;
+  defaultValue?: string
 }
 
 const variantStyles: Record<
   NonNullable<SearchInputProps["variant"]>,
-  { form: string; input: string }
+  { form: string; input: string; search: string }
 > = {
   hero: {
     form: "max-w-[64cqw] py-[1.5cqw] px-[3cqw] rounded-[80px] ",
     input: "text-[1.5cqw]",
+    search: "min-w-6 min-h-6"
   },
   //나중에 수정
   header: {
-    form: "max-w-[378px] rounded-[20px]",
-    input: "h-[35px] py-1 pl-4 pr-10 text-sm",
+    form: "w-[280px] h-[32px] rounded-[10px] pr-2",
+    input: "py-1 px-2 text-[12px]",
+    search: "h-4 w-4",
   },
 };
 
@@ -26,19 +29,17 @@ const SearchInput = ({
   variant = "hero",
   onSearch,
   className,
+  defaultValue="",
   ...props
 }: SearchInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const currentStyles = variantStyles[variant];
 
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState(defaultValue);
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    if (onSearch && inputRef.current) {
-      onSearch(inputRef.current.value);
-      inputRef.current.value = "";
-    }
+    onSearch?.(searchValue);
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -47,10 +48,6 @@ const SearchInput = ({
 
   const handleClear = () => {
     setSearchValue("");
-    if (inputRef.current) {
-      inputRef.current.value = "";
-      inputRef.current.focus();
-    }
   };
 
   return (
@@ -65,11 +62,12 @@ const SearchInput = ({
         ref={inputRef}
         type="text"
         className={cn(
-          "w-full flex-1 outline-none ",
+          "flex w-full flex-1 outline-none",
           currentStyles.input,
           className,
         )}
         onChange={handleInputChange}
+        value={searchValue}
         placeholder="기록하고 싶은 영화를 검색하세요."
         {...props}
       />
@@ -84,7 +82,12 @@ const SearchInput = ({
         </button>
       )}
       <button type="submit" aria-label="검색" className="flex cursor-pointer">
-        <Search className="min-w-6 min-h-6 text-gray-400 hover:text-main" />
+        <Search
+          className={cn(
+            currentStyles.search,
+            " text-gray-400 hover:text-main",
+          )}
+        />
       </button>
     </form>
   );
