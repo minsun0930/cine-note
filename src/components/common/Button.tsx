@@ -15,7 +15,7 @@ export default function Button({
   return (
     <button
       className={cn(
-        "flex justify-center items-centercursor-pointer py-2 px-3 text-sm font-medium rounded-[10px]",
+        "flex justify-center cursor-pointer items-centercursor-pointer py-2 px-3 text-sm font-medium rounded-[10px]",
         classes[variant],
         className,
       )}

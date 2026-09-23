@@ -20,7 +20,7 @@ export const FormInput = forwardRef<HTMLInputElement, FromInputProps>(
         : "password"
       : type;
     return (
-      <div className="flex relative">
+      <div>
         <div className="relative flex items-center w-full">
           <input
             ref={ref}

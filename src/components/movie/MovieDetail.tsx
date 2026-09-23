@@ -40,18 +40,18 @@ export default function MovieDetail() {
         <div className="max-w-325 w-full mx-auto py-12 flex justify-between px-4">
           <div className="max-w-150">
             <h1 className="font-bold text-3xl mb-1">{movie.title}</h1>
-            <p className="text-sm text-gray-500 mb-10">
+            <div className="text-sm text-gray-500 mb-10">
               {genreNames.map((genre) => (
                 <span key={genre}>{genre} </span>
                 
               ))}
                · {movie.original_title} · {movie.release_date}
-            </p>
-            <p className={movie.overview?.trim() ? "text-gray-800 mb-9" : "text-gray-400 italic mb-9"}>
+            </div>
+            <div className={movie.overview?.trim() ? "text-gray-800 mb-9" : "text-gray-400 italic mb-9"}>
               {movie.overview && movie.overview.trim() !== "" 
                 ? movie.overview 
                 : "등록된 줄거리 정보가 없습니다."}
-            </p>
+            </div>
             <div className="flex gap-2 mb-8">
               <Button className=" flex items-center gap-1">
                 찜하기 <Heart className="inline-block w-4 h-4" />
@@ -59,24 +59,24 @@ export default function MovieDetail() {
               <Button variant="secondary">리뷰 남기기</Button>
             </div>
 
-            <p className="mb-1">
+            <div className="mb-1">
               <span className="text-gray-400">감독</span> 
-              <p>{director?.name}</p>
-            </p>
-            <p>
+              <div>{director?.name}</div>
+            </div>
+            <div>
               <span className="text-gray-400 ">출연</span>
               <div className="flex mb-10 divide-x divide-gray-300 overflow-x-auto flex-wrap">
                 {actors.map((actor) => (
                   <div key={actor.id} className="flex px-2 first:pl-0">
-                    <p>{actor.name}</p>
+                    <div>{actor.name}</div>
                   </div>
                 ))}
               </div>
-            </p>
-            <p className=" text-gray-600 font-bold" >
+            </div>
+            <div className=" text-gray-600 font-bold" >
                 TMDB <span className="text-yellow-400">★</span>{" "}
                 {`${movie.vote_average.toFixed(1)}`}
-            </p>
+            </div>
    
           </div>
 
