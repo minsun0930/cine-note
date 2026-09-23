@@ -19,7 +19,7 @@ const MainPage = () => {
   return (
     <div>
       <div className="max-w-325 w-full mx-auto px-4">
-        <div className="@container w-full aspect-13/4 bg-main/10 border border-main rounded-[10px] flex flex-col justify-center items-center mb-8">
+        <div className="@container w-full aspect-13/4 bg-main/10 border border-main/50 rounded-[10px] flex flex-col justify-center items-center mb-8">
           <h1 className="text-[2.4cqw] font-bold mb-[2.9cqw]  px-[17cqw]">
             오늘 기록하고 싶은 영화는 무엇인가요?
           </h1>

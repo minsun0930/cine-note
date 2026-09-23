@@ -1,16 +1,21 @@
 import { cn } from "@/lib/utils";
 import type { Movie } from "@/types/movie";
 import { Heart } from "lucide-react";
-import { useState } from "react";
+import { useState, type RefObject } from "react";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 
 interface MovieCardProps {
   movie: Movie;
   isGrid: boolean;
+  isDragging?: RefObject<boolean>;
 }
 
-export default function MovieCard({ movie, isGrid = false }: MovieCardProps) {
+export default function MovieCard({
+  movie,
+  isGrid = false,
+  isDragging
+}: MovieCardProps) {
   const [isLiked, setIsLiked] = useState(false);
   const navigate = useNavigate();
 
@@ -23,7 +28,12 @@ export default function MovieCard({ movie, isGrid = false }: MovieCardProps) {
   return (
     <article
       className={`group relative flex shrink-0 flex-col border bg-white border-gray-300 rounded-xl overflow-hidden  `}
-      onClick={() => navigate(`/movies/${movie.id}`)}
+      onClick={() => {
+        if (isDragging?.current) {
+          return;
+        }
+        navigate(`/movies/${movie.id}`);
+      }}
     >
       <Heart
         className={`absolute top-1.5 right-2 w-5 h-5 z-11 ${isLiked ? "fill-main text-main" : "text-white fill-black/20"}`}
