@@ -87,7 +87,7 @@ export default function MovieCard({
           <Button
             className="w-full  font-semibold rounded-lg md:text-[12px] sm:text-[9px] whitespace-nowrap "
             onClick={(e) => {
-              e.stopPropagation(); // 👈 중요: 카드 전체 클릭(상세 이동)으로 퍼지는 것 차단!
+              e.stopPropagation();
             }}
           >
             리뷰 남기기

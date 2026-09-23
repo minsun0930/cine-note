@@ -4,6 +4,7 @@ import MovieDetailPage from "../pages/MovieDetailPage";
 import MoreMoviesPage from "@/pages/MoreMoviesPage";
 import MainPage from "@/pages/MainPage";
 import MovieSearhPage from "../pages/MovieSearchPage";
+import LoginPage from "@/pages/LoginPage";
 
 
 export const router = createBrowserRouter([
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
       {
         path: "/search",
         element: <MovieSearhPage/>,
+      },
+      {
+        path : "/login",
+        element : <LoginPage />,
       },
     
     ],

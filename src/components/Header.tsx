@@ -1,26 +1,27 @@
-import { Link, NavLink, useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  NavLink,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import Button from "./common/Button";
 import { cn } from "@/lib/utils";
 import SearchInput from "./common/SearchInput";
-
 
 export default function Header() {
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") ?? "";
   const navigate = useNavigate();
-  
-
 
   const handleSearch = (query: string) => {
-    if(query.trim() === ""){
+    if (query.trim() === "") {
       return;
-    }else{
+    } else {
       navigate(`/search?keyword=${encodeURIComponent(query)}`);
     }
   };
-
-
 
   const isHome = location.pathname === "/";
 
@@ -31,31 +32,35 @@ export default function Header() {
           <Link to="/" className="font-bold text-[30px] ">
             CINENOTE
           </Link>
-          {
-            !isHome && (
-               <SearchInput key={keyword} variant="header" defaultValue={keyword} onSearch={ handleSearch }/>
-            )
-          }
-         
+          {!isHome && (
+            <SearchInput
+              key={keyword}
+              variant="header"
+              defaultValue={keyword}
+              onSearch={handleSearch}
+            />
+          )}
         </div>
-          <ul className="flex items-center gap-4">
-            <li className="flex">
-              <NavLink
-                to="/comunity"
-                className={({ isActive }) =>
-                  cn(
-                    "text-xs text-gray-500 hover:text-gray-900",
-                    isActive && "font-semibold text-gray-900",
-                  )
-                }
-              >
-                커뮤니티
-              </NavLink>
-            </li>
-            <li className="flex">
-              <Button variant="primary">로그인</Button>
-            </li>
-          </ul>
+        <ul className="flex items-center gap-4">
+          <li className="flex">
+            <NavLink
+              to="/comunity"
+              className={({ isActive }) =>
+                cn(
+                  "text-xs text-gray-500 hover:text-gray-900",
+                  isActive && "font-semibold text-gray-900",
+                )
+              }
+            >
+              커뮤니티
+            </NavLink>
+          </li>
+          <li >
+            <Link to="/login" >
+              <Button variant="primary" className="cursor-pointer ">로그인</Button>
+            </Link>
+          </li>
+        </ul>
       </div>
     </header>
   );
