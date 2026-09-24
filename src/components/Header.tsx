@@ -23,6 +23,9 @@ export default function Header() {
     }
   };
 
+  const isAuthPage =
+    location.pathname === "/login" || location.pathname === "/signup";
+
   const isHome = location.pathname === "/";
 
   return (
@@ -32,7 +35,7 @@ export default function Header() {
           <Link to="/" className="font-bold text-[30px] ">
             CINENOTE
           </Link>
-          {!isHome && (
+          {!isHome && !isAuthPage && (
             <SearchInput
               key={keyword}
               variant="header"
@@ -41,26 +44,30 @@ export default function Header() {
             />
           )}
         </div>
-        <ul className="flex items-center gap-4">
-          <li className="flex">
-            <NavLink
-              to="/comunity"
-              className={({ isActive }) =>
-                cn(
-                  "text-xs text-gray-500 hover:text-gray-900",
-                  isActive && "font-semibold text-gray-900",
-                )
-              }
-            >
-              커뮤니티
-            </NavLink>
-          </li>
-          <li >
-            <Link to="/login" >
-              <Button variant="primary" className="cursor-pointer ">로그인</Button>
-            </Link>
-          </li>
-        </ul>
+        {!isAuthPage && (
+          <ul className="flex items-center gap-4">
+            <li className="flex">
+              <NavLink
+                to="/comunity"
+                className={({ isActive }) =>
+                  cn(
+                    "text-xs text-gray-500 hover:text-gray-900",
+                    isActive && "font-semibold text-gray-900",
+                  )
+                }
+              >
+                커뮤니티
+              </NavLink>
+            </li>
+            <li>
+              <Link to="/login">
+                <Button variant="primary" className="cursor-pointer ">
+                  로그인
+                </Button>
+              </Link>
+            </li>
+          </ul>
+        )}
       </div>
     </header>
   );

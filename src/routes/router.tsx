@@ -5,7 +5,7 @@ import MoreMoviesPage from "@/pages/MoreMoviesPage";
 import MainPage from "@/pages/MainPage";
 import MovieSearhPage from "../pages/MovieSearchPage";
 import LoginPage from "@/pages/LoginPage";
-import SignUpPage from "@/pages/SignUpPage";
+import SignUpPage from "@/components/common/user/SignUp";
 
 
 export const router = createBrowserRouter([
