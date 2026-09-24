@@ -25,7 +25,8 @@ const Login = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="pb-3.5 max-w-87" >
         <div className="flex flex-col gap-3.5 mb-6">
           <FormInput
-            placeholder="아이디"
+            placeholder="아이디(이메일)"
+            type="email"
             registration={register("userId", { required: "아이디는 필수 입니다" })}
             error={errors.userId?.message as string}
           />
@@ -46,7 +47,7 @@ const Login = () => {
         <span>|</span>
         <NavLink to="/">비밀번호 찾기</NavLink>
         <span>|</span>
-        <NavLink to="/">회원가입</NavLink>
+        <NavLink to="/signup">회원가입</NavLink>
       </div>
     </div>
   );

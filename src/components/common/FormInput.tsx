@@ -7,10 +7,14 @@ interface FromInputProps {
   error?: string;
   registration?: UseFormRegisterReturn;
   type?: string;
+  helperText?: string;
 }
 
 export const FormInput = forwardRef<HTMLInputElement, FromInputProps>(
-  ({ placeholder, error, registration, type = "text", ...props }, ref) => {
+  (
+    { placeholder, error, registration, type = "text", helperText, ...props },
+    ref,
+  ) => {
     const [showPassword, setShowPassword] = useState(false);
 
     const isPasswordType = type === "password";
@@ -39,11 +43,17 @@ export const FormInput = forwardRef<HTMLInputElement, FromInputProps>(
               onClick={() => setShowPassword((prev) => !prev)}
               className="absolute right-3 text-gray-400 hover:text-gray-600 focus:outline-none"
             >
-              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
             </button>
           )}
         </div>
-        {error && <span className="text-red-500">{error}</span>}
+        <div className="h-3 mt-1 flex items-start">
+          {error ? (
+            <p className="text-xs text-red-500">{error}</p>
+          ) : helperText ? (
+            <p className="text-xs text-neutral-500">{helperText}</p>
+          ) : null}
+        </div>
       </div>
     );
   },
