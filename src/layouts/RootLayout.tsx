@@ -8,7 +8,7 @@ export default function RootLayout() {
       <ScrollRestoration />
        <Header />
 
-        <main className="flex-1 w-full"> 
+        <main className="flex-1 w-full py-4"> 
           <Outlet />
         </main>
         

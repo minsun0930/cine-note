@@ -6,8 +6,8 @@ import MainPage from "@/pages/MainPage";
 import MovieSearhPage from "../pages/MovieSearchPage";
 import LoginPage from "@/pages/LoginPage";
 import SignUpPage from "@/pages/SignUpPage";
-
-
+import ProtectedRoute from "@/components/common/ProtectedRoute";
+import MyPage from "@/pages/MyPage";
 
 export const router = createBrowserRouter([
   {
@@ -19,7 +19,7 @@ export const router = createBrowserRouter([
         element: <MainPage />,
       },
       {
-        path : "/movies/more",
+        path: "/movies/more",
         element: <MoreMoviesPage />,
       },
       {
@@ -28,17 +28,24 @@ export const router = createBrowserRouter([
       },
       {
         path: "/search",
-        element: <MovieSearhPage/>,
+        element: <MovieSearhPage />,
       },
       {
-        path : "/login",
-        element : <LoginPage />,
+        path: "/login",
+        element: <LoginPage />,
       },
       {
         path: "/signup",
-        element : <SignUpPage/>,
+        element: <SignUpPage />,
       },
-    
+      {
+        path: "/my",
+        element: (
+          <ProtectedRoute>
+            <MyPage />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
 ]);
