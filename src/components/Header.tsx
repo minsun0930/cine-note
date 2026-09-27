@@ -7,7 +7,8 @@ import {
 import Button from "./common/Button";
 import SearchInput from "./common/SearchInput";
 import { useAuthStore } from "@/store/useAuthStore";
-import { CircleUserIcon } from "lucide-react";
+
+import UserProfileMenu from "./common/user/UserProfileMenu";
 
 export default function Header() {
   const location = useLocation();
@@ -50,10 +51,7 @@ export default function Header() {
           <ul className="flex items-center gap-4">
             <li>
               {user ? (
-                <div className="flex items-center gap-2 cursor-pointer">
-                  <CircleUserIcon className="w-[20px] h-[20px]"/>
-                  <div className="font-semibold text-sm">{user.user_metadata?.display_name || user.email?.split("@")[0]}</div>
-                </div>
+                <UserProfileMenu  user={user}/>
               ) : (
                 <Link to="/login">
                   <Button variant="primary" className="cursor-pointer ">
