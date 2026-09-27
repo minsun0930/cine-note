@@ -1,7 +1,9 @@
-import { NavLink } from "react-router-dom";
+
+import { supabase } from "@/supabase/supabaseClient";
 import Button from "../Button";
 import { FormInput } from "../FormInput";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 interface LoginForm{
   userId : string;
@@ -14,9 +16,21 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginForm>();
+  const navigate = useNavigate();
 
-  const onSubmit = (data : LoginForm) => {
-    console.log("로그인 데이터:", data);
+  const onSubmit = async (data : LoginForm) => {
+    try {
+      const {error} = await supabase.auth.signInWithPassword({
+        email : data.userId,
+        password: data.password,
+      });
+
+      if(error) throw error;
+      navigate('/');
+    } catch (error) {
+      console.error("로그인 실패:", error);
+      alert('아이디 또는 비밀번호가 일치하지 않습니다.');
+    }
   };
 
   return (
@@ -42,13 +56,6 @@ const Login = () => {
 
         <Button type="submit" className="w-full p-4 text-sm">로그인</Button>
       </form>
-      <div className="text-sm flex items-center justify-center gap-2 mb-10 text-gray-500">
-        <NavLink to="/">아이디 찾기</NavLink>
-        <span>|</span>
-        <NavLink to="/">비밀번호 찾기</NavLink>
-        <span>|</span>
-        <NavLink to="/signup">회원가입</NavLink>
-      </div>
     </div>
   );
 };

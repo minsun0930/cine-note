@@ -26,7 +26,7 @@ export default function Header() {
   const isAuthPage =
     location.pathname === "/login" || location.pathname === "/signup";
 
-  const isHome = location.pathname === "/";
+  const hideSearchPaths = ["/", "/login", "/signup"];
 
   return (
     <header className="sticky top-0 z-50 bg-white w-full flex justify-center border-b mb-4 border-gray-200 py-1">
@@ -35,7 +35,7 @@ export default function Header() {
           <Link to="/" className="font-bold text-[30px] ">
             CINENOTE
           </Link>
-          {!isHome && !isAuthPage && (
+          {!hideSearchPaths.includes(location.pathname) && (
             <SearchInput
               key={keyword}
               variant="header"

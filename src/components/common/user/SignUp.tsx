@@ -4,6 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/supabase/supabaseClient";
+import { AuthError } from "@supabase/supabase-js";
 
 const signUpSchema = z
   .object({
@@ -40,7 +42,7 @@ const signUpSchema = z
 type SignUpFormValues = z.infer<typeof signUpSchema>;
 
 export default function SignUp() {
-  const navigate =useNavigate();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -56,21 +58,28 @@ export default function SignUp() {
     },
   });
 
-  const onSubmit = (data: SignUpFormValues) => {
+  const onSubmit = async (data: SignUpFormValues) => {
     console.log("회원가입 제출 데이터:", data);
     try {
-    // 1. Supabase(또는 백엔드)에 회원가입 요청
-    // 2. 가입 성공!
-    alert("회원가입이 완료되었습니다!");
-    
-    // 3. 메인 페이지로 이동
-    navigate("/"); 
-  } catch (error) {
-    console.error("회원가입 실패:", error);
+      const { error } = await supabase.auth.signUp({
+        email: data.userId,
+        password: data.password,
+      });
+
+      if (error) throw error;
+
+      alert("회원가입이 완료되었습니다!");
+      navigate("/");
+    } catch (error  ) {
+     if (error instanceof AuthError) {
+    console.error("인증 에러:", error.message);
+  } else {
+    console.error("알 수 없는 에러:", error);
   }
+    }
   };
   return (
-    <div >
+    <div>
       <h1 className="text-3xl font-bold mb-8 text-center">회원가입</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="pb-3.5 max-w-87">
         <div className="flex flex-col gap-3 mb-14">

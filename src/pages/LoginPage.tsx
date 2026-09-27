@@ -1,10 +1,17 @@
 import Button from "@/components/common/Button";
 import Login from "@/components/common/user/Login";
+import { NavLink } from "react-router-dom";
 
 const LoginPage = () => {
   return (
     <div className="max-w-87 w-full flex flex-col justify-center items-center mx-auto my-14">
       <Login />
+      <div className="flex justify-center gap-2 text-gray-400">
+        아직 회원이 아니신가요?
+        <NavLink  to="/signup" className="text-gray-800">
+          회원가입
+        </NavLink>
+      </div>
       <div className="flex items-center w-full my-4 mb-8">
         <div className="grow border-t border-gray-300"></div>
         <span className="px-3 text-sm text-gray-400">또는</span>
