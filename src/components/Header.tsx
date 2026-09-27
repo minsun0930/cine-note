@@ -1,19 +1,21 @@
 import {
   Link,
-  NavLink,
   useLocation,
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
 import Button from "./common/Button";
-import { cn } from "@/lib/utils";
 import SearchInput from "./common/SearchInput";
+import { useAuthStore } from "@/store/useAuthStore";
+import { CircleUserIcon } from "lucide-react";
 
 export default function Header() {
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") ?? "";
   const navigate = useNavigate();
+
+  const { user } = useAuthStore();
 
   const handleSearch = (query: string) => {
     if (query.trim() === "") {
@@ -46,25 +48,19 @@ export default function Header() {
         </div>
         {!isAuthPage && (
           <ul className="flex items-center gap-4">
-            <li className="flex">
-              <NavLink
-                to="/comunity"
-                className={({ isActive }) =>
-                  cn(
-                    "text-xs text-gray-500 hover:text-gray-900",
-                    isActive && "font-semibold text-gray-900",
-                  )
-                }
-              >
-                커뮤니티
-              </NavLink>
-            </li>
             <li>
-              <Link to="/login">
-                <Button variant="primary" className="cursor-pointer ">
-                  로그인
-                </Button>
-              </Link>
+              {user ? (
+                <div className="flex items-center gap-2 cursor-pointer">
+                  <CircleUserIcon className="w-[20px] h-[20px]"/>
+                  <div className="font-semibold text-sm">{user.user_metadata?.display_name || user.email?.split("@")[0]}</div>
+                </div>
+              ) : (
+                <Link to="/login">
+                  <Button variant="primary" className="cursor-pointer ">
+                    로그인
+                  </Button>
+                </Link>
+              )}
             </li>
           </ul>
         )}
