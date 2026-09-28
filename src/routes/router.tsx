@@ -1,13 +1,15 @@
 import { createBrowserRouter } from "react-router-dom";
 import RootLayout from "../layouts/RootLayout";
-import MovieDetailPage from "../pages/MovieDetailPage";
-import MoreMoviesPage from "@/pages/MoreMoviesPage";
-import MainPage from "@/pages/MainPage";
-import MovieSearhPage from "../pages/MovieSearchPage";
-import LoginPage from "@/pages/LoginPage";
-import SignUpPage from "@/pages/SignUpPage";
+import MovieDetailPage from "../pages/movie/MovieDetailPage";
+import MoreMoviesPage from "@/pages/movie/MoreMoviesPage";
+import MainPage from "@/pages/movie/MainPage";
+import MovieSearhPage from "../pages/movie/MovieSearchPage";
+import LoginPage from "@/pages/user/LoginPage";
+import SignUpPage from "@/pages/user/SignUpPage";
 import ProtectedRoute from "@/components/common/ProtectedRoute";
-import MyPage from "@/pages/MyPage";
+import MyPage from "@/pages/user/MyPage";
+import ChangePassword from "@/pages/user/ChangePassword";
+import AccountManagement from "@/pages/user/AccountManagement";
 
 export const router = createBrowserRouter([
   {
@@ -45,8 +47,22 @@ export const router = createBrowserRouter([
             <MyPage />
           </ProtectedRoute>
         ),
- 
-        
+      },
+      {
+        path: "/my/changePassword",
+        element: (
+          <ProtectedRoute>
+            <ChangePassword />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/my/account",
+        element: (
+          <ProtectedRoute>
+            <AccountManagement />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

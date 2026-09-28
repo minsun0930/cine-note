@@ -105,10 +105,10 @@ export default function MyPageSidebar({ user }: MyPageSidebarProps) {
         </div>
         <div className="w-full border my-4 border-gray-200"></div>
         <div className="flex flex-col gap-2">
-          <Link to="" className="hover:font-bold transition cursor-pointer">
+          <Link to="/my/changePassword" className="hover:font-bold transition cursor-pointer">
             비밀번호 변경
           </Link>
-          <Link to="" className="hover:font-bold transition cursor-pointer">
+          <Link to="/my/account" className="hover:font-bold transition cursor-pointer">
             계정 관리
           </Link>
         </div>
