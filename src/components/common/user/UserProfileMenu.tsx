@@ -27,7 +27,7 @@ export default function UserProfileMenu({ user }: UserProfileMenuProps) {
     >
       <div className="flex items-center gap-2 cursor-pointer">
         <CircleUserIcon className="w-5 h-5" />
-        <div className="font-semibold text-sm">{nickname}님</div>
+        <div className="font-semibold text-sm">{nickname}</div>
       </div>
       {isOpen && (
         <div className="absolute right-0 top-full w-full pt-2">

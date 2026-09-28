@@ -1,4 +1,4 @@
-import Skeleton from "../common/Skeleton";
+import Skeleton from "./Skeleton";
 
 interface MovieCardSkeletonProps {
   isGrid?: boolean;

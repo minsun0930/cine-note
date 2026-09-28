@@ -1,6 +1,6 @@
 import { Heart } from "lucide-react";
 import Button from "../common/Button";
-import Skeleton from "../common/Skeleton";
+import Skeleton from "./Skeleton";
 
 export default function MovieDetailSkeleton() {
 
@@ -13,7 +13,7 @@ export default function MovieDetailSkeleton() {
             <Skeleton className="w-156 h-30 mb-12"/>
             <Skeleton className="w-156 h-37"/>
             
-            <div className="flex gap-2 my-8">
+            <div className="flex gap-2 m-8">
               <Button className=" flex items-center gap-1">
                 찜하기 <Heart className="inline-block w-4 h-4" />
               </Button>
