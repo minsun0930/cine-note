@@ -57,7 +57,7 @@ export default function MyPageSidebar({ user }: MyPageSidebarProps) {
   return (
     <div className="max-w-80 w-full ">
       {/* 회원정보 */}
-      <div className=" p-7 rounded-[10px] bg-main/10 border border-main/50 ">
+      <div className=" p-7 rounded-[10px] bg-gray-200  ">
         <div className="flex items-center">
           {/* 변경하기 */}
           <CircleUserIcon className="w-8 h-8 mr-1 shrink-0" />
@@ -103,7 +103,7 @@ export default function MyPageSidebar({ user }: MyPageSidebarProps) {
             </div>
           )}
         </div>
-        <div className="w-full border my-4 border-gray-200"></div>
+        <div className="w-full border my-4 border-gray-600"></div>
         <div className="flex flex-col gap-2">
           <Link to="/my/changePassword" className="hover:font-bold transition cursor-pointer">
             비밀번호 변경
