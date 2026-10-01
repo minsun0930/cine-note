@@ -57,7 +57,7 @@ export default function MyPageSidebar({ user }: MyPageSidebarProps) {
   return (
     <div className="max-w-80 w-full ">
       {/* 회원정보 */}
-      <div className=" p-7 rounded-[10px] bg-gray-200  ">
+      <div className=" p-7 rounded-[10px] bg-main/10 border border-main  ">
         <div className="flex items-center">
           {/* 변경하기 */}
           <CircleUserIcon className="w-8 h-8 mr-1 shrink-0" />

@@ -1,8 +1,7 @@
 import { useMovies } from "@/hooks/useMovieQuery";
 import Button from "../common/Button";
 import type { Genre } from "@/types/movie";
-import MovieSlider from "../common/MovieSlidere";
-
+import MovieSlider from "./MovieSlider";
 
 
 //화면 출력할때 쓰는 데이터 타입

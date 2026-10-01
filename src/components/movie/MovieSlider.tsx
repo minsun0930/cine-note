@@ -1,7 +1,7 @@
 import type { Movie } from "@/types/movie";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import MovieCardSkeleton from "../skeleton/MovieCardSkeleton";
-import MovieCard from "./MovieCard";
+import MovieCard from "../common/MovieCard";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 

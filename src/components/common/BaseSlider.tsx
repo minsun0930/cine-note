@@ -1,11 +1,9 @@
 import { useEffect, useRef, useState, type PropsWithChildren } from "react";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { SliderContext } from "@/context/SliderContext";
 
-
-export default function BaseSlider({
-  children,
-}: PropsWithChildren) {
+export default function BaseSlider({ children }: PropsWithChildren) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -175,17 +173,19 @@ export default function BaseSlider({
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="relative ">
-        <div
-          ref={scrollRef}
-          onScroll={checkScrollPosition}
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={handlePointerUp}
-          onPointerCancel={handlePointerCancel}
-          className="cursor-pointer flex overflow-x-auto gap-2 scrollbar-none select-none"
-        >
-          {children}
-        </div>
+        <SliderContext.Provider value={{ isDragging: hasDragged }}>
+          <div
+            ref={scrollRef}
+            onScroll={checkScrollPosition}
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
+            onPointerCancel={handlePointerCancel}
+            className="cursor-pointer flex overflow-x-auto gap-2 scrollbar-none select-none"
+          >
+            {children}
+          </div>
+        </SliderContext.Provider>
         <div
           onClick={() => handleScrollClick("left")}
           className={`cursor-pointer absolute top-0 left-0 h-full w-16 text-white z-20 bg-linear-to-r from-black/80 to-transparent flex items-center justify-start pl-2 transition-opacity duration-300 

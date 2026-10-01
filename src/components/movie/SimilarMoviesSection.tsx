@@ -1,7 +1,7 @@
 import { useSimilarMovies } from "@/hooks/useMovieQuery"
 
 import type { TMDBResponse } from "@/types/movie"
-import MovieSlider from "../common/MovieSlidere";
+import MovieSlider from "./MovieSlider";
 
 interface SimilarMoviesSectionProps{
   movieId : string;

@@ -1,9 +1,12 @@
 import { cn } from "@/lib/utils";
 import type { Movie } from "@/types/movie";
 import { Heart } from "lucide-react";
-import { useState, type RefObject } from "react";
+import { type RefObject } from "react";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
+import { useFavoriteStore } from "@/store/useFavoriteStore";
+import { supabase } from "@/supabase/supabaseClient";
+// import { useSlider } from "@/context/useSlider";
 
 interface MovieCardProps {
   movie: Movie;
@@ -14,15 +17,51 @@ interface MovieCardProps {
 export default function MovieCard({
   movie,
   isGrid = false,
-  isDragging
+  isDragging,
 }: MovieCardProps) {
-  const [isLiked, setIsLiked] = useState(false);
+  // const {isDragging} = useSlider();
+  const { favorites, addFavorite, removeFavorite } = useFavoriteStore();
+  const isFavorited = favorites.includes(movie.id);
+
   const navigate = useNavigate();
 
-  //나중에 zustand로 옮기기
-  const handleLikeClick = (e: React.MouseEvent) => {
+  const handleToggleFavorite = async (
+    e: React.MouseEvent | React.PointerEvent,
+  ) => {
     e.stopPropagation();
-    setIsLiked((prev) => !prev);
+    e.preventDefault();
+
+    const { data: userData } = await supabase.auth.getUser();
+    if (!userData || userData.user === null) {
+      alert("로그인이 필요한 서비스입니다.");
+      navigate("/login");
+      return;
+    }
+
+    const userId = userData.user.id;
+
+    if (isFavorited) {
+      const { error } = await supabase
+        .from("favorites")
+        .delete()
+        .eq("user_id", userId)
+        .eq("movie_id", movie.id);
+
+      if (!error) {
+        removeFavorite(movie.id);
+      }
+    } else {
+      //찜 안한 경우
+      const { error } = await supabase.from("favorites").insert({
+        user_id: userId,
+        movie_id: movie.id,
+        movie_title: movie.title,
+        poster_path: movie.poster_path,
+      });
+      if (!error) {
+        addFavorite(movie.id);
+      }
+    }
   };
 
   return (
@@ -35,12 +74,17 @@ export default function MovieCard({
         navigate(`/movies/${movie.id}`);
       }}
     >
-      <Heart
-        className={`absolute top-1.5 right-2 w-5 h-5 z-11 ${isLiked ? "fill-main text-main" : "text-white fill-black/20"}`}
-        onClick={handleLikeClick}
-        onPointerDown={(e) => e.stopPropagation()}
-      />
-
+      {" "}
+      <div
+        className="absolute top-1.5 right-2  z-20 p-1"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <Heart
+          className={`w-5 h-5 z-30 ${isFavorited ? "fill-main text-white" : "text-white fill-black/20"}`}
+          onClick={handleToggleFavorite}
+          onPointerDown={(e) => e.stopPropagation()}
+        />
+      </div>
       <div
         className={` sm:group-hover:opacity-0 transition-opacity duration-400 ${isGrid ? "w-full" : "w-32 sm:w-40 md:w-45"}`}
       >
@@ -58,7 +102,6 @@ export default function MovieCard({
           </p>
         </div>
       </div>
-
       {/* 호버 시 나타날 UI */}
       <div
         className={`absolute inset-0 p-5 bg-black opacity-0 transition-opacity duration-300 sm:group-hover:opacity-100 z-10 flex flex-col justify-between ${isGrid ? "w-full" : "w-32 sm:w-40 md:w-45"}`}
