@@ -1,12 +1,12 @@
 import { cn } from "@/lib/utils";
 import type { Movie } from "@/types/movie";
 import { Heart } from "lucide-react";
-import { type RefObject } from "react";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 import { useFavoriteStore } from "@/store/useFavoriteStore";
 import { supabase } from "@/supabase/supabaseClient";
-// import { useSlider } from "@/context/useSlider";
+import { useContext, type RefObject } from "react";
+import { SliderContext } from "@/context/SliderContext";
 
 interface MovieCardProps {
   movie: Movie;
@@ -17,11 +17,14 @@ interface MovieCardProps {
 export default function MovieCard({
   movie,
   isGrid = false,
-  isDragging,
+  isDragging: propsIsDragging,
 }: MovieCardProps) {
-  // const {isDragging} = useSlider();
+  const sliderContext = useContext(SliderContext);
+  const isDragging = propsIsDragging ?? sliderContext?.isDragging;
+
+
   const { favorites, addFavorite, removeFavorite } = useFavoriteStore();
-  const isFavorited = favorites.includes(movie.id);
+  const isFavorited = favorites.some((m) => m.id === movie.id);
 
   const navigate = useNavigate();
 
@@ -52,14 +55,30 @@ export default function MovieCard({
       }
     } else {
       //찜 안한 경우
-      const { error } = await supabase.from("favorites").insert({
+      const newFavoriteData = {
         user_id: userId,
         movie_id: movie.id,
         movie_title: movie.title,
         poster_path: movie.poster_path,
-      });
+        vote_average: movie.vote_average ?? 0,
+        release_date: movie.release_date,
+        overview: movie.overview,
+      };
+
+      const { error } = await supabase
+        .from("favorites")
+        .insert(newFavoriteData);
+
       if (!error) {
-        addFavorite(movie.id);
+        addFavorite({
+          id: movie.id,
+          title: movie.title,
+          poster_path: movie.poster_path,
+          vote_average: movie.vote_average ?? 0,
+          popularity: movie.popularity ?? 0,
+          release_date: movie.release_date,
+          overview: movie.overview,
+        });
       }
     }
   };
@@ -74,7 +93,7 @@ export default function MovieCard({
         navigate(`/movies/${movie.id}`);
       }}
     >
-      {" "}
+
       <div
         className="absolute top-1.5 right-2  z-20 p-1"
         onClick={(e) => e.stopPropagation()}

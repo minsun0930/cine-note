@@ -1,5 +1,6 @@
+import { fetchFavoriteMovies } from "@/api/supabase";
 import { fetchMovieDetail, fetchMovies, fetchSearchMovies, fetchSimilarMovies} from "@/api/tmdb";
-import type { MovieDetail, TMDBResponse } from "@/types/movie";
+import type { Movie, MovieDetail, TMDBResponse } from "@/types/movie";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 
@@ -104,3 +105,14 @@ export const useSearchMovies = (
     totalResults,
   };
 };
+
+
+//찜한 영화 가져오기(supabase)
+export const useFavoriteMovies = (userId? : string) =>{
+  return useQuery<Movie[]>({
+    queryKey: ["favorites",userId],
+    queryFn : () => fetchFavoriteMovies(userId!),
+    enabled : !!userId,
+    staleTime : 1000*60*5,
+  })
+}

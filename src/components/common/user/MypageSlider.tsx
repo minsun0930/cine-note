@@ -1,9 +1,15 @@
-import { useEffect, useRef, useState, type PropsWithChildren } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { SliderContext } from "@/context/SliderContext";
+import { Link } from "react-router-dom";
 
-export default function BaseSlider({ children }: PropsWithChildren) {
+interface MypageSliderProps {
+  title: string;
+  children?: ReactNode;
+}
+
+export default function MypageSlider({ children, title }: MypageSliderProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -58,9 +64,16 @@ export default function BaseSlider({ children }: PropsWithChildren) {
     const cards = slider.querySelectorAll<HTMLElement>("[data-slider-item]");
     if (!cards.length) return;
 
-    const cardWidth = cards[0].offsetWidth + 8; // 카드 너비 + gap(gap-2는 약 8px)
+    const cardElement = cards[0];
+    const style = window.getComputedStyle(cardElement.parentElement || cardElement);
+    const gap = parseInt(style.gap || "8", 10);
+    const cardWidth = cardElement.offsetWidth + gap;
+
     const visibleWidth = slider.clientWidth; // 현재 보이는 슬라이더 영역 너비
-    const scrollAmount = Math.floor(visibleWidth / cardWidth) * cardWidth; // 한 번에 넘어갈 너비 (보이는 화면 기준)
+    const cardsPerView = Math.floor(visibleWidth / cardWidth);
+
+    // 최소 1개 이상은 이동하도록 보장하고, 화면에 보이는 카드 개수만큼 곱해서 이동 거리 산출
+    const scrollAmount = Math.max(1, cardsPerView) * cardWidth;
 
     const targetScroll =
       slider.scrollLeft +
@@ -81,8 +94,9 @@ export default function BaseSlider({ children }: PropsWithChildren) {
     const distance = e.clientX - startX.current;
 
     // 12px 이상 움직여야 '드래그'로 인정
-    if (Math.abs(distance) > 12) {
+    if (Math.abs(distance) > 4) {
       hasDragged.current = true;
+      console.log("🔥 드래그 감지됨! hasDragged.current =", hasDragged.current); // 이 로그가 찍히는지 확인!
     }
     if (!hasDragged.current) return;
 
@@ -108,7 +122,7 @@ export default function BaseSlider({ children }: PropsWithChildren) {
 
     const distance = e.clientX - startX.current;
 
-    if (!hasDragged.current || Math.abs(distance) < 12) {
+    if (!hasDragged.current || Math.abs(distance) < 8) {
       hasDragged.current = false;
       return;
     }
@@ -167,40 +181,54 @@ export default function BaseSlider({ children }: PropsWithChildren) {
   };
 
   return (
-    <div
-      className="relative min-h-85"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <div className="relative ">
-        <SliderContext.Provider value={{ isDragging: hasDragged }}>
-          <div
-            ref={scrollRef}
-            onScroll={checkScrollPosition}
-            onPointerDown={handlePointerDown}
-            onPointerMove={handlePointerMove}
-            onPointerUp={handlePointerUp}
-            onPointerCancel={handlePointerCancel}
-            className="cursor-pointer flex overflow-x-auto gap-2 scrollbar-none select-none"
+    <section className="w-full">
+      <div className="flex justify-between mb-4">
+        <h2 className="text-[20px] font-bold ">{title}</h2>
+      </div>
+      <div
+        className="relative min-h-85"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        {
+          <Link
+            to={`/movie`}
+            className="absolute right-0 -top-10 flex justify-center items-center text-[13px] text-gray-700"
           >
-            {children}
-          </div>
-        </SliderContext.Provider>
-        <div
-          onClick={() => handleScrollClick("left")}
-          className={`cursor-pointer absolute top-0 left-0 h-full w-16 text-white z-20 bg-linear-to-r from-black/80 to-transparent flex items-center justify-start pl-2 transition-opacity duration-300 
+            더보기 <ChevronRight className="text-[13px] text-gray-700" />
+          </Link>
+        }
+
+        <div className="relative ">
+          <SliderContext.Provider value={{ isDragging: hasDragged }}>
+            <div
+              ref={scrollRef}
+              onScroll={checkScrollPosition}
+              onPointerDown={handlePointerDown}
+              onPointerMove={handlePointerMove}
+              onPointerUp={handlePointerUp}
+              onPointerCancel={handlePointerCancel}
+              className="cursor-pointer flex overflow-x-auto gap-2 scrollbar-none select-none"
+            >
+              {children}
+            </div>
+          </SliderContext.Provider>
+          <div
+            onClick={() => handleScrollClick("left")}
+            className={`cursor-pointer absolute top-0 left-0 h-full w-16 text-white z-20 bg-linear-to-r from-black/80 to-transparent flex items-center justify-start pl-2 transition-opacity duration-300 
               ${isHovered && canScrollLeft ? "opacity-100" : "opacity-0"}`}
-        >
-          <ChevronLeft className=" w-10 h-10" />
-        </div>
-        <div
-          onClick={() => handleScrollClick("right")}
-          className={`cursor-pointer absolute top-0 right-0 h-full w-16 text-white z-20 bg-linear-to-l from-black/80 to-transparent  flex items-center justify-end pr-2 transition-opacity duration-300 
+          >
+            <ChevronLeft className=" w-10 h-10" />
+          </div>
+          <div
+            onClick={() => handleScrollClick("right")}
+            className={`cursor-pointer absolute top-0 right-0 h-full w-16 text-white z-20 bg-linear-to-l from-black/80 to-transparent  flex items-center justify-end pr-2 transition-opacity duration-300 
               ${isHovered && canScrollRight ? "opacity-100" : "opacity-0"}`}
-        >
-          <ChevronRight className=" w-10 h-10" />
+          >
+            <ChevronRight className=" w-10 h-10" />
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

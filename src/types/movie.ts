@@ -6,7 +6,7 @@ export interface Movie{
   release_date? : string,
   overview?: string,
   vote_average : number,
-  popularity :number
+  popularity:number
 }
 
 //장르 데이터 타입
@@ -41,6 +41,7 @@ export interface MovieDetail{
   credits: Credits;
   poster_path :string | null,
   vote_average:number,
+  popularity?: number;
 }
 
 
