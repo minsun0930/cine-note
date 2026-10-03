@@ -3,10 +3,12 @@ import type { Movie } from "@/types/movie";
 import { Heart } from "lucide-react";
 import Button from "./Button";
 
-import { useContext, type RefObject } from "react";
+import { useContext, useState, type RefObject } from "react";
 import { SliderContext } from "@/context/SliderContext";
 import { useFavoriteToggle } from "@/hooks/useMovieQuery";
 import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "@/store/useAuthStore";
+import { ReviewModal } from "./user/ReviewModal";
 
 interface MovieCardProps {
   movie: Movie;
@@ -19,11 +21,12 @@ export default function MovieCard({
   isGrid = false,
   isDragging: propsIsDragging,
 }: MovieCardProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const sliderContext = useContext(SliderContext);
   const isDragging = propsIsDragging ?? sliderContext?.isDragging;
   const navigate = useNavigate();
 
-  const {isFavorited,handleToggleFavorite} = useFavoriteToggle(movie);
+  const { isFavorited, handleToggleFavorite } = useFavoriteToggle(movie);
 
   return (
     <article
@@ -35,7 +38,6 @@ export default function MovieCard({
         navigate(`/movies/${movie.id}`);
       }}
     >
-
       <div
         className="absolute top-1.5 right-2  z-20 p-1"
         onClick={(e) => e.stopPropagation()}
@@ -92,12 +94,28 @@ export default function MovieCard({
             className="w-full  font-semibold rounded-lg md:text-[12px] sm:text-[9px] whitespace-nowrap "
             onClick={(e) => {
               e.stopPropagation();
+
+              const currentUser = useAuthStore.getState().user; 
+
+              if (!currentUser) {
+                alert("로그인이 필요한 서비스입니다.");
+                navigate("/login"); // 혹은 로그인 모달 열기
+                return;
+              }
+
+              setIsModalOpen(true);
             }}
           >
             리뷰 남기기
           </Button>
         </div>
       </div>
+      
+      <ReviewModal
+        movie={movie}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </article>
   );
 }

@@ -24,3 +24,28 @@ export const fetchFavoriteMovies = async (userId: string): Promise<Movie[]> => {
 
   return mappedMovies;
 };
+
+
+//사용자별 리뷰 가져오기
+export const fetchReivewsByUserId = async (movieId: string) =>{
+  const {data,error} = await supabase
+    .from("reivews")
+    .select("*")
+    .eq("movie_id", movieId) 
+    .order("create_at",{ascending:false})
+
+  if(error) throw new Error(error.message);
+  return data;
+}
+
+//영화별 리뷰 가져오기
+export const fetchReivewsByMovieId = async (userId : string) =>{
+  const {data, error} = await supabase
+    .from("reviews")
+    .select("*")
+    .eq("user_id",userId)
+    .order("createdt_at",{ascending:false});
+
+  if(error) throw new Error(error.message);
+  return data;
+}

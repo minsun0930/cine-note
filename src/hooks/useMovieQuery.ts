@@ -1,4 +1,4 @@
-import { fetchFavoriteMovies } from "@/api/supabase";
+import { fetchFavoriteMovies, fetchReivewsByMovieId, fetchReivewsByUserId } from "@/api/supabase";
 import { fetchMovieDetail, fetchMovies, fetchSearchMovies, fetchSimilarMovies} from "@/api/tmdb";
 import { useAuthStore } from "@/store/useAuthStore";
 import { supabase } from "@/supabase/supabaseClient";
@@ -110,6 +110,10 @@ export const useSearchMovies = (
 };
 
 
+
+//---------------------supabase 관련 훅------------------------
+
+
 //찜한 영화 가져오기(supabase)
 export const useFavoriteMovies = (userId? : string) =>{
   return useQuery<Movie[]>({
@@ -179,4 +183,26 @@ export const useFavoriteToggle = (movie:MovieBase | undefined) =>{
       queryClient.invalidateQueries({ queryKey: ["favorites", userId] });
     };
   return { isFavorited, handleToggleFavorite };
+}
+
+
+
+//특정 영화 리뷰 목록 가져오기
+
+//특정 유저가 작정한 리뷰 목록 가져오기
+export const useMovieReviews = (movieId:string) =>{
+  return useQuery({
+    queryKey : ["reviews", movieId],
+    queryFn : () => fetchReivewsByMovieId(movieId),
+    enabled : !!movieId,
+  });
+};
+
+
+export const useUserReviews = (userId : string | undefined) =>{
+  return useQuery({
+    queryKey: ["myReviews", userId],
+    queryFn : () => fetchReivewsByUserId(userId!),
+    enabled: !!userId,
+  })
 }

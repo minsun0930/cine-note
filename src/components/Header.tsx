@@ -16,7 +16,7 @@ export default function Header() {
   const keyword = searchParams.get("keyword") ?? "";
   const navigate = useNavigate();
 
-  const { user } = useAuthStore();
+  const user = useAuthStore((state) => state.user);
 
   const handleSearch = (query: string) => {
     if (query.trim() === "") {
@@ -51,7 +51,7 @@ export default function Header() {
           <ul className="flex items-center gap-4">
             <li>
               {user ? (
-                <UserProfileMenu  user={user}/>
+                <UserProfileMenu user={user} />
               ) : (
                 <Link to="/login">
                   <Button variant="primary" className="cursor-pointer ">
