@@ -1,11 +1,16 @@
-//TMDB에서 가져온 데이터의 타입
-export interface Movie{
+export interface MovieBase{
   id : number,
   title : string,
   poster_path:string | null,
-  release_date? : string,
+  release_date?: string,
   overview?: string,
   vote_average : number,
+}
+
+
+
+//TMDB에서 가져온 데이터의 타입
+export interface Movie extends MovieBase{
   popularity:number
 }
 
@@ -13,9 +18,7 @@ export interface Movie{
 export interface Genre {
   id: string;
   name: string;
-  
 }
-
 
 //서버에서 받아오는 데이터
 export interface TMDBResponse {
@@ -31,17 +34,10 @@ interface MovieGenre{
 }
 
 //반환 데이터 타입 지정. 상세 정보
-export interface MovieDetail{
-  id:number;
-  title:string;
-  overview:string;
+export interface MovieDetail extends MovieBase{
   genres:MovieGenre[];
   original_title : string;
-  release_date : string;
   credits: Credits;
-  poster_path :string | null,
-  vote_average:number,
-  popularity?: number;
 }
 
 

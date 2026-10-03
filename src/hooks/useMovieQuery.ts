@@ -1,7 +1,10 @@
 import { fetchFavoriteMovies } from "@/api/supabase";
 import { fetchMovieDetail, fetchMovies, fetchSearchMovies, fetchSimilarMovies} from "@/api/tmdb";
-import type { Movie, MovieDetail, TMDBResponse } from "@/types/movie";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useAuthStore } from "@/store/useAuthStore";
+import { supabase } from "@/supabase/supabaseClient";
+import type { Movie, MovieBase, MovieDetail, TMDBResponse } from "@/types/movie";
+import { useInfiniteQuery, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 
 //영화 리스트 가져오기
@@ -115,4 +118,65 @@ export const useFavoriteMovies = (userId? : string) =>{
     enabled : !!userId,
     staleTime : 1000*60*5,
   })
+}
+
+//찜 토글 및 하트 상태 관리 훅
+export const useFavoriteToggle = (movie:MovieBase | undefined) =>{
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
+  const user = useAuthStore((state)=> state.user);
+  const userId = user?.id;
+
+  const {data:favoriteMovies = []} = useFavoriteMovies(userId);
+    const isFavorited = movie
+    ? favoriteMovies.some((m) => m.id === movie.id)
+    : false;
+
+    const  handleToggleFavorite = async (e:React.MouseEvent | React.PointerEvent) =>{
+      e.stopPropagation();
+      e.preventDefault();
+      
+      if(!movie) return
+
+      const {data:userData} = await supabase.auth.getUser();
+      if(!userData || userData.user === null){
+        alert("로그인이 필요한 서비스입니다.");
+        navigate("/login");
+        return;
+      }
+
+      const userId = userData.user.id;
+
+      //찜 되어있음.
+      if(isFavorited){
+        const {error} = await supabase
+          .from("favorites")
+          .delete()
+          .eq("user_id",userId)
+          .eq("movie_id", movie.id);
+
+        if(error) console.error("찜 취소 에러 ", error.message);
+      }//찜 안되어있는 경우
+        else {
+        const newFavoriteData = {
+          user_id: userId,
+          movie_id: movie.id,
+          movie_title: movie.title,
+          poster_path: movie.poster_path,
+          vote_average: movie.vote_average ?? 0,
+          release_date: movie.release_date,
+          overview: movie.overview,
+        };
+
+        const { error } = await supabase
+          .from("favorites")
+          .insert(newFavoriteData);
+
+        if (error) console.error("찜 추가 에러:", error.message);
+      }
+      // 찜 목록 쿼리 무효화 (즉시 리렌더링)
+      queryClient.invalidateQueries({ queryKey: ["favorites", userId] });
+    };
+  return { isFavorited, handleToggleFavorite };
 }

@@ -13,21 +13,28 @@ export interface MovieFavoriteProps {
 export default function MovieFavoirteSection({title}:MovieFavoriteProps) {
   const { user } = useAuthStore();
   const {data: movies, isLoading, isError} = useFavoriteMovies(user?.id);
-  
 
-  if (isError) {
-    return <div className="py-4 px-4 text-red-500">데이터를 불러오지 못했습니다.</div>;
-  }
 
   return (
     <MypageSlider
       title={title}
     >
-      {isLoading
-        ? Array.from({ length: 10 }).map((_, index) => (
+      {isLoading ? 
+        ( Array.from({ length: 10 }).map((_, index) => (
             <MovieCardSkeleton key={index} isGrid={false} />
           ))
-        : movies?.slice(0, 20).map(
+        )
+        : isError ? (
+        <div className="py-4 px-4 text-red-500">
+          데이터를 불러오지 못했습니다.
+        </div>
+        ) : movies?.length === 0 ? (
+          <div className="py-4 px-4 text-red-500">
+          데이터를 불러오지 못했습니다.
+        </div>
+        ) 
+        :(
+        movies?.slice(0, 20).map(
             (movie) =>
               movie.poster_path && (
                 <div key={movie.id} data-slider-item className="relative ">
@@ -37,7 +44,9 @@ export default function MovieFavoirteSection({title}:MovieFavoriteProps) {
                   />
                 </div>
               ),
-          )}
+          )
+        )
+      }
     </MypageSlider>
   );
 }

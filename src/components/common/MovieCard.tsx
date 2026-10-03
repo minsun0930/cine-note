@@ -2,11 +2,11 @@ import { cn } from "@/lib/utils";
 import type { Movie } from "@/types/movie";
 import { Heart } from "lucide-react";
 import Button from "./Button";
-import { useNavigate } from "react-router-dom";
-import { useFavoriteStore } from "@/store/useFavoriteStore";
-import { supabase } from "@/supabase/supabaseClient";
+
 import { useContext, type RefObject } from "react";
 import { SliderContext } from "@/context/SliderContext";
+import { useFavoriteToggle } from "@/hooks/useMovieQuery";
+import { useNavigate } from "react-router-dom";
 
 interface MovieCardProps {
   movie: Movie;
@@ -21,67 +21,9 @@ export default function MovieCard({
 }: MovieCardProps) {
   const sliderContext = useContext(SliderContext);
   const isDragging = propsIsDragging ?? sliderContext?.isDragging;
-
-
-  const { favorites, addFavorite, removeFavorite } = useFavoriteStore();
-  const isFavorited = favorites.some((m) => m.id === movie.id);
-
   const navigate = useNavigate();
 
-  const handleToggleFavorite = async (
-    e: React.MouseEvent | React.PointerEvent,
-  ) => {
-    e.stopPropagation();
-    e.preventDefault();
-
-    const { data: userData } = await supabase.auth.getUser();
-    if (!userData || userData.user === null) {
-      alert("로그인이 필요한 서비스입니다.");
-      navigate("/login");
-      return;
-    }
-
-    const userId = userData.user.id;
-
-    if (isFavorited) {
-      const { error } = await supabase
-        .from("favorites")
-        .delete()
-        .eq("user_id", userId)
-        .eq("movie_id", movie.id);
-
-      if (!error) {
-        removeFavorite(movie.id);
-      }
-    } else {
-      //찜 안한 경우
-      const newFavoriteData = {
-        user_id: userId,
-        movie_id: movie.id,
-        movie_title: movie.title,
-        poster_path: movie.poster_path,
-        vote_average: movie.vote_average ?? 0,
-        release_date: movie.release_date,
-        overview: movie.overview,
-      };
-
-      const { error } = await supabase
-        .from("favorites")
-        .insert(newFavoriteData);
-
-      if (!error) {
-        addFavorite({
-          id: movie.id,
-          title: movie.title,
-          poster_path: movie.poster_path,
-          vote_average: movie.vote_average ?? 0,
-          popularity: movie.popularity ?? 0,
-          release_date: movie.release_date,
-          overview: movie.overview,
-        });
-      }
-    }
-  };
+  const {isFavorited,handleToggleFavorite} = useFavoriteToggle(movie);
 
   return (
     <article

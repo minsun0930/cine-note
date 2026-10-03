@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
-
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { SliderContext } from "@/context/SliderContext";
-import { Link } from "react-router-dom";
 
 interface MypageSliderProps {
   title: string;
@@ -190,14 +188,6 @@ export default function MypageSlider({ children, title }: MypageSliderProps) {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {
-          <Link
-            to={`/movie`}
-            className="absolute right-0 -top-10 flex justify-center items-center text-[13px] text-gray-700"
-          >
-            더보기 <ChevronRight className="text-[13px] text-gray-700" />
-          </Link>
-        }
 
         <div className="relative ">
           <SliderContext.Provider value={{ isDragging: hasDragged }}>
