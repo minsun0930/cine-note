@@ -3,8 +3,7 @@ import { X } from "lucide-react";
 import Button from "../common/Button";
 import type { MovieBase } from "@/types/movie";
 import { useState } from "react";
-import { useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/supabase/supabaseClient";
+import { useAddReview } from "@/hooks/useMovieQuery";
 
 interface ReviewModalProps {
   movie: MovieBase;
@@ -16,11 +15,11 @@ export function ReviewModal({ movie, isOpen, onClose }: ReviewModalProps) {
   const [rating, setRating] = useState<number>(0);
   const [hoverRating, setHoverRating] = useState<number>(0);
   const [content, setContent] = useState<string>("");
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  const {mutate: addReview, isPending} = useAddReview(String(movie.id))
 
   //왜 const user = useAuthStore() 이렇게 안쓰는 지 이해하기
   const user = useAuthStore((state) => state.user);
-  const queryClient = useQueryClient();
 
   if (!isOpen) return null;
 
@@ -31,8 +30,13 @@ export function ReviewModal({ movie, isOpen, onClose }: ReviewModalProps) {
     user?.email?.split("@")[0] ||
     "익명 사용자";
 
-  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
+
+    if(!user || !user.id){
+      alert("로그인이 필요합니다.");
+      return;
+    }
 
     if (rating === 0) {
       alert("별점을 선택해주세요.");
@@ -44,37 +48,20 @@ export function ReviewModal({ movie, isOpen, onClose }: ReviewModalProps) {
       return;
     }
 
-    setIsSubmitting(true);
-
-    try {
-      const { error } = await supabase.from("reviews").insert({
-        movie_id: String(movie.id),
+    addReview({
         movie_title: movie.title,
         poster_path: movie.poster_path,
-        user_id: user?.id,
+        user_id: user.id,
         nickname: nickname,
         rating: rating,
         content: content,
-      });
-      if (error) throw error;
-
-      alert("리뷰가 성공적으로 등록되었습니다!");
-
-      queryClient.invalidateQueries({ queryKey: ["reviews", movie.id] });
-
-      setContent("");
-      setRating(0);
-      onClose();
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error("리뷰 등록 실패:", error.message);
-      } else {
-        console.error("알 수 없는 오류:", error);
+    },{
+      onSuccess : () =>{
+        setContent("");
+        onClose();
       }
-      alert("리뷰 등록 중 오류가 발생했습니다.");
-    } finally {
-      setIsSubmitting(false);
-    }
+    })
+  
   };
 
   return (
@@ -187,8 +174,8 @@ export function ReviewModal({ movie, isOpen, onClose }: ReviewModalProps) {
           </div>
     
           <div className="flex mt-4">
-            <Button variant="primary" type="submit" disabled={isSubmitting}>
-              {isSubmitting ? "등록 중..." : "리뷰 남기기"}
+            <Button variant="primary" type="submit" disabled={isPending}>
+              { isPending ? "등록 중..." : "리뷰 남기기"}
             </Button>
           </div>
         </form>

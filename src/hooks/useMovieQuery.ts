@@ -235,7 +235,7 @@ export const useAddReview = (movieId: string) =>{
   return useMutation({
     mutationFn : async (newReviewData:{
         movie_title: string,
-        poster_path: string,
+        poster_path: string | null,
         user_id: string,
         nickname: string,
         rating: number,
