@@ -2,17 +2,20 @@ import { Heart } from "lucide-react";
 import Button from "../common/Button";
 import { GENRES } from "@/data/genres";
 import type { MovieDetail } from "@/types/movie";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import MovieDetailSkeleton from "../skeleton/MovieDetailSkeleton";
 import { useFavoriteToggle, useMovieDetail } from "@/hooks/useMovieQuery";
-// import { supabase } from "@/supabase/supabaseClient";
-// import { useEffect } from "react";
+import { ReviewModal } from "../review/ReviewModal";
+import { useState } from "react";
+import { useAuthStore } from "@/store/useAuthStore";
 
 export default function MovieDetail() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { movieId } = useParams();
   const { data: movie, isLoading, isError } = useMovieDetail(movieId);
+  const navigate = useNavigate();
 
-  const {isFavorited, handleToggleFavorite} = useFavoriteToggle(movie);
+  const { isFavorited, handleToggleFavorite } = useFavoriteToggle(movie);
 
   if (isLoading) return <MovieDetailSkeleton />;
 
@@ -34,9 +37,6 @@ export default function MovieDetail() {
   );
 
   const actors = movie.credits.cast.slice(0, 5);
-
-
-
 
   return (
     <div>
@@ -71,7 +71,24 @@ export default function MovieDetail() {
                   className={`inline-block w-4 h-4 z-30 ${isFavorited ? "fill-white text-white" : "text-white fill-black/20"}`}
                 />
               </Button>
-              <Button variant="secondary">리뷰 남기기</Button>
+              <Button
+                variant="secondary"
+                onClick={(e) => {
+                  e.stopPropagation();
+
+                  const currentUser = useAuthStore.getState().user;
+
+                  if (!currentUser) {
+                    alert("로그인이 필요한 서비스입니다.");
+                    navigate("/login"); // 혹은 로그인 모달 열기
+                    return;
+                  }
+
+                  setIsModalOpen(true);
+                }}
+              >
+                리뷰 남기기
+              </Button>
             </div>
 
             <div className="mb-1">
@@ -104,6 +121,11 @@ export default function MovieDetail() {
           </div>
         </div>
       </article>
+      <ReviewModal
+        movie={movie}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 }

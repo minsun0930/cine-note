@@ -1,7 +1,7 @@
 
 import { useFavoriteMovies } from "@/hooks/useMovieQuery";
 import MovieCardSkeleton from "@/components/skeleton/MovieCardSkeleton";
-import MovieCard from "../MovieCard";
+import MovieCard from "../common/MovieCard";
 import { useAuthStore } from "@/store/useAuthStore";
 import MypageSlider from "./MypageSlider";
 

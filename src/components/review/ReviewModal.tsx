@@ -1,13 +1,13 @@
 import { useAuthStore } from "@/store/useAuthStore";
 import { X } from "lucide-react";
-import Button from "../Button";
-import type { Movie } from "@/types/movie";
+import Button from "../common/Button";
+import type { MovieBase } from "@/types/movie";
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/supabase/supabaseClient";
 
 interface ReviewModalProps {
-  movie: Movie;
+  movie: MovieBase;
   isOpen: boolean;
   onClose: () => void;
 }
@@ -94,7 +94,7 @@ export function ReviewModal({ movie, isOpen, onClose }: ReviewModalProps) {
           <h3 className="text-xl font-bold text-gray-900 dark:text-white">
             리뷰
           </h3>
-          <X className="w-6 h-6" onClick={onClose} />
+          <X className="w-6 h-6 cursor-pointer" onClick={onClose} />
         </div>
         {/* 영화 정보 및 작성자 닉네임 요약 영역 */}
         <div className="mb-2 flex items-center gap-4 rounded-xl bg-gray-50 p-3 dark:bg-gray-800/50">

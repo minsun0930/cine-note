@@ -1,4 +1,4 @@
-import SignUp from "@/components/common/user/SignUp";
+import SignUp from "@/components/user/SignUp";
 import { NavLink } from "react-router-dom";
 
 const SignUpPage = () => {

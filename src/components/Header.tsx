@@ -8,7 +8,7 @@ import Button from "./common/Button";
 import SearchInput from "./common/SearchInput";
 import { useAuthStore } from "@/store/useAuthStore";
 
-import UserProfileMenu from "./common/user/UserProfileMenu";
+import UserProfileMenu from "./user/UserProfileMenu";
 
 export default function Header() {
   const location = useLocation();

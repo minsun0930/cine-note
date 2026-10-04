@@ -1,7 +1,7 @@
 
 import { supabase } from "@/supabase/supabaseClient";
-import Button from "../Button";
-import { FormInput } from "../FormInput";
+import Button from "../common/Button";
+import { FormInput } from "../common/FormInput";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 

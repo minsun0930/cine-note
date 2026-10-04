@@ -1,5 +1,5 @@
 import Button from "@/components/common/Button";
-import Login from "@/components/common/user/Login";
+import Login from "@/components/user/Login";
 import { supabase } from "@/supabase/supabaseClient";
 import { NavLink, useNavigate } from "react-router-dom";
 

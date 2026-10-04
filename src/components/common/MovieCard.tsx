@@ -8,7 +8,7 @@ import { SliderContext } from "@/context/SliderContext";
 import { useFavoriteToggle } from "@/hooks/useMovieQuery";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store/useAuthStore";
-import { ReviewModal } from "./user/ReviewModal";
+import { ReviewModal } from "../review/ReviewModal";
 
 interface MovieCardProps {
   movie: Movie;

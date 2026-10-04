@@ -1,10 +1,12 @@
 import { CircleUserIcon, EllipsisVerticalIcon, Heart } from "lucide-react";
-import type { ButtonHTMLAttributes } from "react";
-// import { useState } from "react";
+import { useState, type ButtonHTMLAttributes } from "react";
+import { ReviewDetailModal } from "./ReviewDtailModal";
+import { Link } from "react-router-dom";
 
-interface ReviewCardProps extends  ButtonHTMLAttributes<HTMLButtonElement>{
-  review:{
+interface ReviewCardProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  review: {
     id: string;
+    movie_id: string;
     movie_title?: string;
     nickname: string;
     rating: number;
@@ -14,12 +16,16 @@ interface ReviewCardProps extends  ButtonHTMLAttributes<HTMLButtonElement>{
   showMovieTitle?: boolean; //false면 상세페이지
 }
 
+export default function ReviewCard({
+  review,
+  showMovieTitle = false,
+  className,
+}: ReviewCardProps) {
+  const [isOpen, setIsOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const fromattedDate = new Date(review.created_at).toLocaleDateString("ko-KR");
 
-export default function ReviewCard({review , showMovieTitle= false, className}:ReviewCardProps) {
-    // const [isModalOpen,setIsModalOpen] = useState(false);
-    const fromattedDate = new Date(review.created_at).toLocaleDateString("ko-KR")
-
-    // 💡 5점 만점을 기준으로 별 아이콘을 동적으로 그려주는 함수
+  // 💡 5점 만점을 기준으로 별 아이콘을 동적으로 그려주는 함수
   const renderStars = (rating: number) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
@@ -28,22 +34,24 @@ export default function ReviewCard({review , showMovieTitle= false, className}:R
         stars.push(
           <span key={i} className="text-yellow-400">
             ★
-          </span>
+          </span>,
         );
       } else if (rating >= i - 0.5) {
         // 반쪽 별 (0.5점 단위 지원 시)
         stars.push(
           <span key={i} className="text-yellow-400 relative">
-            <span className="absolute overflow-hidden w-[50%] text-yellow-400">★</span>
+            <span className="absolute overflow-hidden w-[50%] text-yellow-400">
+              ★
+            </span>
             <span className="text-gray-300 dark:text-gray-700">★</span>
-          </span>
+          </span>,
         );
       } else {
         // 빈 별
         stars.push(
           <span key={i} className="text-gray-300 dark:text-gray-700">
             ★
-          </span>
+          </span>,
         );
       }
     }
@@ -54,17 +62,34 @@ export default function ReviewCard({review , showMovieTitle= false, className}:R
     <article className="flex flex-col h-full w-75 p-5 border rounded-[10px] max-w-70 bg-white">
       <div className="flex justify-between">
         {showMovieTitle ? (
-          <h4 className="font-bold text-[16px]">
+          <Link
+            to={`/movies/${review.movie_id}`}
+            className="font-bold text-[16px]"
+          >
             {review.movie_title}
-          </h4>
-        ):(
-           <div className="flex items-center gap-2 ">
-          <CircleUserIcon className="w-5 h-5" />
-          <div className="font-semibold text-[16px]">{review.nickname}</div>
-        </div>
+          </Link>
+        ) : (
+          <div className="flex items-center gap-2 ">
+            <CircleUserIcon className="w-5 h-5" />
+            <div className="font-semibold text-[16px]">{review.nickname}</div>
+          </div>
         )}
-       
-        <EllipsisVerticalIcon className="w-4 h-4 cursor-pointer" />
+
+        <EllipsisVerticalIcon
+          className="relative group w-4 h-4 cursor-pointer z-10"
+          onMouseEnter={() => setIsOpen(true)}
+          onMouseLeave={() => setIsOpen(false)}
+        />
+        {isOpen && (
+          <div className="absolute right-0 top-full pt-2 whitespace-nowrap ">
+            <div className="flex flex-col border pl-5 px-4 text-sm bg-white gap-2 py-4 rounded-[10px] shadow-md">
+              <div className="hover:font-bold transition ">수정</div>
+              <div className="hover:font-bold transition cursor-pointer">
+                삭제
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       <div className={`flex flex-col flex-1 w-full ${className}`}>
@@ -77,7 +102,7 @@ export default function ReviewCard({review , showMovieTitle= false, className}:R
         {review.content.length > 80 && (
           <div className="flex justify-end mb-3">
             <button
-              // onClick={() => setIsModalOpen(true)}
+              onClick={() => setIsModalOpen(true)}
               className="text-xs font-medium text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 underline underline-offset-4"
             >
               더보기
@@ -96,8 +121,11 @@ export default function ReviewCard({review , showMovieTitle= false, className}:R
         </div>
       </div>
 
-      {/* <ReviewDetailModal /> */}
-
+      <ReviewDetailModal
+        review={review}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </article>
   );
 }

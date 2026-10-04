@@ -1,13 +1,13 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ButtonHTMLAttributes, type ReactNode } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { SliderContext } from "@/context/SliderContext";
 
-interface MypageSliderProps {
+interface MypageSliderProps  extends  ButtonHTMLAttributes<HTMLButtonElement>{
   title: string;
   children?: ReactNode;
 }
 
-export default function MypageSlider({ children, title }: MypageSliderProps) {
+export default function MypageSlider({ children, title, className }: MypageSliderProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -179,12 +179,12 @@ export default function MypageSlider({ children, title }: MypageSliderProps) {
   };
 
   return (
-    <section className="w-full">
+    <section className={`w-full ${className}`}>
       <div className="flex justify-between mb-4">
         <h2 className="text-[20px] font-bold ">{title}</h2>
       </div>
       <div
-        className="relative min-h-85"
+        className="relative mb-10"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
