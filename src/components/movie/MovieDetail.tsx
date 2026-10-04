@@ -23,6 +23,7 @@ export default function MovieDetail() {
     return <div>영화 정보를 불러오지 못했습니다.</div>;
   }
 
+  
   // 상세 페이지에 들어올 때마다 최신 찜 목록을 전역 스토어에 동기화
 
   const genreNames = movie.genres

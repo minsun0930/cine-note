@@ -21,7 +21,7 @@ export default function ReviewCard({
   showMovieTitle = false,
   className,
 }: ReviewCardProps) {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const fromattedDate = new Date(review.created_at).toLocaleDateString("ko-KR");
 
@@ -60,7 +60,7 @@ export default function ReviewCard({
 
   return (
     <article className="flex flex-col h-full w-75 p-5 border rounded-[10px] max-w-70 bg-white">
-      <div className="flex justify-between">
+      <div className="flex justify-between relative">
         {showMovieTitle ? (
           <Link
             to={`/movies/${review.movie_id}`}
@@ -76,12 +76,12 @@ export default function ReviewCard({
         )}
 
         <EllipsisVerticalIcon
-          className="relative group w-4 h-4 cursor-pointer z-10"
+          className="relative group w-4 h-4 cursor-pointer"
           onMouseEnter={() => setIsOpen(true)}
           onMouseLeave={() => setIsOpen(false)}
         />
         {isOpen && (
-          <div className="absolute right-0 top-full pt-2 whitespace-nowrap ">
+          <div className="absolute right-0 top-full pt-2 whitespace-nowrap z-20">
             <div className="flex flex-col border pl-5 px-4 text-sm bg-white gap-2 py-4 rounded-[10px] shadow-md">
               <div className="hover:font-bold transition ">수정</div>
               <div className="hover:font-bold transition cursor-pointer">
