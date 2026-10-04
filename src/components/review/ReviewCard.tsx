@@ -1,22 +1,15 @@
 import { CircleUserIcon, EllipsisVerticalIcon, Heart } from "lucide-react";
 import { useState, type ButtonHTMLAttributes } from "react";
-import { ReviewDetailModal } from "./ReviewDtailModal";
+import { ReviewDetailModal } from "./ReviewDetailModal";
 import { Link } from "react-router-dom";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useDeleteReview } from "@/hooks/useMovieQuery";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
+import type { Review } from "@/types/review";
+import { ReviewModal } from "./ReviewModal";
 
 interface ReviewCardProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  review: {
-    id: string;
-    user_id?: string;
-    movie_id: string;
-    movie_title?: string;
-    nickname: string;
-    rating: number;
-    content: string;
-    created_at: string;
-  };
+  review: Review;
   showMovieTitle?: boolean; //false면 상세페이지
 }
 
@@ -25,9 +18,13 @@ export default function ReviewCard({
   showMovieTitle = false,
   className = "",
 }: ReviewCardProps) {
-  const {isOpen, setIsOpen,ref} = useOutsideClick();
-  
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isOpen, setIsOpen, ref } = useOutsideClick();
+
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+  // const [editingReview, setEditingReview] = useState<Review | null>(null);
+
   const fromattedDate = new Date(review.created_at).toLocaleDateString("ko-KR");
 
   const currentUser = useAuthStore((state) => state.user);
@@ -35,14 +32,15 @@ export default function ReviewCard({
 
   const { mutate: deleteReview } = useDeleteReview();
 
-
-
-
-
   const handleDelete = () => {
     if (confirm("정말 이 리뷰를 삭제하시겠습니까?")) {
       deleteReview(review.id);
     }
+  };
+
+  const handleOpenEdit = () => {
+    setIsOpen(false);
+    setIsEditModalOpen(true);
   };
 
   // 💡 5점 만점을 기준으로 별 아이콘을 동적으로 그려주는 함수
@@ -78,8 +76,6 @@ export default function ReviewCard({
     return stars;
   };
 
-  
-
   return (
     <article className="flex flex-col h-full w-75 p-5 border rounded-[10px] max-w-70 bg-white">
       <div className="flex justify-between relative">
@@ -106,7 +102,12 @@ export default function ReviewCard({
             {isOpen && (
               <div className="absolute right-0 top-full pt-2 whitespace-nowrap z-20">
                 <div className="flex flex-col border p-6 text-sm bg-white gap-2 py-4 rounded-[10px] shadow-md">
-                  <div className="hover:font-bold transition flex justify-center items-center ">수정</div>
+                  <div
+                    className="hover:font-bold transition flex justify-center items-center"
+                    onClick={handleOpenEdit}
+                  >
+                    수정
+                  </div>
                   <div
                     className="hover:font-bold transition cursor-pointer"
                     onClick={handleDelete}
@@ -130,7 +131,7 @@ export default function ReviewCard({
         {review.content.length > 80 && (
           <div className="flex justify-end mb-3">
             <button
-              onClick={() => setIsModalOpen(true)}
+              onClick={() => setIsDetailModalOpen(true)}
               className="text-xs font-medium text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 underline underline-offset-4"
             >
               더보기
@@ -151,8 +152,18 @@ export default function ReviewCard({
 
       <ReviewDetailModal
         review={review}
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        isOpen={isDetailModalOpen}
+        onClose={() => setIsDetailModalOpen(false)}
+      />
+      <ReviewModal
+        movie={{
+          id: Number(review.movie_id),
+          title: review.movie_title,
+          poster_path: review.poster_path ?? "",
+        }}
+        isOpen={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+        editReview={review} 
       />
     </article>
   );

@@ -1,13 +1,19 @@
 import { useAuthStore } from "@/store/useAuthStore";
 import { X } from "lucide-react";
 import Button from "../common/Button";
-import type { MovieBase } from "@/types/movie";
+
 import { useState } from "react";
 import { useAddReview, useUpdateReview } from "@/hooks/useMovieQuery";
 import type { Review } from "@/types/review";
 
+interface ReviewModalMovie {
+  id: string | number;
+  title: string;
+  poster_path: string | null;
+}
+
 interface ReviewModalProps {
-  movie: MovieBase;
+  movie: ReviewModalMovie 
   isOpen: boolean;
   onClose: () => void;
   editReview?:Review
@@ -15,6 +21,7 @@ interface ReviewModalProps {
 
 export function ReviewModal({ movie, isOpen, onClose,editReview }: ReviewModalProps) {
   const isEditMode = !!editReview;
+  
   
   const [rating, setRating] = useState<number>(isEditMode ? editReview.rating : 0);
   const [hoverRating, setHoverRating] = useState<number>(0);
