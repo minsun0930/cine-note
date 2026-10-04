@@ -1,5 +1,5 @@
 
-import type { review } from "@/types/review";
+import type { Review } from "@/types/review";
 import MypageSlider from "../user/MypageSlider";
 import ReviewCard from "./ReviewCard";
 import ReviewCardSkeleton from "@/components/skeleton/ReviewCardSkeleton";
@@ -10,7 +10,7 @@ export interface ReviewProps extends  ButtonHTMLAttributes<HTMLButtonElement> {
   title: string;
   isLoading : boolean;
   isError :boolean;
-  reviews: review[];
+  reviews: Review[];
   showMovieTitle : boolean;
 }
 

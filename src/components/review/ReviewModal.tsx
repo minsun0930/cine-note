@@ -3,27 +3,33 @@ import { X } from "lucide-react";
 import Button from "../common/Button";
 import type { MovieBase } from "@/types/movie";
 import { useState } from "react";
-import { useAddReview } from "@/hooks/useMovieQuery";
+import { useAddReview, useUpdateReview } from "@/hooks/useMovieQuery";
+import type { Review } from "@/types/review";
 
 interface ReviewModalProps {
   movie: MovieBase;
   isOpen: boolean;
   onClose: () => void;
+  editReview?:Review
 }
 
-export function ReviewModal({ movie, isOpen, onClose }: ReviewModalProps) {
-  const [rating, setRating] = useState<number>(0);
+export function ReviewModal({ movie, isOpen, onClose,editReview }: ReviewModalProps) {
+  const isEditMode = !!editReview;
+  
+  const [rating, setRating] = useState<number>(isEditMode ? editReview.rating : 0);
   const [hoverRating, setHoverRating] = useState<number>(0);
-  const [content, setContent] = useState<string>("");
+  const [content, setContent] = useState<string>(isEditMode ? editReview.content : "");;
 
-  const {mutate: addReview, isPending} = useAddReview(String(movie.id))
-
-  //왜 const user = useAuthStore() 이렇게 안쓰는 지 이해하기
   const user = useAuthStore((state) => state.user);
+
+  const {mutate: addReview, isPending: isAddPending} = useAddReview(String(movie.id))
+  const {mutate: updateReview, isPending : isUpdatePending}  = useUpdateReview();
+ 
+
+  const isPending = isAddPending || isUpdatePending;
 
   if (!isOpen) return null;
 
-  //왜 이렇게 가져오는지도 학습하기
   const nickname =
     user?.user_metadata?.display_name ||
     user?.user_metadata?.name ||
@@ -48,20 +54,37 @@ export function ReviewModal({ movie, isOpen, onClose }: ReviewModalProps) {
       return;
     }
 
-    addReview({
-        movie_title: movie.title,
-        poster_path: movie.poster_path,
-        user_id: user.id,
-        nickname: nickname,
-        rating: rating,
-        content: content,
-    },{
-      onSuccess : () =>{
-        setContent("");
-        onClose();
-      }
-    })
-  
+    if (isEditMode) {
+      // 수정 모드
+      updateReview(
+        { reviewId: editReview.id, newRating: rating, newContent:content },
+        {
+          onSuccess: () => {
+            alert("리뷰가 수정되었습니다!");
+            onClose();
+          },
+        }
+      );
+    } else {
+      // 작성 모드
+      if (!user) return;
+      addReview(
+        {
+          movie_title: movie.title,
+          poster_path: movie.poster_path,
+          user_id: user.id,
+          nickname: nickname,
+          rating: rating,
+          content: content,
+        },
+        {
+          onSuccess: () => {
+            alert("리뷰가 등록되었습니다!");
+            onClose();
+          },
+       }
+    );
+  }
   };
 
   return (
@@ -79,7 +102,7 @@ export function ReviewModal({ movie, isOpen, onClose }: ReviewModalProps) {
       >
         <div className=" flex items-center justify-between  pb-3">
           <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-            리뷰
+            {isEditMode ? "리뷰 수정" : "리뷰 작성"}
           </h3>
           <X className="w-6 h-6 cursor-pointer" onClick={onClose} />
         </div>
@@ -175,7 +198,7 @@ export function ReviewModal({ movie, isOpen, onClose }: ReviewModalProps) {
     
           <div className="flex mt-4">
             <Button variant="primary" type="submit" disabled={isPending}>
-              { isPending ? "등록 중..." : "리뷰 남기기"}
+              { isAddPending ? "등록 중..." : "리뷰 남기기"}
             </Button>
           </div>
         </form>

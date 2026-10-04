@@ -1,4 +1,4 @@
-export interface review {
+export interface Review {
   id: string;
   movie_id: string;
   movie_title?: string;

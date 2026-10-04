@@ -221,7 +221,7 @@ export const useMovieReviews = (movieId: string) => {
 //특정 유저가 작정한 리뷰 목록 가져오기
 export const useUserReviews = (userId: string | undefined) => {
   return useQuery({
-    queryKey: ["myReviews", userId],
+    queryKey: ["reviews", userId],
     queryFn: () => fetchReviewsByUserId(userId!),
     enabled: !!userId,
   });
