@@ -27,24 +27,24 @@ export const fetchFavoriteMovies = async (userId: string): Promise<Movie[]> => {
 
 
 //사용자별 리뷰 가져오기
-export const fetchReivewsByUserId = async (movieId: string) =>{
+export const fetchReviewsByMovieId = async (movieId: string) =>{
   const {data,error} = await supabase
-    .from("reivews")
+    .from("reviews")
     .select("*")
     .eq("movie_id", movieId) 
-    .order("create_at",{ascending:false})
+    .order("created_at",{ascending:false})
 
   if(error) throw new Error(error.message);
   return data;
 }
 
 //영화별 리뷰 가져오기
-export const fetchReivewsByMovieId = async (userId : string) =>{
+export const fetchReviewsByUserId = async (userId : string) =>{
   const {data, error} = await supabase
     .from("reviews")
     .select("*")
     .eq("user_id",userId)
-    .order("createdt_at",{ascending:false});
+    .order("created_at",{ascending:false});
 
   if(error) throw new Error(error.message);
   return data;
