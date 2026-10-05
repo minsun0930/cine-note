@@ -111,7 +111,7 @@ export function ReviewModal({
       }}
       onMouseDown={(e) => e.stopPropagation()}
       onPointerDown={(e) => e.stopPropagation()}
-      className=" fixed mx-auto inset-0 z-40 max-w-200 flex justify-center items-center p-20 mt-10"
+      className=" fixed mx-auto inset-0 z-80 max-w-200 flex justify-center items-center p-4 py-5 mt-8 my-auto"
     >
       <div
         onClick={(e) => {

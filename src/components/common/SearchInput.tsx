@@ -13,9 +13,9 @@ const variantStyles: Record<
   { form: string; input: string; search: string }
 > = {
   hero: {
-    form: "max-w-[64cqw] py-[1.5cqw] px-[3cqw] rounded-[80px] ",
-    input: "text-[1.5cqw]",
-    search: "min-w-6 min-h-6"
+    form: "max-w-[90cqw] md:max-w-[500px]  lg:max-w-[64cqw] py-[1cqw] px-[3cqw] rounded-[80px] ",
+    input: "text-[2cqw] md:text-[1.5cqw]",
+    search: "w-[3cqw] h-[3cqw] md:w-3 md:h-3 lg:w-8 lg:h-8"
   },
   //나중에 수정
   header: {
