@@ -24,6 +24,9 @@
   }
 }
 
+
+
+
 .react-calendar button{
   cursor: pointer;
 }
@@ -32,6 +35,7 @@
   position: relative;
   height: 60px; 
 }
+
 
 .react-calendar__navigation {
   display: flex;
@@ -63,4 +67,33 @@
 .react-calendar__navigation button span {
   font-size: 1.25rem;
   font-weight: bold;
+}
+
+
+@media screen and (min-width: 768px) {
+  .react-calendar__tile {
+    height: 50px; 
+
+  }
+  .react-calendar__navigation button span {
+  font-size: 1rem;
+  font-weight: bold;
+   white-space: nowrap;
+}
+
+
+}
+
+@media screen and (max-width: 768px) {
+  .react-calendar__tile {
+    height: 40px; 
+
+  }
+  .react-calendar__navigation button span {
+  font-size: 1rem;
+  font-weight: bold;
+   white-space: nowrap;
+}
+
+
 }

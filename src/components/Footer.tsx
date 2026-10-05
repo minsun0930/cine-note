@@ -9,25 +9,25 @@ export const Footer = ({ className }: FooterProps) => {
   return (
     <footer
       className={cn(
-        "w-full border-t border-gray-200 bg-gray-50 py-8 text-gray-600 flex justify-center items-center mt-20",
+        "w-full border-t border-gray-200 bg-gray-50 py-8 text-gray-600 flex justify-center items-center mt-20 ",
         className,
       )}
     >
-      <div className="max-w-325 px-4 w-full flex items-center justify-between">
-        <div className="flex flex-col items-center sm:items-start">
+      <div className="max-w-325 px-8 lg:px-4 w-full flex items-center justify-between">
+        <div className="flex flex-col justify-center items-start sm:items-start">
           <span className="text-16 font-bold text-gray-900 mb-4">
             cien-note | 영화 기록 사이트
           </span>
-          <p className="mb-4">
+          <p className="mb-4 text-sm break-keep">
             조민선 <br />
             Frontend Developer <br />
             사용자 경험을 고민하고, 좋은 인터페이스를 만드는 개발자입니다.
           </p>
-          <p className="text-12 text-gray-500 mb-1">
+          <p className="text-sm  text-gray-500 mb-1">
             © {new Date().getFullYear()} cien-note. Built with React & Tailwind
             CSS.
           </p>
-          <p className="text-gray-400">
+          <p className="text-sm  text-gray-400">
             <TMDBlogo className="w-6 h-6 text-blue-500 inline mr-1" />
             This product uses the TMDb API but is not endorsed or certified by
             TMDb.

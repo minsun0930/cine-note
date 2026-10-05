@@ -77,7 +77,7 @@ export default function ReviewCard({
   };
 
   return (
-    <article className="flex flex-col h-full w-75 p-5 border rounded-[10px] max-w-70 bg-white">
+    <article className="flex flex-col h-full w-50 md:w-75 p-5 border rounded-[10px] max-w-70 bg-white">
       <div className="flex justify-between relative">
         {showMovieTitle ? (
           <Link

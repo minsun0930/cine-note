@@ -60,7 +60,7 @@ export default function MoreMoviesView({
     <section>
       <h1 className="text-2xl mt-3 font-bold">{pageTitle}</h1>
         {type === "genre" && genres &&  (
-          <div className="sticky top-13 z-20 bg-white py-4.5 flex overflow-x-auto scrollbar-none *:mr-1.5">
+          <div className="sticky top-13 z-40 flex-wrap gap-y-1 bg-white py-4.5 flex overflow-x-auto scrollbar-none *:mr-1.5 ">
             {genres.map((genre) => (
               <Button
                 key={genre.id}

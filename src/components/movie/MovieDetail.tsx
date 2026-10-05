@@ -53,10 +53,10 @@ export default function MovieDetail() {
   return (
     <div>
       <article className=" w-full  mb-10 border-y-2 border-main/50  bg-main/10">
-        <div className="max-w-325 w-full mx-auto py-12 flex justify-between px-4">
-          <div className="max-w-150">
-            <h1 className="font-bold text-3xl mb-1">{movie.title}</h1>
-            <div className="text-sm text-gray-500 mb-10">
+        <div className="max-w-325 w-full mx-auto py-12 flex md:flex justify-between px-8 lg:px-4 gap-4">
+          <div className="max-w-90  md:max-w-100 lg:max-w-150 w-full">
+            <h1 className="font-bold text-xl md:text-2xl lg:text-3xl mb-1">{movie.title}</h1>
+            <div className="text-[10px] md:text-[12px] lg:text-sm text-gray-500 mb-10">
               {genreNames.map((genre) => (
                 <span key={genre}>{genre} </span>
               ))}
@@ -65,8 +65,8 @@ export default function MovieDetail() {
             <div
               className={
                 movie.overview?.trim()
-                  ? "text-gray-800 mb-9"
-                  : "text-gray-400 italic mb-9"
+                  ? "text-gray-800 mb-9 text-[10px] md:text-sm break-keep leading-relaxed"
+                  : "text-gray-400 italic mb-9 text-sm"
               }
             >
               {movie.overview && movie.overview.trim() !== ""
@@ -103,15 +103,15 @@ export default function MovieDetail() {
               </Button>
             </div>
 
-            <div className="mb-1">
+            <div className="mb-1  text-sm">
               <span className="text-gray-400">감독</span>
               <div>{director?.name}</div>
             </div>
-            <div>
+            <div className=" text-sm">
               <span className="text-gray-400 ">출연</span>
-              <div className="flex mb-10 divide-x divide-gray-300 overflow-x-auto flex-wrap">
+              <div className="flex mb-10 divide-x divide-gray-300 gap-2 overflow-x-auto flex-wrap gap-y-2">
                 {actors.map((actor) => (
-                  <div key={actor.id} className="flex px-2 first:pl-0">
+                  <div key={actor.id} className="flex pr-2 first:pl-0">
                     <div>{actor.name}</div>
                   </div>
                 ))}
@@ -131,7 +131,7 @@ export default function MovieDetail() {
             </div>
           </div>
 
-          <div className="w-80 h-120 aspect-2/3 rounded-[10px] overflow-hidden bg-white">
+          <div className="w-80 h-full aspect-2/3 rounded-[10px] overflow-hidden bg-white">
             <img
               className="rounded-[10px] w-full h-full  object-cover"
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}

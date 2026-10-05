@@ -61,12 +61,12 @@ export default function MovieCalendar() {
   };
 
   return (
-    <div className="p-6 bg-white rounded-[10px] border shadow-sm">
-      <h2 className="text-xl font-bold mb-4">내 영화 기록</h2>
+    <div className="flex-2 md:aspect-23/36 p-6 bg-white rounded-[10px] border shadow-sm">
+      <h2 className="md:text-[18px] lg:text-xl font-bold mb-4">내 영화 기록</h2>
       <Calendar
         tileContent={addContentToTile}
         formatDay={(_, date) => date.getDate().toString()}
-        className="w-full border-none rounded-xl"
+        className="w-full  border-none rounded-xl"
       />
     </div>
   );

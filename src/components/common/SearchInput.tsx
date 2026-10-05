@@ -19,7 +19,7 @@ const variantStyles: Record<
   },
   //나중에 수정
   header: {
-    form: "w-[280px] h-[32px] rounded-[10px] pr-2",
+    form: "max-w-[280px] w-full h-[32px] rounded-[10px] pr-2",
     input: "py-1 px-2 text-[12px]",
     search: "h-4 w-4",
   },
@@ -54,7 +54,7 @@ const SearchInput = ({
     <form
       onSubmit={handleSubmit}
       className={cn(
-        "flex justify-between items-center w-full bg-white border border-gray-400 focus-within:border-main transition-colors gap-4",
+        "flex justify-between items-center max-w-67 w-full bg-white border border-gray-400 focus-within:border-main transition-colors gap-4",
         currentStyles.form,
       )}
     >
@@ -62,7 +62,7 @@ const SearchInput = ({
         ref={inputRef}
         type="text"
         className={cn(
-          "flex w-full flex-1 outline-none",
+          "flex p-2 w-full  flex-1 outline-none",
           currentStyles.input,
           className,
         )}

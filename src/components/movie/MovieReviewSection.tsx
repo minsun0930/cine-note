@@ -10,7 +10,7 @@ export default function MovieReviewSection({ movieId }: MovieReviewProps) {
   const { data: reviews, isLoading, isError } = useMovieReviews(movieId);
 
   return (
-    <div className="py-5 max-w-325 w-full mx-auto">
+    <div className="py-5 max-w-325 w-full mx-auto px-8 lg:px-4">
       <ReviewList
         title="리뷰"
         reviews={reviews || []}

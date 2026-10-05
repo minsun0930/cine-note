@@ -33,11 +33,11 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-white w-full flex justify-center border-b mb-4 border-gray-200 py-1">
-      <div className="flex max-w-325 w-full justify-between  px-4">
-        <div className="flex items-center gap-5">
-          <Link to="/" className="font-bold text-[30px] ">
+      <div className="flex max-w-325 w-full justify-between px-8 lg:px-4">
+          <Link to="/" className="font-bold text-[20px] md:text-[30px] ">
             CINENOTE
           </Link>
+        <div className="flex items-center gap-5">
           {!hideSearchPaths.includes(location.pathname) && (
             <SearchInput
               key={keyword}
@@ -46,9 +46,8 @@ export default function Header() {
               onSearch={handleSearch}
             />
           )}
-        </div>
         {!isAuthPage && (
-          <ul className="flex items-center gap-4">
+          <ul className="flex items-center gap-4 whitespace-nowrap">
             <li>
               {user ? (
                 <UserProfileMenu user={user} />
@@ -62,6 +61,8 @@ export default function Header() {
             </li>
           </ul>
         )}
+        </div>
+        
       </div>
     </header>
   );

@@ -34,7 +34,7 @@ export default function MovieSection({
   return (
       <MovieSlider title={title} isLoading={isLoading} movies={movies} isTop20={isTop20} type={type} value={value} >
         {genres && onSelectGenre && (
-          <div className="w- mb-4.5 flex overflow-x-auto scrollbar-none *:mr-1.5">
+          <div className="md:w-5/6 lg:w-full flex-wrap gap-y-2 mb-4.5 flex overflow-x-auto scrollbar-none *:mr-1.5">
             {genres.map((genre) => (
               <Button
                 key={genre.id}

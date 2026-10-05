@@ -51,7 +51,7 @@ const MovieSearchView = () => {
   });
 
   return (
-    <div className="">
+    <div className="relative">
       <h1 className="text-2xl font-bold">"{keyword}"의 검색 결과</h1>
 
       <select
@@ -59,7 +59,7 @@ const MovieSearchView = () => {
         onChange={(e) =>
           setSortOption(e.target.value as "popularity" | "latest" | "rating")
         }
-        className="absolute right-0 top-12 px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white mr-4"
+        className="absolute -right-2 top-12 px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white mr-4"
       >
         <option value="popularity">인기순</option>
         <option value="latest">최신순</option>

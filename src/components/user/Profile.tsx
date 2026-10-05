@@ -29,10 +29,10 @@ export default function Profile() {
   };
 
   return (
-    <div className=" p-7 rounded-[10px] bg-main/10 border-2 border-main  ">
+    <div className="p-7 rounded-[10px] bg-main/10 border-2 border-main  ">
       <div className="flex items-center">
         {/* 변경하기 */}
-        <CircleUserIcon className="w-8 h-8 mr-1 shrink-0" />
+        <CircleUserIcon className="md:w-8 md:h-8 mr-1 shrink-0" />
 
         {isEditing ? (
           <div className="flex items-center gap-2">
@@ -62,7 +62,7 @@ export default function Profile() {
           </div>
         ) : (
           <div className="flex items-center gap-2 flex-1">
-            <span className="ml-2 text-[20px] font-medium text-neutral-800 leading-none">
+            <span className=" whitespace-nowrap ml-2 text-sm  md:text-[18px] lg:text-[20px] font-medium text-neutral-800 leading-none">
               {currentNickname}
             </span>
             <Pencil
@@ -75,8 +75,8 @@ export default function Profile() {
           </div>
         )}
       </div>
-      <div className="w-full border my-4 border-gray-600"></div>
-      <div className="flex flex-col gap-2">
+      <div className="w-full border-b-[0.2px] my-4 border-main"></div>
+      <div className="flex flex-col gap-2 text-sm lg:text-[16px]">
         <Link
           to="/my/changePassword"
           className="hover:font-bold transition cursor-pointer"
