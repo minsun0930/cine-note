@@ -13,25 +13,35 @@ interface ReviewModalMovie {
 }
 
 interface ReviewModalProps {
-  movie: ReviewModalMovie 
+  movie: ReviewModalMovie;
   isOpen: boolean;
   onClose: () => void;
-  editReview?:Review
+  editReview?: Review;
 }
 
-export function ReviewModal({ movie, isOpen, onClose,editReview }: ReviewModalProps) {
+export function ReviewModal({
+  movie,
+  isOpen,
+  onClose,
+  editReview,
+}: ReviewModalProps) {
   const isEditMode = !!editReview;
-  
-  
-  const [rating, setRating] = useState<number>(isEditMode ? editReview.rating : 0);
+
+  const [rating, setRating] = useState<number>(
+    isEditMode ? editReview.rating : 0,
+  );
   const [hoverRating, setHoverRating] = useState<number>(0);
-  const [content, setContent] = useState<string>(isEditMode ? editReview.content : "");;
+  const [content, setContent] = useState<string>(
+    isEditMode ? editReview.content : "",
+  );
 
   const user = useAuthStore((state) => state.user);
 
-  const {mutate: addReview, isPending: isAddPending} = useAddReview(String(movie.id))
-  const {mutate: updateReview, isPending : isUpdatePending}  = useUpdateReview();
- 
+  const { mutate: addReview, isPending: isAddPending } = useAddReview(
+    String(movie.id),
+  );
+  const { mutate: updateReview, isPending: isUpdatePending } =
+    useUpdateReview();
 
   const isPending = isAddPending || isUpdatePending;
 
@@ -46,7 +56,7 @@ export function ReviewModal({ movie, isOpen, onClose,editReview }: ReviewModalPr
   const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
 
-    if(!user || !user.id){
+    if (!user || !user.id) {
       alert("로그인이 필요합니다.");
       return;
     }
@@ -64,13 +74,12 @@ export function ReviewModal({ movie, isOpen, onClose,editReview }: ReviewModalPr
     if (isEditMode) {
       // 수정 모드
       updateReview(
-        { reviewId: editReview.id, newRating: rating, newContent:content },
+        { reviewId: editReview.id, newRating: rating, newContent: content },
         {
           onSuccess: () => {
-            alert("리뷰가 수정되었습니다!");
             onClose();
           },
-        }
+        },
       );
     } else {
       // 작성 모드
@@ -86,20 +95,23 @@ export function ReviewModal({ movie, isOpen, onClose,editReview }: ReviewModalPr
         },
         {
           onSuccess: () => {
-            alert("리뷰가 등록되었습니다!");
             onClose();
           },
-       }
-    );
-  }
+        },
+      );
+    }
   };
 
   return (
     <div
+      onWheel={(e) => e.stopPropagation()}
+      onTouchMove={(e) => e.stopPropagation()}
       onClick={(e) => {
         e.stopPropagation();
       }}
-      className="fixed mx-auto inset-0 z-40 max-w-200 flex justify-center items-center rounded-[10px]"
+      onMouseDown={(e) => e.stopPropagation()}
+      onPointerDown={(e) => e.stopPropagation()}
+      className=" fixed mx-auto inset-0 z-40 max-w-200 flex justify-center items-center"
     >
       <div
         onClick={(e) => {
@@ -202,10 +214,10 @@ export function ReviewModal({ movie, isOpen, onClose,editReview }: ReviewModalPr
               required
             />
           </div>
-    
+
           <div className="flex mt-4">
             <Button variant="primary" type="submit" disabled={isPending}>
-              { isAddPending ? "등록 중..." : "리뷰 남기기"}
+              {isAddPending ? "등록 중..." : "리뷰 남기기"}
             </Button>
           </div>
         </form>
