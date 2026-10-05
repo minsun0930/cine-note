@@ -1,9 +1,10 @@
 
 import type { Review } from "@/types/review";
-import MypageSlider from "../user/MypageSlider";
+
 import ReviewCard from "./ReviewCard";
 import ReviewCardSkeleton from "@/components/skeleton/ReviewCardSkeleton";
 import type { ButtonHTMLAttributes } from "react";
+import MypageSlider from "../user/MypageSlider";
 
 //화면 출력할때 쓰는 데이터 타입
 export interface ReviewProps extends  ButtonHTMLAttributes<HTMLButtonElement> {
