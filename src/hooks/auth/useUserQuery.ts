@@ -5,14 +5,14 @@ import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
 //회원가입 훅
-export const useSignup = () => {
+export const useSignUp = () => {
   const navigate = useNavigate();
 
   return useMutation({
     mutationFn: async (data: {
+      nickname: string;
       userId: string;
       password: string;
-      nickname: string;
     }) => {
       const { error } = await supabase.auth.signUp({
         email: data.userId,
@@ -40,31 +40,51 @@ export const useSignup = () => {
 };
 
 
+//로그인 훅
+export const useLogIn = () =>{
+  const navigate = useNavigate();
+
+  return useMutation({
+    mutationFn : async (data: {userId: string, password:string}) =>{
+      const {error} = await supabase.auth.signInWithPassword({
+        email: data.userId,
+        password : data.password,
+      })
+
+      if(error) throw error;
+      navigate("/");
+    },
+    onError : (error) =>{
+      console.error("로그인 실패", error);
+      alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+    }
+  })
+}
+
 
 //닉네임 변경
 export const useUpdateNickname = () => {
   const setUser = useAuthStore((state) => state.setUser);
 
   return useMutation({
-    mutationFn: async (newNickname : string) => {
-      const {data,error} = await supabase.auth.updateUser({
-        data: {display_name : newNickname}
+    mutationFn: async (newNickname: string) => {
+      const { data, error } = await supabase.auth.updateUser({
+        data: { display_name: newNickname },
       });
-      if(error) throw error;
+      if (error) throw error;
       return data;
     },
-    onSuccess : (data) =>{
-      if(data.user){
-        setUser(data.user)
+    onSuccess: (data) => {
+      if (data.user) {
+        setUser(data.user);
       }
       alert("닉네임이 성공적으로 변경되었습니다.");
     },
     onError: (error) => {
-      alert("닉네임 변경 실패: " + error.message)
-    }
+      alert("닉네임 변경 실패: " + error.message);
+    },
   });
 };
-
 
 //비밀 번호 변경
 interface updatePasswordParams {
@@ -72,73 +92,80 @@ interface updatePasswordParams {
   newPassword: string;
 }
 
-export const useUpdatePassword = () =>{
+export const useUpdatePassword = () => {
   const navigate = useNavigate();
 
   return useMutation({
-    mutationFn : async ({currentPassword,newPassword }: updatePasswordParams) => {
-      const {data: userData} = await supabase.auth.getUser(); 
+    mutationFn: async ({
+      currentPassword,
+      newPassword,
+    }: updatePasswordParams) => {
+      const { data: userData } = await supabase.auth.getUser();
       const email = userData.user?.email;
 
-      if(!email) throw new Error("로그인 정보를 찾을 수 없습니다.");
+      if (!email) throw new Error("로그인 정보를 찾을 수 없습니다.");
 
-      const {error: signInError} = await supabase.auth.signInWithPassword({
+      const { error: signInError } = await supabase.auth.signInWithPassword({
         email,
-        password : currentPassword,
+        password: currentPassword,
       });
-      if(signInError) throw new Error("현재 비밀번호가 일치하지 않습니다.");
+      if (signInError) throw new Error("현재 비밀번호가 일치하지 않습니다.");
 
-      const {error: updateError} = await supabase.auth.updateUser({
-        password:newPassword,
+      const { error: updateError } = await supabase.auth.updateUser({
+        password: newPassword,
       });
-      if(updateError) throw updateError;
+      if (updateError) throw updateError;
 
-      const {error: signOutError} = await supabase.auth.signOut();
-      if(signOutError) throw new Error("로그아웃 중 오류가 발생했습니다.");
+      const { error: signOutError } = await supabase.auth.signOut();
+      if (signOutError) throw new Error("로그아웃 중 오류가 발생했습니다.");
     },
-    onSuccess : () => {
+    onSuccess: () => {
       alert("비밀번호가 성공적으로 변경되었습니다. 다시 로그인 해주세요.");
       navigate("/login");
     },
-    onError : (error) =>{
-      if(error instanceof Error){
+    onError: (error) => {
+      if (error instanceof Error) {
         alert(error.message);
-      }else{
+      } else {
         alert("알 수 없는 에러가 발생했습니다.");
       }
-    }
-  })
-}
-
+    },
+  });
+};
 
 //회원 탈퇴 훅
 
-export const useDeleteAccount = () =>{
+export const useDeleteAccount = () => {
   return useMutation({
-    mutationFn : async () =>{
-      const {data: {user}, error : userError}  = await supabase.auth.getUser();
-      if(userError) throw userError;
+    mutationFn: async () => {
+      const {
+        data: { user },
+        error: userError,
+      } = await supabase.auth.getUser();
+      if (userError) throw userError;
 
-      if(user?.email === "test_user@gmail.com"){
+      if (user?.email === "test_user@gmail.com") {
         throw new Error("테스트용 계정은 회원탈퇴를 할 수 없습니다.");
       }
 
-      const {error: rpcError} = await supabase.rpc('delete_user');
-      if(rpcError) throw rpcError;
+       if(!confirm("정말 탈퇴하시겠습니까?")) return;
 
-      const {error: signOutError} = await supabase.auth.signOut();
-      if(signOutError) throw signOutError;
+      const { error: rpcError } = await supabase.rpc("delete_user");
+      if (rpcError) throw rpcError;
+
+      const { error: signOutError } = await supabase.auth.signOut();
+      if (signOutError) throw signOutError;
     },
-    onSuccess : () =>{
+    onSuccess: () => {
       alert("회원탈퇴가 완료되었습니다.");
-      window.location.href = "/"
+      window.location.href = "/";
     },
-    onError : (error) => {
-      if(error instanceof Error){
+    onError: (error) => {
+      if (error instanceof Error) {
         alert(error.message);
-      }else{
+      } else {
         alert("회원탈퇴 중 오류가 발생했습니다.");
       }
-    }
-  })
-}
+    },
+  });
+};

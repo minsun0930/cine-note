@@ -29,8 +29,8 @@ export default function MovieFavoirteSection({title}:MovieFavoriteProps) {
           데이터를 불러오지 못했습니다.
         </div>
         ) : movies?.length === 0 ? (
-          <div className="py-4 px-4 text-red-500">
-          데이터를 불러오지 못했습니다.
+             <div className="py-4 px-4 text-gray-500">
+          찜한 영화가 없습니다. 관심있는 영화를 찜 해보세요.
         </div>
         ) 
         :(

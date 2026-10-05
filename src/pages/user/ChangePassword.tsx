@@ -1,9 +1,8 @@
 import Button from "@/components/common/Button";
 import { FormInput } from "@/components/common/FormInput";
-import { supabase } from "@/supabase/supabaseClient";
+import { useUpdatePassword } from "@/hooks/auth/useUserQuery";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import z from "zod";
 
 const passwordSchema = z
@@ -35,7 +34,7 @@ const passwordSchema = z
 type PasswordFormValues = z.infer<typeof passwordSchema>;
 
 export default function ChangePassword() {
-  const navigate = useNavigate();
+  const {mutate: updatepassword} = useUpdatePassword();
 
   const {
     register,
@@ -46,42 +45,7 @@ export default function ChangePassword() {
   });
 
   const onSubmit = async (data: PasswordFormValues) => {
-    const { data: userData } = await supabase.auth.getUser();
-    const email = userData.user?.email;
-
-    if (!email) {
-      alert("로그인 정보를 찾을 수 없습니다.");
-      return;
-    }
-
-    const { error: signInError } = await supabase.auth.signInWithPassword({
-      email,
-      password: data.currentPassword,
-    });
-
-    if (signInError) {
-      alert("현재 비밀번호가 일치하지 않습니다.");
-      return;
-    }
-
-    const { error : updateError} = await supabase.auth.updateUser({
-      password: data.newPassword,
-    });
-
-    if (updateError) {
-      alert(updateError.message);
-      return;
-    }
-
-    
-    const { error: signOutError } = await supabase.auth.signOut();
-    if(signOutError){
-      alert("로그아웃 중 오류가 발생했습니다.");
-      return;
-    }
-
-    alert("비밀번호가 성공적으로 변경되었습니다. 다시 로그인 해주세요.");
-    navigate("/login");
+   updatepassword(data)
   };
 
   return (

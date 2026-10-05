@@ -3,9 +3,7 @@ import { FormInput } from "@/components/common/FormInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { supabase } from "@/supabase/supabaseClient";
-import { AuthError } from "@supabase/supabase-js";
+import { useSignUp } from "@/hooks/auth/useUserQuery";
 
 const signUpSchema = z
   .object({
@@ -42,7 +40,8 @@ const signUpSchema = z
 type SignUpFormValues = z.infer<typeof signUpSchema>;
 
 export default function SignUp() {
-  const navigate = useNavigate();
+  const { mutate: signUp } = useSignUp();
+
   const {
     register,
     handleSubmit,
@@ -60,29 +59,9 @@ export default function SignUp() {
 
   const onSubmit = async (data: SignUpFormValues) => {
     console.log("회원가입 제출 데이터:", data);
-    try {
-      const { error } = await supabase.auth.signUp({
-        email: data.userId,
-        password: data.password,
-        options:{
-          data:{
-            display_name: data.nickname,
-          }
-        }
-      });
-
-      if (error) throw error;
-
-      alert("회원가입이 완료되었습니다!");
-      navigate("/");
-    } catch (error  ) {
-     if (error instanceof AuthError) {
-    console.error("인증 에러:", error.message);
-  } else {
-    console.error("알 수 없는 에러:", error);
+    signUp(data)
   }
-    }
-  };
+   
   return (
     <div>
       <h1 className="text-3xl font-bold mb-8 text-center">회원가입</h1>
