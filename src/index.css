@@ -24,3 +24,43 @@
   }
 }
 
+.react-calendar button{
+  cursor: pointer;
+}
+
+.react-calendar__tile {
+  position: relative;
+  height: 60px; 
+}
+
+.react-calendar__navigation {
+  display: flex;
+  margin-bottom: 24px;
+}
+
+.react-calendar__month-view__weekdays {
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #737373; 
+}
+
+.react-calendar__month-view__weekdays abbr {
+  text-align: center;
+  text-decoration: none !important; 
+  cursor: default;
+}
+
+/*  화살표 버튼 자체의 영역과 크기 키우기 */
+.react-calendar__navigation button {
+  min-width: 24px;
+  min-height: 44px;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+/* 내장된 화살표 기호(<, > 등) 또는 글자 크기 확실히 키우기 */
+.react-calendar__navigation button span {
+  font-size: 1.25rem;
+  font-weight: bold;
+}

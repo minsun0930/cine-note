@@ -29,6 +29,7 @@ export default function MoreMoviesView({
 
   const categoryTitleMap: Record<string, string> = {
     popular: "인기 영화",
+    now_playing : "상영 중인 영화"
   };
 
   const {

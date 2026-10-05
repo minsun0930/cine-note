@@ -3,7 +3,7 @@ import { useState, type ButtonHTMLAttributes } from "react";
 import { ReviewDetailModal } from "./ReviewDetailModal";
 import { Link } from "react-router-dom";
 import { useAuthStore } from "@/hooks/auth/useAuthStore";
-import { useDeleteReview } from "@/hooks/useMovieQuery";
+import { useDeleteReview } from "@/hooks/useReviewQeury";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import type { Review } from "@/types/review";
 import { ReviewModal } from "./ReviewModal";

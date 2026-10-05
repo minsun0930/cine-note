@@ -8,11 +8,17 @@ import { useFavoriteToggle, useMovieDetail } from "@/hooks/useMovieQuery";
 import { ReviewModal } from "../review/ReviewModal";
 import { useState } from "react";
 import { useAuthStore } from "@/hooks/auth/useAuthStore";
+import { useMovieRatingStats } from "@/hooks/useReviewQeury";
 
 export default function MovieDetail() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { movieId } = useParams();
   const { data: movie, isLoading, isError } = useMovieDetail(movieId);
+  const {
+    data: stats,
+    isPending,
+    error,
+  } = useMovieRatingStats(String(movieId));
   const navigate = useNavigate();
 
   const { isFavorited, handleToggleFavorite } = useFavoriteToggle(movie);
@@ -23,7 +29,12 @@ export default function MovieDetail() {
     return <div>영화 정보를 불러오지 못했습니다.</div>;
   }
 
-  
+  if (isPending) return <div>평점 정보를 불러오는 중...</div>;
+  if (error) return <div>평점을 불러오지 못했습니다.</div>;
+
+  const averageRating = stats?.averageRating ?? 0;
+  const reviewCount = stats?.reviewCount ?? 0;
+
   // 상세 페이지에 들어올 때마다 최신 찜 목록을 전역 스토어에 동기화
 
   const genreNames = movie.genres
@@ -106,9 +117,17 @@ export default function MovieDetail() {
                 ))}
               </div>
             </div>
-            <div className=" text-gray-600 font-bold">
-              TMDB <span className="text-yellow-400">★</span>{" "}
-              {`${movie.vote_average.toFixed(1)}`}
+            <div className="flex gap-2 divide-x-2 divide-gray-300 ">
+              <div className=" text-gray-600 font-bold pr-2">
+                TMDB <span className="text-yellow-400">★</span>
+                {`${movie.vote_average.toFixed(1)}`}
+              </div>
+              <div className=" text-gray-600 font-bold">
+                리뷰{" "}
+                <span className="text-yellow-400">
+                  ★ {averageRating} <span className="text-gray-400">({reviewCount})</span>
+                </span>
+              </div>
             </div>
           </div>
 

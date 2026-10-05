@@ -1,4 +1,4 @@
-import { useMovieReviews } from "@/hooks/useMovieQuery";
+import { useMovieReviews } from "@/hooks/useReviewQeury";
 import ReviewList from "../review/ReviewList";
 
 //화면 출력할때 쓰는 데이터 타입

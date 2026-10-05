@@ -26,7 +26,7 @@ export const fetchFavoriteMovies = async (userId: string): Promise<Movie[]> => {
 };
 
 
-//사용자별 리뷰 가져오기
+//영화별 리뷰 가져오기
 export const fetchReviewsByMovieId = async (movieId: string) =>{
   const {data,error} = await supabase
     .from("reviews")
@@ -38,7 +38,7 @@ export const fetchReviewsByMovieId = async (movieId: string) =>{
   return data;
 }
 
-//영화별 리뷰 가져오기
+//사용자별 리뷰 가져오기
 export const fetchReviewsByUserId = async (userId : string) =>{
   const {data, error} = await supabase
     .from("reviews")
@@ -49,3 +49,22 @@ export const fetchReviewsByUserId = async (userId : string) =>{
   if(error) throw new Error(error.message);
   return data;
 }
+
+// rating 가져오는 함수 영화 평점 평균 보여줄때
+export const fetchMovieRatingStats = async (movieId: string) => {
+  const { data, error } = await supabase
+    .from("reviews")
+    .select("rating")
+    .eq("movie_id", movieId);
+
+  if (error) throw new Error(error.message);
+  if (!data || data.length === 0) return { averageRating: 0, reviewCount: 0 };
+
+  const totalRating = data.reduce((sum, review) => sum + review.rating, 0);
+  const avg = totalRating / data.length;
+
+  return {
+    averageRating: Number(avg.toFixed(1)),
+    reviewCount: data.length,
+  };
+};

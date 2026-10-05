@@ -64,7 +64,11 @@ export default function SignUp() {
    
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-8 text-center">회원가입</h1>
+      <h1 className="text-3xl font-bold mb-4 text-center">회원가입</h1>
+      <div className="text-[12px] my-3 break-keep text-gray-600">
+        ※ 본 사이트는 포트폴리오 프로젝트입니다.<br/> 실제 사용 중인 
+        이메일 주소나 민감한 개인정보를 입력하지 않도록 주의해 주세요.
+      </div>
       <form onSubmit={handleSubmit(onSubmit)} className="pb-3.5 max-w-87">
         <div className="flex flex-col gap-3 mb-14">
           <FormInput

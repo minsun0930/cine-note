@@ -3,7 +3,7 @@ import { X } from "lucide-react";
 import Button from "../common/Button";
 
 import { useState } from "react";
-import { useAddReview, useUpdateReview } from "@/hooks/useMovieQuery";
+import { useAddReview, useUpdateReview } from "@/hooks/useReviewQeury";
 import type { Review } from "@/types/review";
 
 interface ReviewModalMovie {

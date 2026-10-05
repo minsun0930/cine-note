@@ -32,6 +32,11 @@ const MainPage = () => {
         value="top_rated"
         isTop20={true}
       />
+      <MovieSection 
+        title="지금 상영 중인 영화"
+        type="category"
+        value="now_playing"
+      />
       <MovieSection title="인기 영화" type="category" value="popular" />
       <MovieSection
         title="장르별 영화"
