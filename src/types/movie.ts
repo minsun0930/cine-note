@@ -2,14 +2,14 @@ export interface MovieBase {
   id: number;
   title: string;
   poster_path: string | null;
+  release_date?: string;
+  overview?: string;
+  vote_average: number;
 }
 
 //TMDB에서 가져온 데이터의 타입
 export interface Movie extends MovieBase {
   popularity: number;
-  vote_average: number;
-  overview?: string;
-  release_date?: string;
 }
 
 //장르 데이터 타입
@@ -36,9 +36,6 @@ export interface MovieDetail extends MovieBase {
   genres: MovieGenre[];
   original_title: string;
   credits: Credits;
-  vote_average: number;
-  overview?: string;
-  release_date?: string;
 }
 
 //감독, 출연진

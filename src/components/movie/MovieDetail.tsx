@@ -7,7 +7,7 @@ import MovieDetailSkeleton from "../skeleton/MovieDetailSkeleton";
 import { useFavoriteToggle, useMovieDetail } from "@/hooks/useMovieQuery";
 import { ReviewModal } from "../review/ReviewModal";
 import { useState } from "react";
-import { useAuthStore } from "@/store/useAuthStore";
+import { useAuthStore } from "@/hooks/auth/useAuthStore";
 
 export default function MovieDetail() {
   const [isModalOpen, setIsModalOpen] = useState(false);

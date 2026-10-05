@@ -7,7 +7,7 @@ import { useContext, useState, type RefObject } from "react";
 import { SliderContext } from "@/context/SliderContext";
 import { useFavoriteToggle } from "@/hooks/useMovieQuery";
 import { useNavigate } from "react-router-dom";
-import { useAuthStore } from "@/store/useAuthStore";
+import { useAuthStore } from "@/hooks/auth/useAuthStore";
 import { ReviewModal } from "../review/ReviewModal";
 
 interface MovieCardProps {

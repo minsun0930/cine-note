@@ -1,6 +1,6 @@
 
 import {useUserReviews } from "@/hooks/useMovieQuery";
-import { useAuthStore } from "@/store/useAuthStore";
+import { useAuthStore } from "@/hooks/auth/useAuthStore";
 import ReviewList from "../review/ReviewList";
 
 export default function MyReviewSection() {

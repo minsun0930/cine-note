@@ -1,6 +1,6 @@
-import MypageMain from "@/components/user/MypageMain";
-import MyPageSidebar from "@/components/user/MypageSidebar";
-import { useAuthStore } from "@/store/useAuthStore";
+import MypageMain from "@/components/user/page/MypageMain";
+import MyPageSidebar from "@/components/user/page/MypageSidebar";
+import { useAuthStore } from "@/hooks/auth/useAuthStore";
 
 export default function MyPage(){
 

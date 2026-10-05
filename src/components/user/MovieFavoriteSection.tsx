@@ -2,7 +2,7 @@
 import { useFavoriteMovies } from "@/hooks/useMovieQuery";
 import MovieCardSkeleton from "@/components/skeleton/MovieCardSkeleton";
 import MovieCard from "../common/MovieCard";
-import { useAuthStore } from "@/store/useAuthStore";
+import { useAuthStore } from "@/hooks/auth/useAuthStore";
 import MypageSlider from "./MypageSlider";
 
 //화면 출력할때 쓰는 데이터 타입

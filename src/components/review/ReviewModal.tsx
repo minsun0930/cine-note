@@ -1,4 +1,4 @@
-import { useAuthStore } from "@/store/useAuthStore";
+import { useAuthStore } from "@/hooks/auth/useAuthStore";
 import { X } from "lucide-react";
 import Button from "../common/Button";
 

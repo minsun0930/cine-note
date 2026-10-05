@@ -9,7 +9,7 @@ import {
   fetchSearchMovies,
   fetchSimilarMovies,
 } from "@/api/tmdb";
-import { useAuthStore } from "@/store/useAuthStore";
+import { useAuthStore } from "@/hooks/auth/useAuthStore";
 import { supabase } from "@/supabase/supabaseClient";
 import type {
   Movie,

@@ -1,4 +1,4 @@
-import { useAuthStore } from "@/store/useAuthStore";
+import { useAuthStore } from "@/hooks/auth/useAuthStore";
 import { supabase } from "@/supabase/supabaseClient";
 import type { User } from "@supabase/supabase-js";
 import { Check, CircleUserIcon, Pencil, X } from "lucide-react";
@@ -57,7 +57,7 @@ export default function MyPageSidebar({ user }: MyPageSidebarProps) {
   return (
     <div className="max-w-80 w-full ">
       {/* 회원정보 */}
-      <div className=" p-7 rounded-[10px] bg-main/10 border border-main  ">
+      <div className=" p-7 rounded-[10px] bg-main/10 border-2 border-main  ">
         <div className="flex items-center">
           {/* 변경하기 */}
           <CircleUserIcon className="w-8 h-8 mr-1 shrink-0" />

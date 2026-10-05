@@ -1,6 +1,6 @@
 
-import MovieFavoirteSection from "./MovieFavoriteSection";
-import MyReviewSection from "./MyReviewSection";
+import MovieFavoirteSection from "../MovieFavoriteSection";
+import MyReviewSection from "../MyReviewSection";
 
 
 export default function MypageMain(){

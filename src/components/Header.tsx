@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import Button from "./common/Button";
 import SearchInput from "./common/SearchInput";
-import { useAuthStore } from "@/store/useAuthStore";
+import { useAuthStore } from "@/hooks/auth/useAuthStore";
 
 import UserProfileMenu from "./user/UserProfileMenu";
 

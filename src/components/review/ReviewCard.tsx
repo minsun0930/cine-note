@@ -2,7 +2,7 @@ import { CircleUserIcon, EllipsisVerticalIcon, Heart } from "lucide-react";
 import { useState, type ButtonHTMLAttributes } from "react";
 import { ReviewDetailModal } from "./ReviewDetailModal";
 import { Link } from "react-router-dom";
-import { useAuthStore } from "@/store/useAuthStore";
+import { useAuthStore } from "@/hooks/auth/useAuthStore";
 import { useDeleteReview } from "@/hooks/useMovieQuery";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import type { Review } from "@/types/review";
@@ -124,7 +124,7 @@ export default function ReviewCard({
       <div className={`flex flex-col flex-1 w-full ${className}`}>
         <div>{renderStars(review.rating)}</div>
 
-        <div className=" my-2 text-sm line-clamp-3 leading-relaxed wrap-break-words ">
+        <div className=" my-2 text-sm line-clamp-3 leading-relaxed break-keep ">
           {review.content}
         </div>
 
