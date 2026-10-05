@@ -59,7 +59,7 @@ const MovieSearchView = () => {
         onChange={(e) =>
           setSortOption(e.target.value as "popularity" | "latest" | "rating")
         }
-        className="absolute -right-2 top-12 px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white mr-4"
+        className="absolute -right-4 top-12 px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white mr-4"
       >
         <option value="popularity">인기순</option>
         <option value="latest">최신순</option>

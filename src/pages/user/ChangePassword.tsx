@@ -49,9 +49,9 @@ export default function ChangePassword() {
   };
 
   return (
-    <div className="max-w-87 w-full flex flex-col justify-center items-center mx-auto my-14">
+    <div className="max-w-87 w-full flex flex-col justify-center items-center mx-auto my-14 px-6">
       <div className="felx items-center justify-center flex-col w-full">
-        <h1 className="text-3xl font-bold mb-8 text-center">비밀번호 변경</h1>
+        <h1 className="text-2xl md:text-3xl font-bold mb-8 text-center">비밀번호 변경</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="pb-3.5 max-w-87">
           <div className="flex flex-col gap-3.5 mb-6">
             <FormInput
