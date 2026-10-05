@@ -191,7 +191,7 @@ export default function MovieSlider({
   };
 
   return (
-    <section className="py-5 max-w-325 w-full mx-auto px-8 lg:px-4 ">
+    <section className="py-5 max-w-325 w-full mx-auto px-4 md:px-8 lg:px-4 ">
       <div className="flex justify-between items-end mb-4">
         <h2 className="text-[20px] font-bold ">{title}</h2>
       </div>
