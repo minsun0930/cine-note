@@ -54,7 +54,7 @@ const SearchInput = ({
     <form
       onSubmit={handleSubmit}
       className={cn(
-        "flex justify-between items-center max-w-67 w-full bg-white border border-gray-400 focus-within:border-main transition-colors gap-4",
+        "flex justify-between items-center ml-2 max-w-67 w-full bg-white border border-gray-400 focus-within:border-main transition-colors gap-4",
         currentStyles.form,
       )}
     >
