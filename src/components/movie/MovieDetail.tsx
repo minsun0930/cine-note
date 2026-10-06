@@ -16,7 +16,6 @@ export default function MovieDetail() {
   const { data: movie, isLoading, isError } = useMovieDetail(movieId);
   const {
     data: stats,
-    isPending,
     error,
   } = useMovieRatingStats(String(movieId));
   const navigate = useNavigate();
@@ -29,7 +28,6 @@ export default function MovieDetail() {
     return <div>영화 정보를 불러오지 못했습니다.</div>;
   }
 
-  if (isPending) return <div>평점 정보를 불러오는 중...</div>;
   if (error) return <div>평점을 불러오지 못했습니다.</div>;
 
   const averageRating = stats?.averageRating ?? 0;
