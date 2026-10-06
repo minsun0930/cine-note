@@ -64,7 +64,7 @@ export default function SignUp() {
    
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-4 text-center">회원가입</h1>
+      <h1 className="text-2xl md:text-3xl font-bold mb-4 text-center">회원가입</h1>
       <div className="text-[12px] my-3 break-keep text-gray-600">
         ※ 본 사이트는 포트폴리오 프로젝트입니다.<br/> 실제 사용 중인 
         이메일 주소나 민감한 개인정보를 입력하지 않도록 주의해 주세요.
@@ -102,7 +102,7 @@ export default function SignUp() {
           <div className="mb-4">
             <label className="text-sm flex items-center gap-1">
               <input type="checkbox" {...register("termsAgreed")} />
-              <span>[필수] 서비스 이용약관 및 개인정보 수집에 동의합니다.</span>
+              <span className="text-xs">[필수] 서비스 이용약관 및 개인정보 수집에 동의합니다.</span>
             </label>
             <div className="h-6 mt-1 flex items-start">
               {errors.termsAgreed && (

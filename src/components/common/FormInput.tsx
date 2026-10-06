@@ -51,7 +51,7 @@ export const FormInput = forwardRef<HTMLInputElement, FromInputProps>(
           {error ? (
             <p className="text-xs text-red-500">{error}</p>
           ) : helperText ? (
-            <p className="text-xs text-neutral-500">{helperText}</p>
+            <p className="text-[10px] text-neutral-500">{helperText}</p>
           ) : null}
         </div>
       </div>

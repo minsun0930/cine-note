@@ -55,7 +55,7 @@ export default function MovieDetail() {
       <article className=" w-full  mb-10 border-y-2 border-main/50  bg-main/10">
         <div className="max-w-325 w-full mx-auto py-12 flex md:flex justify-between px-8 lg:px-4 gap-4">
           <div className="max-w-90  md:max-w-100 lg:max-w-150 w-full">
-            <h1 className="font-bold text-xl md:text-2xl lg:text-3xl mb-1">{movie.title}</h1>
+            <h1 className="font-bold text-xl md:text-2xl lg:text-3xl mb-1 break-keep">{movie.title}</h1>
             <div className="text-[10px] md:text-[12px] lg:text-sm text-gray-500 mb-10">
               {genreNames.map((genre) => (
                 <span key={genre}>{genre} </span>

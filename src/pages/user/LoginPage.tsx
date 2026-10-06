@@ -20,7 +20,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="max-w-87 w-full flex flex-col justify-center items-center mx-auto my-14">
+    <div className="max-w-87 w-full flex flex-col justify-center items-center mx-auto my-14 px-6">
       <Login />
       <div className="flex justify-center gap-2 text-gray-400">
         아직 회원이 아니신가요?
