@@ -1,4 +1,4 @@
-import { CircleUserIcon, EllipsisVerticalIcon, Heart } from "lucide-react";
+import { CircleUserIcon, EllipsisVerticalIcon } from "lucide-react";
 import { useState, type ButtonHTMLAttributes } from "react";
 import { ReviewDetailModal } from "./ReviewDetailModal";
 import { Link } from "react-router-dom";
@@ -143,9 +143,9 @@ export default function ReviewCard({
           <div className="text-[10px] text-gray-600 mb-">{fromattedDate}</div>
           <div className="flex gap-1">
             <span className="flex items-center"></span>
-            <span className="flex items-center">
+            {/* <span className="flex items-center">
               <Heart className=" w-4 h-4" />
-            </span>
+            </span> */}
           </div>
         </div>
       </div>
