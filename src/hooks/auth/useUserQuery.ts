@@ -35,7 +35,7 @@ export const useSignUp = () => {
 
         // Supabase의 이미 가입된 이메일 에러 메시지 체크
         if (error.message.includes("User already registered")) {
-          alert("이미 가입된 이메일입니다. 로그인해 주세요.");
+          alert("이미 가입된 이메일입니다. 다른 이메일을 사용해 주세요.");
         } else {
           alert(`인증 에러가 발생했습니다: ${error.message}`);
         }
