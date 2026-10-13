@@ -8,7 +8,7 @@ interface AuthState{
   initialize : ()=>Promise<void>; 
 }
 
-
+//로그인 한 유저의 프로필이나 정보를 여러 컴포넌트에서 사용하기 위해 zustand 사용
 export const useAuthStore = create<AuthState>((set) =>({
   user: null,
   setUser : (user) => set({user}),

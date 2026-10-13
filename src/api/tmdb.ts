@@ -37,6 +37,20 @@ export const fetchMovieDetail = async(id:string): Promise<MovieDetail> =>{
   return data;
 }
 
+//영화 상세 정보 가져오기 (기존 axios 사용 전)
+// export const fetchMovieDetail = async(id:string): Promise<MovieDetail> =>{
+//   const url = `${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=ko-KR&append_to_response=credits` ;
+
+//   const response = await fetch(url);
+
+//   if(!response.ok){
+//     throw new Error("영화 상세 정보를 불러오지 못했습니다.");
+//   }
+
+//   return await response.json();
+// }
+
+
 //유사한 데이터 가져오기
 export const fetchSimilarMovies = async(movieId:string) :Promise<TMDBResponse>=>{
   const {data} = await api.get<TMDBResponse>(`movie/${movieId}/similar`,);

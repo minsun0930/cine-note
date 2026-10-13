@@ -32,35 +32,41 @@ export const useSignUp = () => {
     onError: (error) => {
       if (error instanceof AuthError) {
         console.error("인증 에러:", error.message);
+
+        // Supabase의 이미 가입된 이메일 에러 메시지 체크
+        if (error.message.includes("User already registered")) {
+          alert("이미 가입된 이메일입니다. 로그인해 주세요.");
+        } else {
+          alert(`인증 에러가 발생했습니다: ${error.message}`);
+        }
       } else {
         console.error("알 수 없는 에러:", error);
+        alert("알 수 없는 오류가 발생했습니다. 다시 시도해 주세요.");
       }
     },
   });
 };
 
-
 //로그인 훅
-export const useLogIn = () =>{
+export const useLogIn = () => {
   const navigate = useNavigate();
 
   return useMutation({
-    mutationFn : async (data: {userId: string, password:string}) =>{
-      const {error} = await supabase.auth.signInWithPassword({
+    mutationFn: async (data: { userId: string; password: string }) => {
+      const { error } = await supabase.auth.signInWithPassword({
         email: data.userId,
-        password : data.password,
-      })
+        password: data.password,
+      });
 
-      if(error) throw error;
+      if (error) throw error;
       navigate("/");
     },
-    onError : (error) =>{
+    onError: (error) => {
       console.error("로그인 실패", error);
       alert("아이디 또는 비밀번호가 일치하지 않습니다.");
-    }
-  })
-}
-
+    },
+  });
+};
 
 //닉네임 변경
 export const useUpdateNickname = () => {
@@ -148,7 +154,7 @@ export const useDeleteAccount = () => {
         throw new Error("테스트용 계정은 회원탈퇴를 할 수 없습니다.");
       }
 
-       if(!confirm("정말 탈퇴하시겠습니까?")) return;
+      if (!confirm("정말 탈퇴하시겠습니까?")) return;
 
       const { error: rpcError } = await supabase.rpc("delete_user");
       if (rpcError) throw rpcError;

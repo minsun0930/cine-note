@@ -7,7 +7,15 @@ import { useSignUp } from "@/hooks/auth/useUserQuery";
 
 const signUpSchema = z
   .object({
-    nickname: z.string().min(2, "닉네임은 최소 2글자 이상이어야 합니다."),
+    nickname: z
+      .string()
+      .trim()
+      .min(2, "닉네임은 최소 2글자 이상이어야 합니다.")
+      .max(10, "닉네임은 최대 10글자까지 입력 가능합니다.")
+      .regex(
+        /^[가-힣a-zA-Z0-9]+$/,
+        "닉네임은 한글, 영문, 숫자만 사용할 수 있습니다. (공백 및 특수문자 불가)",
+      ),
     userId: z.email("올바른 이메일 형식을 입력해주세요."),
     password: z
       .string()
@@ -59,15 +67,18 @@ export default function SignUp() {
 
   const onSubmit = async (data: SignUpFormValues) => {
     console.log("회원가입 제출 데이터:", data);
-    signUp(data)
-  }
-   
+    signUp(data);
+  };
+
   return (
     <div>
-      <h1 className="text-2xl md:text-3xl font-bold mb-4 text-center">회원가입</h1>
+      <h1 className="text-2xl md:text-3xl font-bold mb-4 text-center">
+        회원가입
+      </h1>
       <div className="text-[12px] my-3 break-keep text-gray-600">
-        ※ 본 사이트는 포트폴리오 프로젝트입니다.<br/> 실제 사용 중인 
-        이메일 주소나 민감한 개인정보를 입력하지 않도록 주의해 주세요.
+        ※ 본 사이트는 포트폴리오 프로젝트입니다.
+        <br /> 실제 사용 중인 이메일 주소나 민감한 개인정보를 입력하지 않도록
+        주의해 주세요.
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="pb-3.5 max-w-87">
         <div className="flex flex-col gap-3 mb-14">
@@ -102,7 +113,9 @@ export default function SignUp() {
           <div className="mb-4">
             <label className="text-sm flex items-center gap-1">
               <input type="checkbox" {...register("termsAgreed")} />
-              <span className="text-xs">[필수] 서비스 이용약관 및 개인정보 수집에 동의합니다.</span>
+              <span className="text-xs">
+                [필수] 서비스 이용약관 및 개인정보 수집에 동의합니다.
+              </span>
             </label>
             <div className="h-6 mt-1 flex items-start">
               {errors.termsAgreed && (
