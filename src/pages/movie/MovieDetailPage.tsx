@@ -1,6 +1,5 @@
 import MovieDetail from "@/components/movie/MovieDetail";
 import MovieReviewSection from "@/components/movie/MovieReviewSection";
-
 import SimilarMoviesSection from "@/components/movie/SimilarMoviesSection";
 import { useParams } from "react-router-dom";
 
