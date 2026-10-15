@@ -6,9 +6,17 @@ import { useUserReviews } from "@/hooks/useReviewQeury";
 
 export default function MovieCalendar() {
   const { user } = useAuthStore();
-  const { data: reviews, isLoading } = useUserReviews(user?.id);
+  const { data: reviews, isLoading: isReviewsLoading } = useUserReviews(
+    user?.id,
+  );
 
-  if (isLoading) return <Skeleton className="w-full" />;
+  if (isReviewsLoading || !user?.id) {
+    return (
+      <div className="w-full lg:w-70 h-95 lg:h-113 rounded-[10px] flex items-center justify-center">
+        <Skeleton className="w-full h-full" />
+      </div>
+    );
+  }
 
   const addContentToTile = ({ date, view }: { date: Date; view: string }) => {
     if (view === "month" && reviews) {
@@ -53,9 +61,6 @@ export default function MovieCalendar() {
           </span>
         </div>
       );
-
-   
-      
     }
     return null;
   };
