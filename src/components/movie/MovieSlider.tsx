@@ -113,7 +113,7 @@ export default function MovieSlider({
     const nextScroll = startScroll.current - distance;
 
     slider.scrollLeft = Math.max(0, Math.min(nextScroll, maxScroll));
-     checkScrollPosition(); 
+    checkScrollPosition();
   };
 
   // 마우스 놓았을 때
@@ -181,8 +181,6 @@ export default function MovieSlider({
       left: targetScroll,
       behavior: "smooth",
     });
-
-    
   };
 
   const handlePointerCancel = () => {
@@ -251,13 +249,15 @@ export default function MovieSlider({
           >
             <ChevronLeft className=" w-10 h-10" />
           </div>
-          <div
-            onClick={() => handleScrollClick("right")}
-            className={`cursor-pointer absolute top-0 right-0 h-full w-16 text-white z-20 bg-linear-to-l from-black/80 to-transparent  flex items-center justify-end pr-2 transition-opacity duration-300 
-              ${isHovered&& canScrollRight ? "opacity-100" : "opacity-0"}`}
-          >
-            <ChevronRight className=" w-10 h-10" />
-          </div>
+          {canScrollRight && (
+            <div
+              onClick={() => handleScrollClick("right")}
+              className={`cursor-pointer absolute top-0 right-0 h-full w-16 text-white z-20 bg-linear-to-l from-black/80 to-transparent  flex items-center justify-end pr-2 transition-opacity duration-300 
+              ${isHovered && canScrollRight ? "opacity-100" : "opacity-0"}`}
+            >
+              <ChevronRight className=" w-10 h-10" />
+            </div>
+          )}
         </div>
       </div>
     </section>

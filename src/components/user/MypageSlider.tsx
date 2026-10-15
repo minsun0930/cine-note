@@ -1,13 +1,23 @@
-import { useEffect, useRef, useState, type ButtonHTMLAttributes, type ReactNode } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type ButtonHTMLAttributes,
+  type ReactNode,
+} from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { SliderContext } from "@/context/SliderContext";
 
-interface MypageSliderProps  extends  ButtonHTMLAttributes<HTMLButtonElement>{
+interface MypageSliderProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   title: string;
   children?: ReactNode;
 }
 
-export default function MypageSlider({ children, title, className }: MypageSliderProps) {
+export default function MypageSlider({
+  children,
+  title,
+  className,
+}: MypageSliderProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -63,7 +73,9 @@ export default function MypageSlider({ children, title, className }: MypageSlide
     if (!cards.length) return;
 
     const cardElement = cards[0];
-    const style = window.getComputedStyle(cardElement.parentElement || cardElement);
+    const style = window.getComputedStyle(
+      cardElement.parentElement || cardElement,
+    );
     const gap = parseInt(style.gap || "8", 10);
     const cardWidth = cardElement.offsetWidth + gap;
 
@@ -188,7 +200,6 @@ export default function MypageSlider({ children, title, className }: MypageSlide
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-
         <div className="relative ">
           <SliderContext.Provider value={{ isDragging: hasDragged }}>
             <div
@@ -210,13 +221,15 @@ export default function MypageSlider({ children, title, className }: MypageSlide
           >
             <ChevronLeft className=" w-10 h-10" />
           </div>
-          <div
-            onClick={() => handleScrollClick("right")}
-            className={`cursor-pointer absolute top-0 right-0 h-full w-16 text-white z-20 bg-linear-to-l from-black/80 to-transparent  flex items-center justify-end pr-2 transition-opacity duration-300 
+          {canScrollRight && (
+            <div
+              onClick={() => handleScrollClick("right")}
+              className={`cursor-pointer absolute top-0 right-0 h-full w-16 text-white z-20 bg-linear-to-l from-black/80 to-transparent  flex items-center justify-end pr-2 transition-opacity duration-300 
               ${isHovered && canScrollRight ? "opacity-100" : "opacity-0"}`}
-          >
-            <ChevronRight className=" w-10 h-10" />
-          </div>
+            >
+              <ChevronRight className=" w-10 h-10" />
+            </div>
+          )}
         </div>
       </div>
     </section>
