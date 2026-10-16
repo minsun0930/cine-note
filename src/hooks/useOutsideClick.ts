@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 
-export function useOutsideClick() {
-  const [isOpen, setIsOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+export function useOutsideClick<T extends HTMLElement = HTMLElement>(initialState: boolean = false) {
+  const [isOpen, setIsOpen] = useState(initialState);
+  const ref = useRef<T>(null);
 
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
