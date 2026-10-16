@@ -18,7 +18,7 @@ export default function ReviewCard({
   showMovieTitle = false,
   className = "",
 }: ReviewCardProps) {
-  const { isOpen, setIsOpen, ref } = useOutsideClick();
+  const { isOpen, setIsOpen, ref } = useOutsideClick<HTMLDivElement>();
 
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
