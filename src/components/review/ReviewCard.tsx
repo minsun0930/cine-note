@@ -1,4 +1,4 @@
-import { CircleUserIcon, EllipsisVerticalIcon } from "lucide-react";
+import { EllipsisVerticalIcon } from "lucide-react";
 import { useState, type ButtonHTMLAttributes } from "react";
 import { ReviewDetailModal } from "./ReviewDetailModal";
 import { Link } from "react-router-dom";
@@ -7,6 +7,7 @@ import { useDeleteReview } from "@/hooks/useReviewQeury";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import type { Review } from "@/types/review";
 import { ReviewModal } from "./ReviewModal";
+import User from "@/assets/User.svg?react"
 
 interface ReviewCardProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   review: Review;
@@ -88,7 +89,7 @@ export default function ReviewCard({
           </Link>
         ) : (
           <div className="flex items-center gap-2 ">
-            <CircleUserIcon className="w-5 h-5" />
+            <User className="w-5 h-5" />
             <div className="font-semibold text-[16px]">{review.nickname}</div>
           </div>
         )}

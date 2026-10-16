@@ -1,7 +1,7 @@
 import { supabase } from "@/supabase/supabaseClient";
-import { CircleUserIcon } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import User from "@/assets/User.svg?react"
 
 
 export default function UserProfileMenu() {
@@ -22,7 +22,7 @@ export default function UserProfileMenu() {
       onMouseLeave={() => setIsOpen(false)}
     >
       <div className="flex items-center gap-2 cursor-pointer">
-        <CircleUserIcon className="w-7 h-7" />
+        <User className="w-7 h-7" />
         {/* <div className="font-semibold text-sm">{nickname}</div> */}
       </div>
       {isOpen && (

@@ -1,8 +1,9 @@
 import { useAuthStore } from "@/hooks/auth/useAuthStore";
 import { useUpdateNickname } from "@/hooks/auth/useUserQuery";
-import { Check, CircleUserIcon, Pencil, X } from "lucide-react";
+import { Check, Pencil, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import User from "@/assets/User.svg?react"
 
 export default function Profile() {
   const user = useAuthStore((state) => state.user);
@@ -32,7 +33,7 @@ export default function Profile() {
     <div className="p-7 rounded-[10px] bg-main/10 border-2 border-main  ">
       <div className="flex items-center">
         {/* 변경하기 */}
-        <CircleUserIcon className="md:w-8 md:h-8 mr-1 shrink-0" />
+        <User className="md:w-8 md:h-8 mr-1 shrink-0" />
 
         {isEditing ? (
           <div className="flex items-center gap-2">
