@@ -21,7 +21,7 @@ const variantStyles: Record<
     openForm: "rounded-t-[20px] rounded-b-none border-main shadow-md z-50",
   },
   header: {
-    form: "max-w-[280px] w-full h-[32px] rounded-t-[10px] rounded-b-[10px] pr-2 mr-0",
+    form: "ml-2 max-w-[280px] w-full h-[32px] rounded-t-[10px] rounded-b-[10px] pr-2 mr-0",
     input: "py-1 px-2 text-[12px]",
     search: "h-4 w-4",
     openForm: "rounded-t-[10px] rounded-b-none border-main shadow-md z-50",
