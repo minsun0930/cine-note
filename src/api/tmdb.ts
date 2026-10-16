@@ -29,7 +29,7 @@ export const fetchMovies = async(
 
 
 export const fetchMovieDetail = async(id:string): Promise<MovieDetail> =>{
-  const {data} = await api.get(`movie/${id}`,{
+  const {data} = await api.get(`/movie/${id}`,{
     params:{
       append_to_response: "credits",
     },
@@ -53,7 +53,7 @@ export const fetchMovieDetail = async(id:string): Promise<MovieDetail> =>{
 
 //유사한 데이터 가져오기
 export const fetchSimilarMovies = async(movieId:string) :Promise<TMDBResponse>=>{
-  const {data} = await api.get<TMDBResponse>(`movie/${movieId}/similar`,);
+  const {data} = await api.get<TMDBResponse>(`/movie/${movieId}/similar`,);
   return data;
 }
 

@@ -96,7 +96,10 @@ export const useSearchMovies = (keyword: string) => {
     getNextPageParam: (lastPage) =>
       lastPage.page < lastPage.total_pages ? lastPage.page + 1 : undefined,
 
-    staleTime: 1000 * 60 * 5,
+    enabled: Boolean(keyword.trim()),
+    staleTime: 1000 * 60 * 3,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
   });
 
   // 지금까지 불러온 모든 페이지의 영화를 하나의 배열로 합침
