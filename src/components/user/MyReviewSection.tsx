@@ -1,21 +1,19 @@
-
 import { useAuthStore } from "@/hooks/auth/useAuthStore";
 import ReviewList from "../review/ReviewList";
-import { useUserReviews } from "@/hooks/useReviewQeury";
+import {  useUserReviews } from "@/hooks/useReviewQeury";
 
 export default function MyReviewSection() {
   const { user } = useAuthStore();
 
-  const {data: reviews, isLoading, isError} = useUserReviews(user?.id)
-
+  const { data: reviews, isLoading, isError } = useUserReviews(user?.id);
 
   return (
-    <ReviewList 
+    <ReviewList
       title="리뷰"
       reviews={reviews || []}
-      isLoading={isLoading} 
-      isError={isError} 
-      showMovieTitle={true} 
+      isLoading={isLoading}
+      isError={isError}
+      showMovieTitle={true}
     />
   );
 }

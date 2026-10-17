@@ -1,3 +1,4 @@
+import { useAuthStore } from "@/hooks/auth/useAuthStore";
 import { supabase } from "@/supabase/supabaseClient";
 import type { Movie } from "@/types/movie";
 
@@ -25,30 +26,79 @@ export const fetchFavoriteMovies = async (userId: string): Promise<Movie[]> => {
   return mappedMovies;
 };
 
-
 //영화별 리뷰 가져오기
-export const fetchReviewsByMovieId = async (movieId: string) =>{
-  const {data,error} = await supabase
-    .from("reviews")
-    .select("*")
-    .eq("movie_id", movieId) 
-    .order("created_at",{ascending:false})
+export const fetchReviewsByMovieId = async (movieId: string) => {
+  const currentUserId = useAuthStore.getState().user?.id;
 
-  if(error) throw new Error(error.message);
-  return data;
-}
+  const { data, error } = await supabase
+    .from("reviews")
+    .select(
+      `
+      *,
+      review_likes (user_id)
+    `,
+    )
+    .eq("movie_id", movieId)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("리뷰 목록 조회 실패:", error);
+    throw new Error(error.message);
+  }
+
+  const formattedReviews = data.map((review) => {
+    const likes = review.review_likes || [];
+    const likeCount = likes.length;
+    const isLiked = currentUserId
+      ? likes.some(
+          (like: { user_id: string }) => like.user_id === currentUserId,
+        )
+      : false;
+
+    return {
+      ...review,
+      likeCount,
+      isLiked,
+    };
+  });
+
+  return formattedReviews;
+};
 
 //사용자별 리뷰 가져오기
-export const fetchReviewsByUserId = async (userId : string) =>{
-  const {data, error} = await supabase
-    .from("reviews")
-    .select("*")
-    .eq("user_id",userId)
-    .order("created_at",{ascending:false});
+export const fetchReviewsByUserId = async (userId: string) => {
+  const currentUserId = useAuthStore.getState().user?.id;
 
-  if(error) throw new Error(error.message);
-  return data;
-}
+  const { data, error } = await supabase
+    .from("reviews")
+    .select(
+      `
+      *,
+      review_likes (user_id)
+    `,
+    )
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false });
+
+  if (error) throw new Error(error.message);
+  const formattedReviews = data.map((review) => {
+    const likes = review.review_likes || [];
+    const likeCount = likes.length;
+    const isLiked = currentUserId
+      ? likes.some(
+          (like: { user_id: string }) => like.user_id === currentUserId,
+        )
+      : false;
+
+    return {
+      ...review,
+      likeCount,
+      isLiked,
+    };
+  });
+
+  return formattedReviews;
+};
 
 // rating 가져오는 함수 영화 평점 평균 보여줄때
 export const fetchMovieRatingStats = async (movieId: string) => {

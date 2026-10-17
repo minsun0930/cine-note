@@ -10,6 +10,7 @@ export interface MovieBase {
 //TMDB에서 가져온 데이터의 타입
 export interface Movie extends MovieBase {
   popularity: number;
+  adult : boolean;
 }
 
 //장르 데이터 타입

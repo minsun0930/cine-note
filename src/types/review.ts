@@ -8,4 +8,6 @@ export interface Review {
   content: string;
   created_at: string;
   poster_path?: string  | null;
+  likeCount: number; 
+  isLiked: boolean;
 }  

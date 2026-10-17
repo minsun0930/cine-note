@@ -99,7 +99,7 @@ export default function MovieCard({
 
               if (!currentUser) {
                 alert("로그인이 필요한 서비스입니다.");
-                navigate("/login"); // 혹은 로그인 모달 열기
+                navigate("/login"); 
                 return;
               }
 

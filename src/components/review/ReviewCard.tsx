@@ -1,13 +1,13 @@
-import { EllipsisVerticalIcon } from "lucide-react";
+import { EllipsisVerticalIcon, Heart } from "lucide-react";
 import { useState, type ButtonHTMLAttributes } from "react";
 import { ReviewDetailModal } from "./ReviewDetailModal";
 import { Link } from "react-router-dom";
 import { useAuthStore } from "@/hooks/auth/useAuthStore";
-import { useDeleteReview } from "@/hooks/useReviewQeury";
+import { useDeleteReview, useToggleLike } from "@/hooks/useReviewQeury";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import type { Review } from "@/types/review";
 import { ReviewModal } from "./ReviewModal";
-import User from "@/assets/User.svg?react"
+import User from "@/assets/User.svg?react";
 
 interface ReviewCardProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   review: Review;
@@ -24,14 +24,13 @@ export default function ReviewCard({
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
-  // const [editingReview, setEditingReview] = useState<Review | null>(null);
-
   const fromattedDate = new Date(review.created_at).toLocaleDateString("ko-KR");
 
   const currentUser = useAuthStore((state) => state.user);
   const isMyReview = currentUser?.id && review.user_id === currentUser.id;
 
   const { mutate: deleteReview } = useDeleteReview();
+  const { handleToggleLike, isPending } = useToggleLike();
 
   const handleDelete = () => {
     if (confirm("정말 이 리뷰를 삭제하시겠습니까?")) {
@@ -143,10 +142,19 @@ export default function ReviewCard({
         <div className="flex justify-between items-end gap-1  cursor-pointer mt-auto">
           <div className="text-[10px] text-gray-600 mb-">{fromattedDate}</div>
           <div className="flex gap-1">
-            <span className="flex items-center"></span>
-            {/* <span className="flex items-center">
-              <Heart className=" w-4 h-4" />
-            </span> */}
+            <span className="flex items-center text-sm text-gray-600 cursor-default">
+              {review.likeCount}
+            </span>
+            <button
+              type="button"
+              onClick={() => handleToggleLike(review.id, review.isLiked)}
+              className="flex items-center cursor-pointer"
+              disabled={isPending}
+            >
+              <Heart
+                className={`w-4 h-4 z-10 ${review.isLiked ? "fill-main text-main" : "text-black fill-white"}`}
+              />
+            </button>
           </div>
         </div>
       </div>
@@ -164,7 +172,7 @@ export default function ReviewCard({
         }}
         isOpen={isEditModalOpen}
         onClose={() => setIsEditModalOpen(false)}
-        editReview={review} 
+        editReview={review}
       />
     </article>
   );
