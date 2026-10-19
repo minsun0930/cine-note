@@ -1,14 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap');
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root{
   --main : #7F70E4;
   --bg : #fff;
+  --dark-bg: #0D0B16;
 }
 
 @theme inline {
   --color-main: var(--main);
   --color-bg: var(--bg);
+  --color-dark-bg : var(--dark-bg);
   --font-sans: 'Roboto', 'Noto Sans KR', sans-serif;
 
   --animate-shimmer: shimmer 2s infinite;

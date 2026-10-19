@@ -17,7 +17,7 @@ export default function AccountManagement() {
   };
 
   return (
-    <div className="max-w-87 w-full flex flex-col justify-center items-center mx-auto my-30 px-8">
+    <div className="max-w-87 w-full flex flex-col justify-center items-center mx-auto my-30 px-8 dark:text-bg">
       <div className="felx items-center justify-center flex-col w-full">
         <h1 className="text-2xl md:text-3xl font-bold mb-8 text-center">계정 관리</h1>
         <Button variant="primary" onClick={handleDeleteAccount} className="w-full mb-5 py-3">회원 탈퇴</Button>

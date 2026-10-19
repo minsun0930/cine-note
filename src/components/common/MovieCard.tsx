@@ -30,7 +30,7 @@ export default function MovieCard({
 
   return (
     <article
-      className={`group relative flex shrink-0 flex-col border bg-white border-gray-300 rounded-xl overflow-hidden  `}
+      className={`group relative flex shrink-0 flex-col border bg-white border-gray-300 rounded-xl overflow-hidden dark:bg-dark-bg dark:border-dark-bg`}
       onClick={() => {
         if (isDragging?.current) {
           return;
@@ -57,9 +57,9 @@ export default function MovieCard({
           alt={`${movie.title}`}
           draggable={false}
         />
-        <div className="px-3 pt-3 pb-4 " draggable={false}>
+        <div className="px-3 pt-3 pb-4 dark:text-bg dark:bg-dark-bg" draggable={false}>
           <h3 className="text-[14px] font-semibold mb-1 truncate">{`${movie.title}`}</h3>
-          <p className="text-[10px] text-gray-600">
+          <p className="text-[10px] text-gray-600 dark:text-bg">
             TMDB <span className="text-yellow-400">★</span>{" "}
             {`${movie.vote_average.toFixed(1)}`}
           </p>

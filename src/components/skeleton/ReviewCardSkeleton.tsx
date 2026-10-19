@@ -3,7 +3,7 @@ import Skeleton from "./Skeleton";
 
 export default function ReviewCardSkeleton() {
   return (
-    <article className=" p-5 border rounded-[10px] max-w-70 h-full bg-white">
+    <article className=" p-5 border rounded-[10px] max-w-70 h-full bg-white dark:bg-dark-bg dark:border-dark-bg">
       <div className="flex justify-between">
         <div className="flex items-center gap-2 ">
           <CircleUserIcon className="w-5 h-5" />

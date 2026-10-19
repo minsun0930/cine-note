@@ -24,7 +24,7 @@ const LoginPage = () => {
       <Login />
       <div className="flex justify-center gap-2 text-gray-400">
         아직 회원이 아니신가요?
-        <NavLink to="/signup" className="text-gray-800">
+        <NavLink to="/signup" className="text-gray-800 dark:text-bg">
           회원가입
         </NavLink>
       </div>

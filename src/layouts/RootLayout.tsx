@@ -5,7 +5,7 @@ import { Outlet, ScrollRestoration } from "react-router-dom";
 
 export default function RootLayout() {
   return (
-    <div className="w-full min-h-full flex flex-col justify-center items-center bg-bg">
+    <div className="w-full min-h-full flex flex-col justify-center items-center bg-bg dark:bg-black">
       <ScrollRestoration />
       <Header />
 

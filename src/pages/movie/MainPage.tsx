@@ -19,8 +19,8 @@ const MainPage = () => {
   return (
     <div>
       <div className="max-w-325 w-full mx-auto px-4 md:px-8 lg:px-4">
-        <div className="@container w-full aspect-13/4 bg-main/10 border border-main/50 rounded-[10px] flex flex-col justify-center items-center md:mb-5 lg:mb-8">
-          <h1 className="font-bold lg:text-3xl mb-[2cqw]  ">
+        <div className="@container w-full aspect-13/4 bg-main/10 border border-main/50 rounded-[10px] flex flex-col justify-center items-center md:mb-5 lg:mb-8 dark:bg-dark-bg/40">
+          <h1 className="font-bold lg:text-3xl mb-[2cqw] dark:text-bg ">
             오늘 기록하고 싶은 영화는 무엇인가요?
           </h1>
           <SearchInput variant="hero" onSearch={handleSearch} />

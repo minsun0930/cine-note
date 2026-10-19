@@ -23,8 +23,8 @@ const variantStyles: Record<
     openForm: "rounded-t-[20px] rounded-b-none border-main shadow-md z-50",
   },
   header: {
-    form: "ml-2 max-w-[280px] w-full h-[32px] rounded-t-[10px] rounded-b-[10px] pr-2 mr-0 px-2",
-    input: "py-1 px-2 text-[12px]",
+    form: "ml-2 max-w-[280px] w-full h-[32px] rounded-t-[10px] rounded-b-[10px] pr-2 mr-0",
+    input: "py-1 px-4 text-[12px]",
     search: "h-4 w-4",
     openForm: "  rounded-t-[10px] rounded-b-none border-main shadow-md z-50",
   },
@@ -88,7 +88,7 @@ const SearchInput = ({
       ref={formRef}
       onSubmit={handleSubmit}
       className={cn(
-        "box-border relative flex justify-between items-center w-full bg-white border border-gray-400 transition-colors gap-4",
+        "box-border relative flex justify-between items-center w-full bg-white border border-gray-400 transition-colors gap-4 dark:bg-dark-bg dark:border-main  ",
         currentStyles.form,
         isDropdownOpen && currentStyles.openForm,
       )}
@@ -97,7 +97,7 @@ const SearchInput = ({
         ref={inputRef}
         type="text"
         className={cn(
-          "flex p-2 w-full  flex-1 outline-none",
+          "flex p-2 w-full  flex-1 outline-none dark:text-gray-300",
           currentStyles.input,
           className,
         )}
@@ -124,8 +124,8 @@ const SearchInput = ({
       </button>
 
       {isDropdownOpen && (
-        <div className=" absolute -left-px -right-px top-full bg-white border-x border-b border-main rounded-b-2xl shadow-md overflow-hidden z-50 ">
-          <div className="border-t border-gray-100 mx-3 my-1" />
+        <div className=" absolute -left-px  right-[-0.75px] top-full bg-white border-x border-b border-main rounded-b-2xl shadow-md overflow-hidden z-50 dark:bg-dark-bg ">
+          <div className="border-t border-gray-100 mx-3 my-1 dark:border-gray-500" />
 
           <div className="p-3 text-sm min-h-32.5 max-h-60 overflow-y-auto">
             {!searchValue.trim() ? (

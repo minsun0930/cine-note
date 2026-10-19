@@ -191,7 +191,7 @@ export default function MypageSlider({
   };
 
   return (
-    <section className={`w-full ${className}`}>
+    <section className={`w-full ${className} dark:text-bg`}>
       <div className="flex justify-between mb-4">
         <h2 className="text-[20px] font-bold ">{title}</h2>
       </div>

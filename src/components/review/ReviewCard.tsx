@@ -61,13 +61,13 @@ export default function ReviewCard({
             <span className="absolute overflow-hidden w-[50%] text-yellow-400">
               ★
             </span>
-            <span className="text-gray-300 dark:text-gray-700">★</span>
+            <span className="text-gray-300">★</span>
           </span>,
         );
       } else {
         // 빈 별
         stars.push(
-          <span key={i} className="text-gray-300 dark:text-gray-700">
+          <span key={i} className="text-gray-300">
             ★
           </span>,
         );
@@ -77,7 +77,7 @@ export default function ReviewCard({
   };
 
   return (
-    <article className="flex flex-col h-full w-50 md:w-75 p-5 border rounded-[10px] max-w-70 bg-white">
+    <article className="flex flex-col h-full w-50 md:w-75 p-5 border rounded-[10px] max-w-70 bg-white dark:bg-dark-bg dark:text-bg dark:border-dark-bg">
       <div className="flex justify-between relative">
         {showMovieTitle ? (
           <Link
@@ -101,13 +101,14 @@ export default function ReviewCard({
             />
             {isOpen && (
               <div className="absolute right-0 top-full pt-2 whitespace-nowrap z-20">
-                <div className="flex flex-col border p-6 text-sm bg-white gap-2 py-4 rounded-[10px] shadow-md">
+                <div className="flex flex-col border p-6 text-sm bg-white gap-2 py-4 rounded-[10px] shadow-md dark:bg-dark-bg">
                   <div
                     className="hover:font-bold transition flex justify-center items-center"
                     onClick={handleOpenEdit}
                   >
                     수정
                   </div>
+                  <div className="border-b"></div>
                   <div
                     className="hover:font-bold transition cursor-pointer"
                     onClick={handleDelete}
@@ -152,7 +153,7 @@ export default function ReviewCard({
               disabled={isPending}
             >
               <Heart
-                className={`w-4 h-4 z-10 ${review.isLiked ? "fill-main text-main" : "text-black fill-white"}`}
+                className={`w-4 h-4 z-10  ${review.isLiked ? "fill-main text-main" : "text-black fill-white dark:text-bg"}`}
               />
             </button>
           </div>

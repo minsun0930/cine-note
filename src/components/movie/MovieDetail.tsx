@@ -50,7 +50,7 @@ export default function MovieDetail() {
 
   return (
     <div>
-      <article className=" w-full  mb-10 border-y-2 border-main/50  bg-main/10">
+      <article className=" w-full  mb-10 border-y-2 border-main/50  bg-main/10 dark:text-bg">
         <div className="max-w-325 w-full mx-auto py-12 flex md:flex justify-between px-8 lg:px-4 gap-4">
           <div className="max-w-90  md:max-w-100 lg:max-w-150 w-full">
             <h1 className="font-bold text-xl md:text-2xl lg:text-3xl mb-1 break-keep">{movie.title}</h1>
@@ -63,7 +63,7 @@ export default function MovieDetail() {
             <div
               className={
                 movie.overview?.trim()
-                  ? "text-gray-800 mb-9 text-[10px] md:text-sm break-keep leading-relaxed"
+                  ? "text-gray-800 mb-9 text-[10px] md:text-sm break-keep leading-relaxed dark:text-bg"
                   : "text-gray-400 italic mb-9 text-sm"
               }
             >

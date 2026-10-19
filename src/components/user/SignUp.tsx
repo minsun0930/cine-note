@@ -71,7 +71,7 @@ export default function SignUp() {
   };
 
   return (
-    <div>
+    <div className="dark:text-bg">
       <h1 className="text-2xl md:text-3xl font-bold mb-4 text-center">
         회원가입
       </h1>

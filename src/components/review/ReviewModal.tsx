@@ -111,13 +111,13 @@ export function ReviewModal({
       }}
       onMouseDown={(e) => e.stopPropagation()}
       onPointerDown={(e) => e.stopPropagation()}
-      className=" fixed mx-auto inset-0 z-80 max-w-200 flex justify-center items-center p-4 py-5 mt-8 my-auto"
+      className=" fixed mx-auto inset-0 z-80 max-w-200 flex justify-center items-center p-4 py-5 mt-8 my-auto "
     >
       <div
         onClick={(e) => {
           e.stopPropagation();
         }}
-        className="w-full mt-5 p-10 bg-white border border-gray-400 flex flex-col gap-2 rounded-[20px]"
+        className="w-full mt-5 p-10 bg-white border border-gray-400 flex flex-col gap-2 rounded-[20px] dark:bg-dark-bg dark:text-bg dark:border-black"
       >
         <div className=" flex items-center justify-between  pb-3">
           <h3 className="text-xl font-bold text-gray-900 dark:text-white">

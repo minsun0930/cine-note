@@ -21,7 +21,7 @@ const Login = () => {
   };
 
   return (
-    <div className="felx items-center justify-center flex-col w-full">
+    <div className="felx items-center justify-center flex-col w-full dark:text-bg">
       <h1 className="text-3xl font-bold mb-8 text-center">로그인</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="pb-3.5 max-w-87" >
         <div className="flex flex-col gap-3.5 mb-6">

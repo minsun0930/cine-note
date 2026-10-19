@@ -26,8 +26,8 @@ export default function UserProfileMenu() {
         {/* <div className="font-semibold text-sm">{nickname}</div> */}
       </div>
       {isOpen && (
-        <div className="absolute right-0 top-full pt-2 whitespace-nowrap ">
-          <div className="flex flex-col border pl-5 px-4 text-sm bg-white gap-2 py-4 rounded-[10px] shadow-md">
+        <div className="absolute right-0 top-full pt-2 whitespace-nowrap dark:text-bg ">
+          <div className="flex flex-col border pl-5 px-4 text-sm bg-white dark:bg-dark-bg gap-2 py-4 rounded-[10px] shadow-md">
             <Link to="/my" className="hover:font-bold transition ">
               MY
             </Link>

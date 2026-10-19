@@ -9,15 +9,15 @@ export const Footer = ({ className }: FooterProps) => {
   return (
     <footer
       className={cn(
-        "w-full border-t border-gray-200 bg-gray-50 py-8 text-gray-600 flex justify-center items-center mt-20 ",
+        "w-full border-t border-gray-200 bg-gray-50 py-8 text-gray-600 flex justify-center items-center mt-20 dark:bg-black dark:text-white dark:border-gray-500 ",
         className,
       )}
     >
       <div className="max-w-325 px-4 md:px-8 lg:px-4 w-full flex items-center justify-between">
         <div className="flex flex-col justify-center items-start sm:items-start">
-          <span className="text-16 font-bold text-gray-900 mb-4">
+          <div className="text-16 font-bold text-gray-900 mb-4 dark:text-white">
             cien-note | 영화 기록 사이트
-          </span>
+          </div>
           <p className="mb-4 text-sm break-keep">
             조민선 <br />
             Frontend Developer <br />

@@ -7,7 +7,7 @@ const SignUpPage = () => {
       <SignUp />
       <div className="flex justify-center gap-2 text-gray-400">
         이미 계정을 가지고 계신가요?
-        <NavLink to="/login" className="text-gray-800">
+        <NavLink to="/login" className="text-gray-800 dark:text-bg">
           Login
         </NavLink>
       </div>

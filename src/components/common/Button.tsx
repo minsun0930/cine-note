@@ -28,5 +28,5 @@ export default function Button({
 const classes: Record<NonNullable<Props["variant"]>, string> = {
   primary: "bg-main border-main text-white",
   secondary: "border border-main bg-white text-main",
-  chip: "rounded-full border border-gray-300 bg-white text-gray-700 hover:bg-gray-50",
+  chip: "rounded-full border border-gray-300 bg-white text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-bg dark:border-none ",
 };

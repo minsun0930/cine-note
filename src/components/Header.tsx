@@ -29,10 +29,10 @@ export default function Header() {
   const isAuthPage =
     location.pathname === "/login" || location.pathname === "/signup";
 
-  const hideSearchPaths = ["/", "/login", "/signup"];
+  const hideSearchPaths = ["/", "/login", "/signup","/my/changePassword","/my/account"];
 
   return (
-    <header className="sticky top-0 z-50 bg-white w-full flex justify-center border-b mb-4 border-gray-200 py-1">
+    <header className="sticky top-0 z-50 bg-white dark:bg-black w-full flex justify-center border-b mb-4 border-gray-200 dark:border-gray-900 py-1">
       <div className="flex max-w-325 w-full justify-between items-center px-4 md:px-8 lg:px-4">
           <Link to="/" className="font-bold text-[20px] md:text-[30px] text-main">
             CINENOTE

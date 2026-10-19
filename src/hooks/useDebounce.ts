@@ -1,3 +1,4 @@
+//자동 검색어 완성에서 계속해서 불필요한 렌더링이 되지 않도록 하는 함수
 import { useState, useEffect } from 'react';
 
 export const useDebounce = <T>(value: T, delay: number = 300): T => {

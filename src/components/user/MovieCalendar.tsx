@@ -12,7 +12,7 @@ export default function MovieCalendar() {
 
   if (isReviewsLoading || !user?.id) {
     return (
-      <div className="w-full lg:w-70 h-95 lg:h-113 rounded-[10px] flex items-center justify-center">
+      <div className="w-70 h-95 lg:h-113 rounded-[10px] flex items-center justify-center">
         <Skeleton className="w-full h-full" />
       </div>
     );
@@ -66,7 +66,7 @@ export default function MovieCalendar() {
   };
 
   return (
-    <div className="flex-2 md:aspect-23/36 p-6 bg-white rounded-[10px] border shadow-sm">
+    <div className="flex-2 md:aspect-23/36 p-6 bg-white rounded-[10px] border shadow-sm dark:bg-dark-bg dark:text-bg dark:border-dark-bg">
       <h2 className="md:text-[18px] lg:text-xl font-bold mb-4">내 영화 기록</h2>
       <Calendar
         tileContent={addContentToTile}
