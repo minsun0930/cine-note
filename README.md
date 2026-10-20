@@ -2,7 +2,7 @@
 
 > 영화 검색 및 기록 사이트 (React)
 
-> [서비스 바로가기](https://cine-note-opal.vercel.app/)
+> [서비스 바로가기](https://cine-note-opal.vercel.app/) | 
 > [Figma 디자인 시안](https://www.figma.com/design/Pf2RbLZFqki0fBY2VLGvJ5/%EC%98%81%ED%99%94-%EA%B8%B0%EB%A1%9D-%EC%82%AC%EC%9D%B4%ED%8A%B8?node-id=0-1&t=6bGHhQ4DYJGJj3EV-1)
 
 <img src="/src/assets/FinalDesign.png"/>
