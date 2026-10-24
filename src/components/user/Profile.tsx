@@ -59,7 +59,7 @@ export default function Profile() {
               disabled={isPending}
               className="flex items-center gap-1 text-[12px] shrink-0 cursor-pointer"
             >
-              <Check className="w-5 h-5" />
+              <Check className="w-5 h-5 dark:text-bg" />
             </button>
             <button
               className="flex items-center gap-1 text-[12px] shrink-0 cursor-pointer"
@@ -68,7 +68,7 @@ export default function Profile() {
                 setIsEditing(false);
               }}
             >
-              <X className="w-5 h-5" />
+              <X className="w-5 h-5 dark:text-bg" />
             </button>
           </div>
         ) : (

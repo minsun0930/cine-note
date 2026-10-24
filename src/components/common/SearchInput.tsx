@@ -155,7 +155,7 @@ const SearchInput = ({
                           setSearchValue(item);
                           handleExecuteSearch(item);
                         }}
-                        className="flex justify-between items-center py-1.5 px-2 hover:bg-gray-50 rounded cursor-pointer text-gray-700 text-xs group"
+                        className="dark:text-bg flex justify-between items-center py-1.5 px-2 hover:bg-gray-50 rounded cursor-pointer text-gray-700 text-xs group"
                       >
                         <span className="truncate">{item}</span>
                         <button
@@ -199,7 +199,7 @@ const SearchInput = ({
                             setSearchValue(movie.title);
                             handleExecuteSearch(movie.title);
                           }}
-                          className="flex items-center py-2 px-2 hover:bg-gray-50 rounded cursor-pointer text-gray-800 text-xs gap-2 group"
+                          className="dark:text-bg flex items-center py-2 px-2 hover:bg-gray-50 rounded cursor-pointer text-gray-800 text-xs gap-2 group"
                         >
                           <span className="truncate flex-1 font-medium">
                             {movie.title}
