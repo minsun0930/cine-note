@@ -3,7 +3,7 @@ import ReviewList from "../review/ReviewList";
 import {  useUserReviews } from "@/hooks/useReviewQeury";
 
 export default function MyReviewSection() {
-  const { user } = useAuthStore();
+ const user = useAuthStore((state) => state.user);
 
   const { data: reviews, isLoading, isError } = useUserReviews(user?.id);
 

@@ -11,7 +11,7 @@ export interface MovieFavoriteProps {
 }
 
 export default function MovieFavoirteSection({title}:MovieFavoriteProps) {
-  const { user } = useAuthStore();
+  const user = useAuthStore((state) => state.user);
   const {data: movies, isLoading, isError} = useFavoriteMovies(user?.id);
 
 

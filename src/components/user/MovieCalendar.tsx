@@ -5,7 +5,7 @@ import Skeleton from "../skeleton/Skeleton";
 import { useUserReviews } from "@/hooks/useReviewQeury";
 
 export default function MovieCalendar() {
-  const { user } = useAuthStore();
+  const user = useAuthStore((state) => state.user);
   const { data: reviews, isLoading: isReviewsLoading } = useUserReviews(
     user?.id,
   );

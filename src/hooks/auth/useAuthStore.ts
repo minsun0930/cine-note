@@ -25,11 +25,3 @@ export const useAuthStore = create<AuthState>((set) =>({
   }
 }))
 
-// 곧바로 세션 확인 및 실시간 감지 실행
-supabase.auth.getSession().then(({ data: { session } }) => {
-  useAuthStore.setState({ user: session?.user ?? null });
-});
-
-supabase.auth.onAuthStateChange((_event, session) => {
-  useAuthStore.setState({ user: session?.user ?? null });
-});
