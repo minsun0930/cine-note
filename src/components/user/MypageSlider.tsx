@@ -103,7 +103,6 @@ export default function MypageSlider({
 
     const distance = e.clientX - startX.current;
 
-    // 12px 이상 움직여야 '드래그'로 인정
     if (Math.abs(distance) > 4) {
       hasDragged.current = true;
       console.log("🔥 드래그 감지됨! hasDragged.current =", hasDragged.current); // 이 로그가 찍히는지 확인!
